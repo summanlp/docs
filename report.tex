@@ -8,6 +8,7 @@
 
 \urldef{\mails}\path|{fbarrios,fjlopez}@fi.uba.ar| 
 
+\newtheorem{definicion}{Definición} 
 
 \begin{document}
 
@@ -73,12 +74,19 @@ Inicialmente, se construye un grafo en base al texto. En este caso, se agrega ca
     
 La función utilizada formalmente se define de la siguiente manera:
 
-\textit{Sean Si , Sj dos oraciones representadas por un conjunto de n palabras que en Si aparecen como: Si = wi1, wi2,,..., win,. La función de similitud para Si, Sj se define como:}
+
+\begin{definicion}
+Sean $S_i$, $S_j$ dos oraciones representadas por un conjunto de $n$ palabras que en 
+$S_i$ aparecen como $S_i = w_{1}^{i}, w_{2}^{i},,..., w_{n}^{i}$, la función de similitud para $S_i$, $S_j$ se define como:
+
 
 \begin{equation}
 Similitud(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j}   \}  | }    
                               {  log(|S_{i}|) + log(|S_{j}|)  }
 \end{equation}
+
+
+\end{definicion}
     
 El resultado de este proceso es el texto representado como un grafo ponderado y altamente conexo. En base a esto se aplica PageRank para priorizar los vértices más relevantes.
 
