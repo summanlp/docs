@@ -2,7 +2,10 @@
 \usepackage{makeidx}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{amsmath}
 \usepackage{url}
+\usepackage{fancyvrb}
+
 \urldef{\mails}\path|{fbarrios,fjlopez}@fi.uba.ar| 
 
 
@@ -109,8 +112,12 @@ El modelo del espacio vectorial es un modelo algebraico utilizado para represent
 La propuesta se basa en aplicar el modelo del espacio vectorial para tratar a cada oración del texto como un vector n-dimensional, con n la cantidad de palabras distintas presentes en el documento, y luego compararlas utilizando la similitud coseno. Las entradas de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término - frecuencia inversa de documento” (TF-IDF de sus siglas en inglés) a cada palabra de la oración representada.
 
 Tomando como ejemplo el documento “Esta bien. Todo bien.”, las oraciones quedarían modeladas como vectores de la siguiente forma:
-v1=[   TFIDF(“Esta”),   TFIDF(“bien”)   ,            0         ]
-v2=[           0        ,    TFIDF(“bien”)   ,   TFIDF(“Todo”) ]
+
+\begin{Verbatim}[xleftmargin=3em]
+v1=[ TFIDF("Esta") , TFIDF("bien") ,       0       ]
+v2=[       0       , TFIDF("bien") , TFIDF("Todo") ]
+\end{Verbatim}
+
 Dado que la imagen de la función TFIDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
 
 
@@ -120,15 +127,22 @@ Okapi BM25 es una función de ranking utilizada para la asignación de relevanci
 Dadas dos oraciones R,S, la misma se define como:
 
 \begin{equation}
-BM25(D,Q) = \sum_{i=1}^{n} IDF(q_i) \cdot \frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot (1 - b + b \cdot \frac{|D|}{avgdl})}
+BM25(D,Q) = \sum_{i=1}^{n} IDF(q_i) \cdot \frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot (1 - b + b \cdot \frac{|D|}{avgDL})}
 \end{equation}
 
 donde k y b son parámetros que valen k = 1,2 y b = 0,75, y avdgl es el largo promedio de las oraciones en el texto.
 
 Esta función contempla la frecuencia inversa del documento de manera tal que si una palabra aparece en más de la mitad de los textos, el valor para ese término se vuelve negativo. Dado que este comportamiento no es deseable en este caso en particular, se utiliza la siguiente fórmula:
-(escribir fórmula en latex: idf(qi) = log(N-n(qi)+0.5) - log(n(qi)+0.5) si n(qi) > N/2
-                = $\varepsilon$ * avgidf
-donde $\varepsilon$ ronda entre 0,5 y 0,30 y avgidf es el idf promedio para todos los términos).
+                
+\begin{equation}
+ IDF(q_i) =
+  \begin{cases}
+       log(N - n(q_i) + 0.5) - log(n(q_i) + 0.5)    & \text{si }  n(q_i) > N/2\\
+       \varepsilon \cdot avgIDF                     & \text{si }  n(q_i) \leq N/2\\
+  \end{cases}
+\end{equation}                
+                
+donde $\varepsilon$ ronda entre 0,5 y 0,30 y avgIDF es el idf promedio para todos los términos).
 También se ensayaron alternativas como hacer cero el resultado, en caso de ser negativo, o reemplazar la función inversa por una similar, cuyo resultado es no negativo, o estrictamente positivo. 
 
 Existe una variante de este método, conocida como BM25+. Esta repara deficiencias de BM25 relacionadas a la frecuencia de término y a la penalización a documentos largos frente a documentos cortos irrelevantes.
