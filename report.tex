@@ -4,6 +4,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{url}
+\usepackage{fancyvrb}
+
 \urldef{\mails}\path|{fbarrios,fjlopez}@fi.uba.ar| 
 
 
@@ -110,8 +112,12 @@ El modelo del espacio vectorial es un modelo algebraico utilizado para represent
 La propuesta se basa en aplicar el modelo del espacio vectorial para tratar a cada oración del texto como un vector n-dimensional, con n la cantidad de palabras distintas presentes en el documento, y luego compararlas utilizando la similitud coseno. Las entradas de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término - frecuencia inversa de documento” (TF-IDF de sus siglas en inglés) a cada palabra de la oración representada.
 
 Tomando como ejemplo el documento “Esta bien. Todo bien.”, las oraciones quedarían modeladas como vectores de la siguiente forma:
-v1=[   TFIDF(“Esta”),   TFIDF(“bien”)   ,            0         ]
-v2=[           0        ,    TFIDF(“bien”)   ,   TFIDF(“Todo”) ]
+
+\begin{Verbatim}[xleftmargin=3em]
+v1=[ TFIDF("Esta") , TFIDF("bien") ,       0       ]
+v2=[       0       , TFIDF("bien") , TFIDF("Todo") ]
+\end{Verbatim}
+
 Dado que la imagen de la función TFIDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
 
 
