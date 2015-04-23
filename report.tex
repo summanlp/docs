@@ -135,7 +135,32 @@ La propuesta consistió en aplicar BM25 y BM25+ entre las oraciones de un texto,
 
 \subsection{Resultados}
 Los resultados óptimos se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0.25, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. Inicialmente se obtenían valores cercanos al 1,30\% pero dado que esta función contempla el uso de stopwords, se procedió a eliminar la etapa de filtrado del preprocesamiento del texto, alcanzado así resultados sobresalientes. En la Tabla 1 se detallan las alternativas ensayadas.
-TABLA
+
+\begin{table}
+\caption{Resultados de las distintas propuestas}
+\begin{center}
+\begin{tabular}{l*{5}{c}r}
+\hline
+\rule{0pt}{12pt}
+Método & ROUGE-1 & ROUGE-2 & ROUGE-SU4 & Mejora \\[2pt]
+\hline\rule{0pt}{12pt}
+BM25 (Neg a epsilon) & 0.4042 & 0.1831 & 0.2018 & 2,92\% \\
+BM25+ (Neg a epsilon) & 0.404 & 0.1818 & 0.2008 & 2,60\% \\
+Cosine TF-IDF & 0.4108 & 0.177 & 0.1984 & 2,54\% \\
+BM25+ (IDF = log(N/NI)) & 0.4022 & 0.1805 & 0.1997 & 2,05\% \\ 
+BM25 (IDF = log(N/NI)) & 0.4012 & 0.1808 & 0.1998 & 1,97\% \\ 
+Longest Common Substring & 0.402 & 0.1783 & 0.1971 & 1,40\% \\
+BM25+ (Neg a cero) & 0.3992 & 0.1803 & 0.1976 & 1,36\% \\ 
+BM25 (Neg a cero) & 0.3991 & 0.1778 & 0.1966 & 0,89\% \\
+TextRank & 0.3983 & 0.1762 & 0.1948 & - \\
+BM25 & 0.3916 & 0.1725 & 0.1906 & -1,57\% \\
+BM25+ & 0.3903 & 0.1711 & 0.1894 & -2,07\% \\
+DUC Baseline & 0.39 & 0.1689 & 0.186 & -2,84\% \\ [2pt]
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
 
 Los tiempos de ejecución también se superaron. Se pudo procesar los 567 documentos de la base de datos de DUC2002 utilizando 84\% del tiempo requerido por la versión original.
 
