@@ -16,7 +16,7 @@
 
 \author{Federico Barrios \and Federico López}
 \institute{Facultad de Ingeniería, Universidad de Buenos Aires,\\
-Avenida Paseo Colón 850, Ciudad Autónoma de Buenos Aires, Argentina\\
+Av. Paseo Colón 850, Ciudad Autónoma de Buenos Aires, Argentina\\
 \mails\\
 \url{http://ingenieria.uba.ar/}}
 
@@ -81,17 +81,70 @@ Luego de aplicar el algoritmo de priorización, se seleccionan las oraciones con
 \section{Experimentos}
 
 \subsection{Evaluación}
+Se decidió usar la base de datos de la tarea de generación de resúmenes automáticos de la conferencia DUC (Document Understanding Conference) del año 2002, al igual que en la publicación original. El corpus cuenta de 567 documentos que fueron resumidos a cerca del 20\%.
+
+Para llevar a cabo la evaluación se usó la versión 1.5.5 del paquete de métricas ROUGE. Se utilizó la configuración usada en DUC, calculando sólo las mediciones ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza del 95\% y aplicando un método de stemming. Se obtuvo un único puntaje promediando los tres valores.
+
+Para verificar el funcionamiento de todo el conjunto se implementó el método de referencia (baseline) usado en el paper, que construye el resumen extrayendo las primeras oraciones de cada artículo. Se comprobó que los resultados fueron los mismos que en el paper: la versión original de TextRank mejora al baseline por cerca de un 2,3\%.
 
 \subsection{Propuestas}
 
 \subsubsection{Subcadena común}
+Dadas dos frases, el problema de la subcadena común más larga consiste en identificar la secuencia de caracteres de mayor extensión presente en ambas. Por ejemplo, entre “la cocina verde” y “una cocina vale más si es verde”, la secuencia más larga es “a cocina v”.
+
+La propuesta consiste en modificar la función de distancia de la implementación original y reemplazarla por el largo de la subcadena común más larga. En el ejemplo anterior, la similitud sería de 10, dado que es el largo de la secuencia “a cocina v”.
+
+Cabe destacar el parecido de esta métrica con los métodos de evaluación ROUGE.
+
 
 \subsubsection{Similitud coseno}
+La similitud coseno es una medida de la similitud existente entre dos vectores en un espacio que posee un producto interior con el que se evalúa el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta “distancia” se debe modelar a los documentos como vectores. Para ello se utiliza el modelo del espacio vectorial.
+
+El modelo del espacio vectorial es un modelo algebraico utilizado para representar documentos en lenguaje natural de una manera formal mediante el uso de vectores en un espacio lineal multidimensional. La teórica básica es que el parecido de un documento frente a otro puede calcularse usando la similitud coseno. Así un valor de coseno de cero significa que los documentos son ortogonales el uno al otro, y eso significa que no hay similitud.
+
+La propuesta se basa en aplicar el modelo del espacio vectorial para tratar a cada oración del texto como un vector n-dimensional, con n la cantidad de palabras distintas presentes en el documento, y luego compararlas utilizando la similitud coseno. Las entradas de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término - frecuencia inversa de documento” (TF-IDF de sus siglas en inglés) a cada palabra de la oración representada.
+
+Tomando como ejemplo el documento “Esta bien. Todo bien.”, las oraciones quedarían modeladas como vectores de la siguiente forma:
+v1=[   TFIDF(“Esta”),   TFIDF(“bien”)   ,            0         ]
+v2=[           0        ,    TFIDF(“bien”)   ,   TFIDF(“Todo”) ]
+Dado que la imagen de la función TFIDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
+
 
 \subsubsection{BM25}
+Okapi BM25 es una función de ranking utilizada para la asignación de relevancia a los documentos en un buscador. Está basada en los modelos probabilísticos de Recuperación de información, y actualmente representa el estado del arte en algoritmos de recuperación de documentos basados en frecuencia de término - frecuencia inversa de documento.
+
+Dadas dos oraciones R,S, la misma se define como:
+FORMULA DE BM25!!!!!!!!!
+
+donde k y b son parámetros que valen k = 1,2 y b = 0,75, y avdgl es el largo promedio de las oraciones en el texto.
+
+Esta función contempla la frecuencia inversa del documento de manera tal que si una palabra aparece en más de la mitad de los textos, el valor para ese término se vuelve negativo. Dado que este comportamiento no es deseable en este caso en particular, se utiliza la siguiente fórmula:
+(escribir fórmula en latex: idf(qi) = log(N-n(qi)+0.5) - log(n(qi)+0.5) si n(qi) > N/2
+                = $\varepsilon$ * avgidf
+donde $\varepsilon$ ronda entre 0,5 y 0,30 y avgidf es el idf promedio para todos los términos).
+También se ensayaron alternativas como hacer cero el resultado, en caso de ser negativo, o reemplazar la función inversa por una similar, cuyo resultado es no negativo, o estrictamente positivo. 
+
+Existe una variante de este método, conocida como BM25+. Esta repara deficiencias de BM25 relacionadas a la frecuencia de término y a la penalización a documentos largos frente a documentos cortos irrelevantes.
+
+La propuesta consistió en aplicar BM25 y BM25+ entre las oraciones de un texto, a fin de ordenarlas de acuerdo a su relevancia.
+
 
 \subsection{Resultados}
+Los resultados óptimos se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0.25, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. Inicialmente se obtenían valores cercanos al 1,30\% pero dado que esta función contempla el uso de stopwords, se procedió a eliminar la etapa de filtrado del preprocesamiento del texto, alcanzado así resultados sobresalientes. En la Tabla 1 se detallan las alternativas ensayadas.
+TABLA
+
+Los tiempos de ejecución también se superaron. Se pudo procesar los 567 documentos de la base de datos de DUC2002 utilizando 84\% del tiempo requerido por la versión original.
+
+El resultado de la métrica de similitud coseno también fue satisfactoria, presentando una mejora de 2,54\% por sobre el método original. A su vez, los métodos de secuencias de máxima longitud también mostraron una mejora considerable: cerca del 1,40\% por sobre TextRank. En la Figura 1 se comparan los distintas técnicas.
+
+GRAFICO!!!!
 
 \section{Conclusiones}
+En este trabajo se analizaron variantes al algoritmo de TextRank. A partir del mismo se propusieron e implementaron optimizaciones cuyos resultados fueron significativos: se obtuvo una mejoría del 2,92\% por sobre el método original. Este número es notable si se tiene en cuenta que TextRank por sí solo performa 2,84\% por sobre el estándar de comparación.
+
+Las evaluaciones fueron hechas con las mismas técnicas y datasets utilizados en competencias internacionales, validando así las mediciones.
+
+Queda para próximos trabajos explorar alternativas para la extracción de palabras claves, y el ensayo de distintos métodos algebraicos, haciendo uso del modelo del espacio vectorial.
+
 
 \end{document}
