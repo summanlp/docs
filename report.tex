@@ -71,7 +71,11 @@ Inicialmente, se construye un grafo en base al texto. En este caso, se agrega ca
 La función utilizada formalmente se define de la siguiente manera:
 
 \textit{Sean Si , Sj dos oraciones representadas por un conjunto de n palabras que en Si aparecen como: Si = wi1, wi2,,..., win,. La función de similitud para Si, Sj se define como:}
-Similitud(Si,Sj) = |{wk|wk Si wk Sj}|log( |Si|) + log( |Sj|)
+
+\begin{equation}
+Similitud(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j}   \}  | }    
+                              {  log(|S_{i}|) + log(|S_{j}|)  }
+\end{equation}
     
 El resultado de este proceso es el texto representado como un grafo ponderado y altamente conexo. En base a esto se aplica PageRank para priorizar los vértices más relevantes.
 
