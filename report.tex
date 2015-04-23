@@ -118,7 +118,10 @@ Dado que la imagen de la función TFIDF está contenida en el intervalo [0,1], t
 Okapi BM25 es una función de ranking utilizada para la asignación de relevancia a los documentos en un buscador. Está basada en los modelos probabilísticos de Recuperación de información, y actualmente representa el estado del arte en algoritmos de recuperación de documentos basados en frecuencia de término - frecuencia inversa de documento.
 
 Dadas dos oraciones R,S, la misma se define como:
-FORMULA DE BM25!!!!!!!!!
+
+\begin{equation}
+BM25(D,Q) = \sum_{i=1}^{n} IDF(q_i) \cdot \frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot (1 - b + b \cdot \frac{|D|}{avgdl})}
+\end{equation}
 
 donde k y b son parámetros que valen k = 1,2 y b = 0,75, y avdgl es el largo promedio de las oraciones en el texto.
 
