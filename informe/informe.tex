@@ -1,4 +1,5 @@
-\documentclass{llncs}
+\documentclass[a4paper]{article}
+\usepackage[paperwidth=180mm,paperheight=285mm,left=3cm,top=4cm,right=3cm,bottom=2cm,head=2.0cm,includefoot]{geometry}
 \usepackage{makeidx}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
@@ -6,52 +7,140 @@
 \usepackage{url}
 \usepackage{fancyvrb}
 \usepackage{babelbib}
+\usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{fancyhdr}
 
 \urldef{\mails}\path|{fbarrios,fjlopez}@fi.uba.ar| 
 
+\title{Módulo de resúmenes automáticos basado en TextRank con integración a Gensim}
+\author{Barrios, Federico \and López, Federico}
+
+\lhead{\includegraphics[scale=0.06]{./logo_fiuba.pdf}}
+\chead{Módulo de resúmenes automáticos basado\linebreak en TextRank con integración a Gensim}
+\rhead{}
+
+\lfoot{Barrios - López}
+\rfoot{\thepage}
+\cfoot{Mayo, 2015}
 
 \begin{document}
 
-\frontmatter
-\pagestyle{headings}
+\thispagestyle{empty}
+% T\'itulo del documento.
+\begin{center}
+\includegraphics{./logo-fiuba.png}\\
+\vspace{1cm}
+\textsc{\LARGE Universidad de Buenos Aires}\\[0.3cm]
+\textsc{\LARGE Facultad de Ingenier\'ia}\\[1.2cm]
+\textsc{\LARGE Módulo de resúmenes automáticos basado en TextRank con integración a Gensim}\\[0.3cm]
+\end{center}
 
-\title{Variantes de TextRank para la Generación de Resúmenes Automáticos}
-\titlerunning{Variantes de TextRank} 
+\vspace{20 mm}
 
-\author{Federico Barrios \and Federico López}
-\institute{Facultad de Ingeniería, Universidad de Buenos Aires,\\
-Av. Paseo Colón 850, Ciudad Autónoma de Buenos Aires, Argentina\\
-\mails\\
-\url{http://ingenieria.uba.ar/}}
+\begin{flushright}
+{\large
+Barrios, Federico -- 92954\\
+L\'opez, Federico -- 92278\\[0.1cm]
+\vspace{2cm}
+Mayo, 2015}
+\end{flushright}
 
-\maketitle
+\pagestyle{fancy}
+\newpage
 
-\begin{abstract}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec dictum 
-nibh, vel lacinia lectus. Morbi non mi mattis, accumsan arcu id, venenatis 
-eros. Nunc est ex, efficitur hendrerit posuere eget, dapibus at orci. 
-Cras feugiat erat ut volutpat blandit. Aliquam erat volutpat. Mauris 
-auctor congue libero et aliquet. Etiam justo mi, tempor sit amet feugiat 
-ut, tincidunt id augue. Pellentesque quis nibh vel turpis mattis dignissim. 
-Duis elementum sem quam, eget dignissim nibh suscipit a. Fusce quis magna 
-eu neque efficitur ornare nec sed turpis. Aenean mollis ipsum tristique vestibulum tempus. 
-Sed in ornare ipsum. Vivamus purus mi, sollicitudin.
-\keywords{variantes, TextRank, generación, resúmenes, automáticos}
+\footnotesize
 
-\end{abstract}
 
-\section{Introducción}
-Foo bar baz
+\newpage
+\setcounter{page}{1}
+\tableofcontents
+
+\newpage
+\section{Motivación}
+Los resúmenes automatizados son muy utilizados en tareas relacionadas con el procesamiento de lenguaje natural y de aprendizaje automático. Su uso en motores de búsqueda, por ejemplo, mejora la eficiencia de indexación de textos y a su vez asiste en la presentación de resultados de manera efectiva. El incremento en la cantidad de información disponible en Internet ha intensificado su utilización en los últimos años y, en consecuencia, se ha dedicado enorme esfuerzo para mejorar los algoritmos existentes. 
+
+
+\section{Objetivos}
+El presente trabajo consta de tres objetivos principales:
+\begin{itemize}
+\item Desarrollar el módulo para generar resúmenes automáticos usando un algoritmo conocido.
+\item Analizar, diseñar e implementar modificaciones para intentar mejorar el rendimiento del algoritmo seleccionado.
+\item Integrar las implementaciones a una herramienta de código abierto de procesamiento del lenguaje natural.
+\end{itemize}
+
+\section{Introducción teórica}
+
+\subsection{Resúmenes: generación y clasificación}
+Un resumen es una reducción a términos breves y precisos de lo esencial de una fuente de información. Su objetivo es el de extraer contenido intentando sintetizar sus conceptos más importantes, y su uso es altamente benéfico en tareas de aprendizaje debido a que:
+\begin{itemize}
+\item Facilitan la selección de información,
+\item Acortan tiempos de lectura,
+\item Simplifican búsquedas en textos,
+\item Optimizan la creación de índices.
+\end{itemize}
+
+La investigación indica, además, que contribuyen en tareas automatizadas: su utilización para presentar resultados de motores de búsquedas atrajo el interés de académicos desde principios de la década del 2000, convirtiéndose hoy en día en una funcionalidad básica de los principales buscadores de Internet.
+
+Sin embargo, si bien esta tarea puede no resultar costosa para un ser humano, durante muchos años fue considerada como difícil de automatizar. Este tema es uno de los que investiga el campo de procesamiento de lenguaje natural, dedicado a facilitar la interacción entre las computadoras y los seres humanos.
+
+
+\subsubsection{Enfoque abstractivo y extractivo}
+
+Existen dos métodos para generar resúmenes automatizados: abstractivos y extractivos.
+
+Los primeros se construyen regenerando el contenido extraído del texto original; esto es, se reformulan las frases por medio de técnicas de generación de lenguaje natural: fusión, combinación o supresión de términos. De esta manera, se obtienen pasajes que en principio no pertenecían al texto de origen, similar al modo en que lo harían las personas. 
+
+Por el contrario, los resúmenes extractivos se crean a partir de la selección de un conjunto de palabras u oraciones consideradas sobresalientes en el texto original. Las oraciones se obtienen literalmente, se unen libremente, y se presentan con el objetivo de crear un resumen del texto.
+
+Las técnicas abstractivas son un área de creciente interés. Sin embargo, debido a la complejidad y las restricciones técnicas aparejadas, la investigación se ha volcado hacia el enfoque extractivo.
+
+
+\subsubsection{Aprendizaje supervisado y no supervisado}
+En el campo del aprendizaje automático, a los algoritmos que requieren de un conjunto de entrenamiento con datos etiquetados se denominan supervisados. Analizando estos ejemplos de entrenamiento, el sistema infiere funciones que pueden ser usadas para aplicarlas a nueva información.
+
+Por el contrario, a los algoritmos que no son entrenados se los denomina no supervisados. Este grupo utiliza técnicas para encontrar patrones o grupos ocultos en los datos a analizar.
+
+
+\subsubsection{Fuente de los datos}
+Los algoritmos de generación de resúmenes también se categorizan de acuerdo a la cantidad de documentos que se toman como fuente, determinando sumarización de un documento y multi-documento.
+
+Para este último caso se proporcionan textos con una temática afín. El resumen resultante permite a los lectores familiarizarse rápidamente con los tópicos principales de una colección de documentos.
+
+
+\subsubsection{Propósito del resumen}
+Los resúmenes de documentos pueden crearse de manera genérica o bien basados en consultas. 
+
+Aquéllos resúmenes basados en consultas favorecen temas o aspectos específicos de un texto, de acuerdo a dicha consulta; teniendo en cuenta sus palabras clave o los tópicos a los que hace referencia. Los resúmenes genéricos, por otro lado, proporcionan los temas más relevantes tratados en el texto por sí solo.
+
+
+\subsection{Extracción de palabras claves}
+La extracción de palabras claves consiste en identificar el conjunto de términos que mejor describen a un documento de manera automatizada. Esto sirve como introducción a sus conceptos más relevantes, pues uno de los primeros pasos para modelar el conocimiento de una comunidad es tomar vocabulario del dominio. Es por ello que se han estudiado métodos para extraer este léxico técnico en base a documentos del área o comunidad en estudio.
+
+Dichas palabras se pueden utilizar para construir índices de colecciones, clasificar textos, extraer terminología de dominio específica, o incluso pueden servir como un breve resumen.
+
+El enfoque más sencillo para esta tarea ha empleado un criterio basado en la frecuencia de las palabras. Sin embargo, se han investigado otras debido a los malos resultados de esta técnica. Las principales se basan en métodos supervisados, donde el sistema es entrenado para reconocer palabras claves tomando en cuenta cuestiones sintácticas y/o léxicas. 
+
+En la sección ‘TextRank para palabras claves’ se analiza y desarrolla la aplicación de TextRank como método no supervisado para esta tarea. Los resultados obtenidos se equiparan los de las técnicas principales en el área.
+
 
 \section{Trabajo previo}
 Se ha visto un gran avance en el campo de la generación automática de resúmenes desde finales de 1960 hasta la actualidad \cite{miranda}. Los métodos tradicionales tienen en cuenta la frecuencia de palabras o frases introductorias para identificar las oraciones más sobresalientes del texto. También, se han desarrollado modelos estadísticos basados en corpus de entrenamiento para combinar varias heurísticas: palabras clave, posición de las oraciones, longitud de las oraciones, frecuencia de palabras y palabras contenidas en los títulos \cite{hovy}. Otros enfoques se basan en la representación del texto en forma de grafo. Las oraciones importantes y los conceptos son las entidades altamente conectadas y, por esto, forman parte del resumen \cite{barzilay}. De igual modo, se ha propuesto analizar la estructura discursiva y extraer las relaciones retóricas entre las diferentes unidades textuales, y así separar las principales de las secundarias para descubrir las unidades que juegan un papel preponderante dentro de la estructura discursiva \cite{marcu}.
 
-En la línea de representación del texto como un grafo conectado, se usan técnicas de Recuperación de Información para identificar oraciones similares y determinar las más importantes, que formarán al resumen final \cite{salton}. El enfoque propuesto, tanto por Mihalcea \& Tarau como por Erkan \& Radev \cite{erkan}, consiste en utilizar el prestigio de las unidades léxicas (oraciones o palabras) dentro del grafo. Dicha técnica ha sido la adoptada en TextRank.
+En la línea de representación del texto como un grafo conectado, se usan técnicas de Recuperación de Información para identificar oraciones similares y determinar las más importantes, que formarán al resumen final \cite{salton}. El enfoque propuesto, tanto por Mihalcea \& Tarau como por Erkan \& Radev \cite{erkan}, consiste en utilizar el prestigio de las unidades léxicas (oraciones o palabras) dentro del grafo. Dicha técnica ha sido la adoptada en el presente trabajo.
 
 
-\section{TextRank}
+\section{Herramientas y fundamentos}
 
-\subsection{Descripción}
+\subsection{PageRank}
+PageRank es un algoritmo creado por Larry Page y Sergey Brin, fundadores de Google, en 1996, como parte de una investigación sobre motores de búsqueda. Su objetivo es asignar un valor numérico a cada nodo en una red, con el propósito de medir la importancia relativa de cada elemento del conjunto. Para esto analiza los vínculos que componen la red. La idea subyacente es que los nodos más relevantes de la red serán los que tengan la mayor cantidad y calidad de conexiones con otros nodos. 
+
+En sus orígenes, PageRank fue pensado para aplicarse sobre la red de Internet (World Wide Web), pero puede aplicarse a cualquier otra red para estimar sus elementos principales. En términos matemáticos, PageRank brinda una manera iterativa de calcular el autovector principal de la matriz de adyacencia del grafo. Esto da como resultado la distribución de probabilidad de acceder a los nodos de la red, navegando de manera aleatoria a través de los vínculos o aristas.
+
+Una de las características más notables del algoritmo es que toma en cuenta la información global de toda la red, y no sólo lo concerniente a cada nodo en particular. Si se arma un grafo en base a un documento, con las unidades léxicas o semánticas como vértices, se puede aplicar PageRank para priorizar los nodos principales. De esta manera, se pueden obtener las oraciones o palabras principales, utilizando información proveniente de todo el texto. En este enfoque está basado TextRank.
+
+
+\subsection{TextRank}
 TextRank es un algoritmo no supervisado basado en grafos para realizar resúmenes automáticos extractivos y/u obtener palabras claves de un texto. Fue presentado en 2004 por Rada Mihalcea y Paul Tarau en el paper “TextRank: Bringing Order into Texts” \cite{mihalcea-tarau}.
 
 El algoritmo aplica una variación de PageRank \cite{pageetal98} sobre un grafo especialmente diseñado para la tarea. De esta manera permite explotar la estructura del texto, identificando los conceptos principales, sin necesidad de datos previos de entrenamiento. Debido a que se basa en PageRank, se sirve de la noción del “prestigio” o “recomendación” entre los elementos del grafo. Por este motivo, TextRank puede ser aplicado a cualquier texto, incluso en distintos idiomas, generando un resumen basado sólo en las propiedades intrínsecas del texto.
@@ -66,6 +155,75 @@ Los pasos principales que se llevan a cabo son los siguientes:
 \item Aplicar PageRank para asignarle un puntaje a cada vértice.
 \item Ordenar los vértices de acuerdo al puntaje y utilizarlo para armar el resumen de acuerdo a algún criterio.
 \end{enumerate}
+
+Las particularidades de los casos de creación de resúmenes y extracción de palabras claves se analizan en la sección 'Implementación'.
+
+
+\subsection{Gensim}
+Es una biblioteca de código libre, escrita en Python para el modelaje de tópicos y la indexación de documentos que está diseñada para trabajar con conjuntos de textos de gran tamaño. Su uso se ha expandido tanto en lo comercial como lo académico, apuntando especialmente al área de procesamiento del lenguaje natural y a la búsqueda y recuperación de la información.
+
+Gensim utiliza un paradigma muy poderoso en el área de procesamiento de lenguaje natural, denominado VSM (modelo de espacio de vectores), en el cual se representan los documentos de un corpus como vectores de un espacio de muchas dimensiones. Esta representación explota la idea de que los textos en el área del modelado de tópicos se pueden expresar según un número de conceptos, lo que aumenta la eficiencia y también ayuda a eliminar ruido.
+
+La biblioteca está diseñada para proveer independencia del tamaño del corpus, es decir, para poder analizar textos que sean más grandes que la memoria RAM del sistema. El proyecto, además apunta a exponer una interfaz mínima e intuitiva utilizando terminología de procesamiento de lenguaje.
+
+Gensim proporciona implementaciones de algoritmos como TF-IDF, análisis semántico latente, proyecciones aleatorias y alocación de Dirichlet latente.
+
+
+\subsection{Evaluación de resúmenes}
+La herramienta por defecto para evaluar los sistemas generadores de resúmenes es Rouge (Recall-Oriented Understudy for Gisting Evaluation). Este método fue desarrollado en la universidad de Southern California para automatizar la comparación entre resúmenes generados por el sistema bajo evaluación contra otros (ideales) escritos por seres humanos, tomados como referencia.
+
+Históricamente, los puntajes asignados en tareas de competencias como DUC fueron manuales; juzgando coherencia, capitalización, cohesión, consistencia y contenido \cite{duc2002}. Todo este trabajo es caro y difícil de coordinar, demandando de al menos 3.000 horas hombre. El surgimiento de Rouge atiende la necesidad de automatizar ese proceso, reemplazando un método llamado BLEU, cuyos resultados no siempre se correlacionaban con los asignados por los jurados.
+
+El mecanismo de funcionamiento de los métodos del paquete Rouge consiste en calcular la sensibilidad (recall) de unidades léxicas entre los resúmenes de sistema y los de referencia. Se generan así diferentes métricas:
+\begin{itemize}
+\item Rouge-N: cuando se tienen en cuenta n-gramas (n palabras). Este método favorece a documentos con palabras compartidas por más candidatos.
+\item Rouge-L: cuando se tiene en cuenta la subsecuencia máxima común (LCS, longest common subsequence). Este método propone que un conjunto de documentos va a ser más parecido mientras más larga sea la subsecuencia común máxima.
+\item Rouge-W: le asigna pesos a las subsecuencias según su largo.
+\item Rouge-S: es similar a Rouge-2, teniendo en cuenta bigramas pero permitiendo una cantidad arbitraria de espacios entre palabras.
+\item Rouge-SU: extiende la idea de Rouge-S, pero además le otorga valor a las palabras que haya en común, sin importar que no verifiquen un orden.
+\end{itemize}
+
+Rouge asigna un puntaje entre cero y uno a un esquema de evaluación conformado por una serie de documentos generados y sus referencias. Por diseño, se espera que buenos resúmenes tengan puntajes más altos; pero inevitablemente se requiere de trabajo humano para proveer las referencias.
+
+Para verificar el funcionamiento de Rouge se han usado las bases de datos de las conferencias DUC de los años 2001, 2002 y 2003. Se compararon las evaluaciones con los puntajes otorgados manualmente por los jurados para encontrar que todas las métricas arrojan muy buenos resultados; y a partir de la edición 2004 las evaluaciones se llevan a cabo usando exclusivamente Rouge.
+
+
+\section{Implementación}
+\subsection{Preprocesamiento}
+El preprocesamiento del texto es una parte esencial en cualquier sistema que trate con datos del lenguaje natural. En esta fase se identifican las unidades léxicas que serán analizadas por la aplicación en las etapas subsiguientes. 
+
+La calidad de este proceso tendrá un gran impacto en los resultados obtenidos. Es por ello que se deben seleccionar unidades léxicas significativas. Es decir, aquellas que contengan las características lingüísticas relevantes para el caso en estudio. A su vez, se deben filtrar las que no aportan información útil. En este proceso también, se unifica la codificación que pudiera existir en los distintos textos.
+
+Aquí se detallan las etapas principales.
+
+\subsubsection{Separación del texto}
+Esta etapa, también conocida como tokenización consiste en separar el texto en oraciones o palabras. Separar palabras suele resultar más sencillo, dado que los espacios en blanco son una buena aproximación como límite de separación. Se debe tener un tratamiento especial de los casos tales como “can’t” o “don’t” en idiomas como el inglés.
+
+Separar por oraciones suele ser caso más complejo. Definir los límites es una cuestión realmente problemática en el área del lenguaje natural. Generalmente se utilizan los símbolos .!? como separadores, pero se deben tratar con cuidado excepciones como \textit{Ph.D., Dr., Lic., \$19.99, p.m. o RR.HH}.
+
+El enfoque más utilizado para resolver esta cuestión se basa en la aplicación de expresiones regulares teniendo en cuenta reglas como las siguientes:
+\begin{enumerate}
+\item El punto (“.”) finaliza una oración si la siguiente palabra comienza con mayúscula.
+\item Si la palabra precedente al punto pertenece a un listado de abreviaturas preestablecido, entonces no termina la oración.
+\end{enumerate}
+
+Otras alternativas consisten en el uso de algoritmos entrenados con datos específicos del área sobre la cual se esté trabajando.
+
+
+\subsubsection{Filtrado}
+Las palabras más frecuentes muchas veces no tienen tanto significado por sí solas. Por ejemplo: “el, los, un, por, en”. En muchas tareas de procesamiento de lenguaje natural estas palabras aportan “ruido”, y por lo tanto se las debe quitar. 
+
+La forma de filtrar palabras consiste en crear una lista de “palabras prohibidas” (\textit{stopwords} en inglés). Luego se recorre el texto, eliminando dichos términos.
+
+
+\subsubsection{Stemming}
+El proceso de stemming (del inglés stem, significa raíz) o \textit{lemmatización} consiste en quitar la desinencia de las diferentes términos, para llevarlos a su raíz. Por ejemplo, las palabras “cantar, cantaba, cantando”, se las puede llevar todas a “canta”. Esta etapa se lleva a cabo con el objetivo de que el algoritmo detecte cuando se están tratando los mismos conceptos, dado que se utilizan las mismas palabras.
+
+El stemming es un proceso complejo dado que puede haber muchos casos excepcionales, y se necesitan reglas muy diferentes para cada idioma. El stemmer más usado en inglés es el Porter Stemmer. Para cada idioma existe una adaptación. Sin embargo, todos estos algoritmos tienen cierta tasa de error.
+
+
+
+
 
 \subsection{Generación de resúmenes automáticos}
 El problema de la extracción de oraciones apunta a identificar las secuencias más representativas del texto. Para este caso, las unidades tomadas para aplicar el algoritmo serán oraciones completas \cite{introductionir}.

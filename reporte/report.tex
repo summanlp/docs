@@ -53,7 +53,7 @@ En la línea de representación del texto como un grafo conectado, se usan técn
 \section{TextRank}
 
 \subsection{Descripción}
-TextRank es un algoritmo no supervisado basado en grafos para realizar resúmenes automáticos extractivos y/u obtener palabras claves de un texto. Fue presentado en 2004 por Rada Mihalcea y Paul Tarau en el paper “TextRank: Bringing Order into Texts” \cite{mihalcea-tarau}.
+TextRank es un algoritmo no supervisado basado en grafos para realizar resúmenes automáticos extractivos y/u obtener palabras claves de un texto. Fue presentado en 2004 por Rada Mihalcea y Paul Tarau en la publicación “TextRank: Bringing Order into Texts” \cite{mihalcea-tarau}.
 
 El algoritmo aplica una variación de PageRank \cite{pageetal98} sobre un grafo especialmente diseñado para la tarea. De esta manera permite explotar la estructura del texto, identificando los conceptos principales, sin necesidad de datos previos de entrenamiento. Debido a que se basa en PageRank, se sirve de la noción del “prestigio” o “recomendación” entre los elementos del grafo. Por este motivo, TextRank puede ser aplicado a cualquier texto, incluso en distintos idiomas, generando un resumen basado sólo en las propiedades intrínsecas del texto.
 
