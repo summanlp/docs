@@ -10,6 +10,9 @@
 \usepackage{graphicx}
 \usepackage{lscape}
 \usepackage{fancyhdr}
+\graphicspath{ {img/} }
+
+\newtheorem{definicion}{Definición} 
 
 \urldef{\mails}\path|{fbarrios,fjlopez}@fi.uba.ar| 
 
@@ -217,41 +220,62 @@ La forma de filtrar palabras consiste en crear una lista de “palabras prohibid
 
 
 \subsubsection{Stemming}
-El proceso de stemming (del inglés stem, significa raíz) o \textit{lemmatización} consiste en quitar la desinencia de las diferentes términos, para llevarlos a su raíz. Por ejemplo, las palabras “cantar, cantaba, cantando”, se las puede llevar todas a “canta”. Esta etapa se lleva a cabo con el objetivo de que el algoritmo detecte cuando se están tratando los mismos conceptos, dado que se utilizan las mismas palabras.
+El proceso de \textit{stemming} (del inglés stem, significa raíz) o \textit{lemmatización} consiste en quitar la desinencia de las diferentes términos, para llevarlos a su raíz. Por ejemplo, las palabras “cantar, cantaba, cantando”, se las puede llevar todas a “canta”. Esta etapa se lleva a cabo con el objetivo de que el algoritmo detecte cuando se están tratando los mismos conceptos, dado que se utilizan las mismas palabras.
 
 El stemming es un proceso complejo dado que puede haber muchos casos excepcionales, y se necesitan reglas muy diferentes para cada idioma. El stemmer más usado en inglés es el Porter Stemmer. Para cada idioma existe una adaptación. Sin embargo, todos estos algoritmos tienen cierta tasa de error.
 
 
 
-
-
-\subsection{Generación de resúmenes automáticos}
+\subsection{TextRank para extracción de oraciones}
 El problema de la extracción de oraciones apunta a identificar las secuencias más representativas del texto. Para este caso, las unidades tomadas para aplicar el algoritmo serán oraciones completas \cite{introductionir}.
 
 Inicialmente, se construye un grafo en base al texto. En este caso, se agrega cada oración como vértice. Para crear las aristas con su peso correspondiente, se debe definir una función de similitud entre dos oraciones dadas. Esta función de similitud será la que dicte cuánto una oración “recomienda” a otra, dado que ambas poseen contenidos similares y abordan los mismos conceptos.
     
 La función utilizada formalmente se define de la siguiente manera:
 
-\textit{Sean Si , Sj dos oraciones representadas por un conjunto de n palabras que en Si aparecen como: Si = wi1, wi2,,..., win,. La función de similitud para Si, Sj se define como:}
+\begin{definicion}
+Sean $S_i$, $S_j$ dos oraciones representadas por un conjunto de $n$ palabras que en 
+$S_i$ aparecen como $S_i = w_{1}^{i}, w_{2}^{i},..., w_{n}^{i}$, la función de similitud para $S_i$, $S_j$ se define como:
 
 \begin{equation}
 Similitud(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j}   \}  | }    
                               {  log(|S_{i}|) + log(|S_{j}|)  }
 \end{equation}
+\end{definicion}
     
 El resultado de este proceso es el texto representado como un grafo ponderado y altamente conexo. En base a esto se aplica PageRank para priorizar los vértices más relevantes.
 
 Luego de aplicar el algoritmo de priorización, se seleccionan las oraciones con mayor puntaje para incluirlas en el resumen. Finalmente, dichas oraciones se las presenta de acuerdo al orden de aparición en el texto original.
 
 
-\section{Experimentos}
+\subsection{TextRank para palabras claves}
+La otra aplicación que se le puede dar a TextRank es la extracción de palabras claves (\textit{keywords}) de un texto. Es un problema similar a la extracción de oraciones, dado que el objetivo es identificar un conjunto de unidades que sean representativas de dicho texto. Aquí, las unidades serán palabras, sueltas o combinadas.
 
-\subsection{Evaluación}
-Se decidió usar la base de datos de la tarea de generación de resúmenes automáticos de la conferencia DUC (Document Understanding Conference) del año 2002, al igual que en la publicación original. El corpus cuenta de 567 documentos que fueron resumidos a cerca del 20\%.
+Al igual que en el caso de la extracción de oraciones, luego de la etapa de preprocesamiento, las palabras no filtradas se agregan al grafo. Se pueden agregar filtros sintácticos adicionales para limitar el análisis sólo a, por ejemplo, sustantivos y verbos, o cualquier otra combinación. 
 
-Para llevar a cabo la evaluación se usó la versión 1.5.5 del paquete de métricas ROUGE \cite{Lin2004a}. Se utilizó la configuración usada en DUC, calculando sólo las mediciones ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza del 95\% y aplicando un método de stemming. Se obtuvo un único puntaje promediando los tres valores.
+En lugar de una función de similitud, aquí se define una función de coocurrencia: dos vértices estarán conectados si las palabras que representan ocurren en el texto dentro de una ventana de n palabras. El largo de la ventana n, suele tomar un valor entre dos (2) y diez (10). Los vínculos de coocurrencia demuestran una relación entre los elementos sintácticos que sirve como indicador de la cohesión del texto. Es por ello que son útiles para indicar la relevancia de las palabras principales.
 
-Para verificar el funcionamiento de todo el conjunto se implementó el método de referencia (baseline) usado en el paper, que construye el resumen extrayendo las primeras oraciones de cada artículo. Se comprobó que los resultados fueron los mismos que en el paper: la versión original de TextRank mejora al baseline por cerca de un 2,3\%.
+Con el grafo no ponderado y no dirigido construido, el valor de cada vértice se setea a uno (1), y se aplica el PageRank. Una vez asignados los puntajes, se toman los k vértices más relevantes, donde k suele ser un tercio de la cantidad de vértices totales. 
+
+Finalmente, las palabras preseleccionadas se marcan en el texto. En caso que estas palabras formen secuencias adyacentes, se las une en un “concepto clave”. Por ejemplo, si se preseleccionan las palabras “Puerto” y “Rico”, y en el texto figuran juntas, se las combina en “Puerto Rico”.
+
+
+\subsection{Métodos de evaluación}
+Considerando que parte del alcance planteado incluye la propuesta de mejoras al método, se trabajó con el paquete ROUGE, desarrollado en lenguaje Perl. Se usó un proyecto de Python que funciona como wrapper para adaptar los textos de entrada (pyrouge) y ejecutar automáticamente la evaluación. 
+
+Se implementó, además, una capa de abstracción adicional para acotar la cantidad de opciones que se manejan, y para automatizar la corrida de múltiples textos de una base de datos.
+
+Al ser un paquete de evaluación muy completo y versátil, Rouge provee una gran cantidad de parámetros. Se configuraron sus opciones como se usan en las conferencias de DUC, calculando ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza del 95\% y aplicando un método de stemming \cite{duc2007}. 
+
+Una de las restricciones que posee este método de evaluación es que requiere de resúmenes hechos por seres humanos para tomar como referencia, lo que implica un esfuerzo humano considerable si se quiere probar el rendimiento del método con varios textos. Se utilizó el corpus de DUC edición 2002, por ser en el que se desarrollaron las pruebas del paper original de TextRank.
+
+Todos los resultados obtenidos se compararon contra un sistema "baseline" que genera resúmenes que consisten de las primeras 100 palabras de cada texto. Comparando el rendimiento de TextRank contra el baseline se pudo comprobar que la implementación del algoritmo era certera \cite{baselines}.
+
+Se configuró un ambiente de integración continua para permitir la ejecución de evaluaciones automatizadas y que además verifica la calidad del código programado. 
+
+
+\section{Mejoras}
+En esta sección se analizan las propuestas de mejora que arrojaron mejores resultados. Los métodos listados a continuación consisten en redefinir la similaridad entre las oraciones. El listado total de ensayos realizados y sus puntajes se puede consultar en el Anexo I.
 
 \subsection{Propuestas}
 
@@ -281,15 +305,20 @@ Dado que la imagen de la función TFIDF está contenida en el intervalo [0,1], t
 
 
 \subsubsection{BM25}
-Okapi BM25 es una función de ranking utilizada para la asignación de relevancia a los documentos en un buscador. Está basada en los modelos probabilísticos de Recuperación de información, y actualmente representa el estado del arte en algoritmos de recuperación de documentos basados en frecuencia de término - frecuencia inversa de documento.
+Okapi BM25 es una función de ranking utilizada para la asignación de relevancia a los documentos en un buscador. 
+Está basada en los modelos probabilísticos de Recuperación de información, y actualmente 
+representa el estado del arte en algoritmos de recuperación de documentos 
+basados en frecuencia de término -- frecuencia inversa de documento.
 
-Dadas dos oraciones R,S, la misma se define como:
+\begin{definicion}
+Dadas dos oraciones R, S, BM25 se define como:
 
 \begin{equation}
 BM25(D,Q) = \sum_{i=1}^{n} IDF(q_i) \cdot \frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot (1 - b + b \cdot \frac{|D|}{avgDL})}
 \end{equation}
 
-donde k y b son parámetros que valen k = 1,2 y b = 0,75, y avdgl es el largo promedio de las oraciones en el texto.
+donde $k$ y $b$ son parámetros que valen $k = 1,2$ y $b = 0,75$, y $avgDL$ es el largo promedio de las oraciones en el texto.
+\end{definicion}
 
 Esta función contempla la frecuencia inversa del documento de manera tal que si una palabra aparece en más de la mitad de los textos, el valor para ese término se vuelve negativo. Dado que este comportamiento no es deseable en este caso en particular, se utiliza la siguiente fórmula:
                 
@@ -342,7 +371,24 @@ Los tiempos de ejecución también se superaron. Se pudo procesar los 567 docume
 
 El resultado de la métrica de similitud coseno también fue satisfactoria, presentando una mejora de 2,54\% por sobre el método original. A su vez, los métodos de secuencias de máxima longitud también mostraron una mejora considerable: cerca del 1,40\% por sobre TextRank. En la Figura 1 se comparan los distintas técnicas.
 
-GRAFICO!!!!
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{rouge-scores.pdf}
+    \caption{Comparación de métricas.}
+\end{figure}
+
+
+\section{Integración a Gensim}
+La integración del módulo a Gensim\footnote{Pull request: \url{https://github.com/piskvorky/gensim/pull/324}
+} se desarrolló a partir de su última versión, la 0.11.1-1. Se agregan a la biblioteca ambas funcionalidades descriptas anteriormente: la extracción de palabras claves y la generación automática de resúmenes extractivos.
+
+En la integración se incluyen tres casos de uso:
+\begin{itemize}
+\item Generación de resúmenes automáticos dado un texto. En este caso la función requiere una cadena de texto con el documento a resumir, y devuelve el texto resumido. 
+\item Selección de documentos más importantes dado un corpus. Este caso es similar al anterior, con la diferencia de que se recibe un listado de documentos (que pueden ser oraciones de un texto) y se devuelve un listado de aquéllos más importantes.
+\item Obtención de palabras claves de un texto. En este caso se devuelve un listado de palabras clave dada una cadena de texto.
+\end{itemize}
+
 
 \section{Conclusiones}
 En este trabajo se analizaron variantes al algoritmo de TextRank. A partir del mismo se propusieron e implementaron optimizaciones cuyos resultados fueron significativos: se obtuvo una mejoría del 2,92\% por sobre el método original. Este número es notable si se tiene en cuenta que TextRank por sí solo performa 2,84\% por sobre el estándar de comparación.
@@ -350,6 +396,55 @@ En este trabajo se analizaron variantes al algoritmo de TextRank. A partir del m
 Las evaluaciones fueron hechas con las mismas técnicas y datasets utilizados en competencias internacionales, validando así las mediciones.
 
 Queda para próximos trabajos explorar alternativas para la extracción de palabras claves, y el ensayo de distintos métodos algebraicos, haciendo uso del modelo del espacio vectorial.
+
+Finalmente, la adaptación a la biblioteca de lenguaje natural Gensim también resultó sencilla gracias a las facilidades que provee su interfaz de programación y su gran cantidad de métodos.
+
+
+\newpage
+\section{Anexo I: modificaciones}
+Además de las mejoras descriptas en la sección “Mejoras”, también se ensayaron otras ideas cuyos resultados no fueron tan destacables como los mencionados anteriormente.
+
+Como se explicó anteriormente, las modificaciones apuntan a cambiar el criterio de similaridad entre oraciones. Algunas modificaciones que se tuvieron en cuenta son similares a la de subcadena común, que otorga puntajes de acuerdo a la cantidad de unidades léxicas en orden que estén presentes en las dos oraciones. Estas métricas son las usadas por el paquete Rouge, y los métodos de subsecuencia de palabras común, subsecuencia de palabras común con peso, bigramas comunes y SU4 son idénticos a los usados por los métodos ROUGE-L, ROUGE-W, ROUGE-2 y ROUGE-SU4.
+
+Se diseñó un método que primero busca las palabras clave del documento para después asignarles un valor más alto en las ponderaciones; y un método que asigna puntaje adicional a aquéllas palabras que se mencionaron más recientemente.
+
+Se implementaron también métricas de distancias de Levenshtein y una versión normalizada entre 0 y 1 teniendo en cuenta los extremos.
+
+Finalmente, se experimentó también reemplazando el algoritmo de PageRank (que utiliza como solución el autovector asociado al valor asociado más grande de la matriz de similaridad) por el de HITS (que utiliza el vector singular asociado al valor singular más grande de la matriz); y también se probó aproximando la solución reduciendo el rango de la matriz.
+
+\subsection{Resultados}
+\begin{tabular}{ | l | l | l | l | l | l | l | }
+\hline
+	Método & ROUGE1 & ROUGE2 & ROUGESU4 & Mejora & Tiempo\\ \hline
+	TextRank & 0.3983 & 0.1762 & 0.1948 & - & 0:00:25\\ \hline
+	BM25 (Neg a epsilon) & 0.4042 & 0.1831 & 0.2018 & 2,92\% & 0:00:21\\ \hline
+	BM25+ (Neg a epsilon) & 0.404 & 0.1818 & 0.2008 & 2,60\% & 0:00:21\\ \hline
+	Cosine TF-IDF & 0.4108 & 0.177 & 0.1984 & 2,54\% & 0:03:30\\ \hline
+	BM25+ (IDF = log(N/NI)) & 0.4022 & 0.1805 & 0.1997 & 2,05\% & 0:00:24\\ \hline
+	BM25 (IDF = log(N/NI)) & 0.4012 & 0.1808 & 0.1998 & 1,97\% & 0:00:22\\ \hline
+	Longest Common Substring & 0.402 & 0.1783 & 0.1971 & 1,40\% & 0:18:32\\ \hline
+	LCW Subsequence & 0.4032 & 0.1773 & 0.1968 & 1,38\% & 0:01:02\\ \hline
+	Weighted LCW Subsequence & 0.4032 & 0.1773 & 0.1968 & 1,38\% & 0:01:12\\ \hline
+	BM25+ (Neg a cero) & 0.3992 & 0.1803 & 0.1976 & 1,36\% & 0:00:17\\ \hline
+	BM25 (Neg a cero) & 0.3991 & 0.1778 & 0.1966 & 0,89\% & 0:00:22\\ \hline
+	Distancia temporal & 0.3992 & 0.1762 & 0.195 & 0,48\% & 0:03:15\\ \hline
+	Levenshtein & 0.3961 & 0.1781 & 0.1955 & 0,38\% & 0:27:49\\ \hline
+	Longest Common Subsequence & 0.396 & 0.1775 & 0.1949 & 0,22\% & 0:28:08\\ \hline
+	SU4 & 0.3955 & 0.1732 & 0.1924 & -0,73\% & 0:01:02\\ \hline
+	Prioridad keywords & 0.3952 & 0.1721 & 0.1915 & -1,03\% & 0:07:13\\ \hline
+	Peso de conceptos & 0.3953 & 0.1713 & 0.1914 & -1,14\% & 0:04:09\\ \hline
+	Distancia temporal invertida & 0.3913 & 0.1725 & 0.1912 & -1,53\% & 0:03:05\\ \hline
+	BM25 & 0.3916 & 0.1725 & 0.1906 & -1,57\% & 0:00:18\\ \hline
+	HITS & 0.3914 & 0.1699 & 0.1898 & -2,03\% & 0:00:46\\ \hline
+	BM25+ & 0.3903 & 0.1711 & 0.1894 & -2,07\% & 0:00:17\\ \hline
+	HITS + DVS & 0.3912 & 0.1686 & 0.189 & -2,33\% & 0:00:46\\ \hline
+	DUC Baseline & 0.39 & 0.1689 & 0.186 & -2,84\% & 0:00:01\\ \hline
+	Bigramas comunes & 0.393 & 0.1633 & 0.1842 & -3,42\% & 0:00:50\\ \hline
+	Weighted LCSubstring & 0.3755 & 0.1509 & 0.1729 & -8,79\% & 0:17:23\\ \hline
+	Levenshtein normalizado & 0.348 & 0.1374 & 0.1565 & -16,28\% & 0:28:13\\ \hline
+\end{tabular}
+
+
 
 
 \bibliography{informe}{}
