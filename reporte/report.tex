@@ -21,7 +21,7 @@
 \title{Variantes de TextRank para la Generación de Resúmenes Automáticos}
 \titlerunning{Variantes de TextRank} 
 
-\author{Federico Barrios,Federico López,Luis Argerich, Rosa Wachenchauzer}
+\author{Federico Barrios, Federico López, Luis Argerich, Rosa Wachenchauzer}
 \institute{Facultad de Ingeniería, Universidad de Buenos Aires,\\
 Av. Paseo Colón 850, Ciudad Autónoma de Buenos Aires, Argentina\\
 \mails\\
@@ -103,8 +103,8 @@ Para llevar a cabo la evaluación se usó la versión 1.5.5 del paquete de métr
 Para verificar el funcionamiento de todo el conjunto se implementó el método de referencia (\textit{baseline}) usado en la publicación, que construye el resumen extrayendo las primeras oraciones de cada artículo. Se comprobó que los resultados fueron similares: la versión original de TextRank mejora al \textit{baseline} por cerca de un 2,3\%.
 
 \subsection{Propuestas}
-En la siguiente sección se describen las diferentes variantes que se probaron sobre el algoritmo original de
-TextRank, principalmente estas modificaciones apuntan a cambiar la forma en la cual se calculan las distancias entre las oraciones de los textos. Diferentes métricas arrojaron diferentes resultados y algunas de éstas métricas lograron una mejora significativa sobre el algoritmo original.
+En la siguiente sección se describen las variantes que se probaron sobre el algoritmo original de
+TextRank. Principalmente estas modificaciones apuntan a cambiar la forma en la cual se calculan las distancias entre las oraciones de los textos. Diferentes métricas arrojaron diferentes resultados y algunas de éstas variantes lograron una mejora significativa sobre el algoritmo original.
 
 \subsubsection{Subcadena común}
 Dadas dos frases, el problema de la subcadena común más larga consiste en identificar la secuencia de caracteres de mayor extensión presente en ambas. Por ejemplo, entre “la cocina verde” y “una cocina vale más si es verde”, la secuencia más larga es “a cocina v”.
