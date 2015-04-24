@@ -6,6 +6,9 @@
 \usepackage{url}
 \usepackage{fancyvrb}
 \usepackage{babelbib}
+\usepackage{graphicx}
+
+\graphicspath{ {img/} }
 
 \urldef{\mails}\path|{fbarrios,fjlopez}@fi.uba.ar| 
 
@@ -78,7 +81,7 @@ La función utilizada formalmente se define de la siguiente manera:
 
 \begin{definicion}
 Sean $S_i$, $S_j$ dos oraciones representadas por un conjunto de $n$ palabras que en 
-$S_i$ aparecen como $S_i = w_{1}^{i}, w_{2}^{i},,..., w_{n}^{i}$, la función de similitud para $S_i$, $S_j$ se define como:
+$S_i$ aparecen como $S_i = w_{1}^{i}, w_{2}^{i},..., w_{n}^{i}$, la función de similitud para $S_i$, $S_j$ se define como:
 
 
 \begin{equation}
@@ -165,7 +168,7 @@ La propuesta consistió en aplicar BM25 y BM25+ entre las oraciones de un texto,
 
 
 \subsection{Resultados}
-Los resultados óptimos se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0.25, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. Inicialmente se obtenían valores cercanos al 1,30\% pero dado que esta función contempla el uso de stopwords, se procedió a eliminar la etapa de filtrado del preprocesamiento del texto, alcanzado así resultados sobresalientes. En la Tabla 1 se detallan las alternativas ensayadas.
+Los resultados óptimos se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0.25, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. Inicialmente se obtenían valores cercanos al 1,30\% pero dado que esta función contempla el uso de stopwords, se procedió a eliminar la etapa de filtrado del preprocesamiento del texto, alcanzado así resultados sobresalientes. En el Cuadro 1 se detallan las alternativas ensayadas.
 
 \begin{table}
 \caption{Resultados de las distintas propuestas}
@@ -197,7 +200,11 @@ Los tiempos de ejecución también se superaron. Se pudo procesar los 567 docume
 
 El resultado de la métrica de similitud coseno también fue satisfactoria, presentando una mejora de 2,54\% por sobre el método original. A su vez, los métodos de secuencias de máxima longitud también mostraron una mejora considerable: cerca del 1,40\% por sobre TextRank. En la Figura 1 se comparan los distintas técnicas.
 
-GRAFICO!!!!
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{rouge-scores.pdf}
+    \caption{Comparación de métricas.}
+\end{figure}
 
 \section{Conclusiones}
 En este trabajo se analizaron variantes al algoritmo de TextRank. A partir del mismo se propusieron e implementaron optimizaciones cuyos resultados fueron significativos: se obtuvo una mejoría del 2,92\% por sobre el método original. Este número es notable si se tiene en cuenta que TextRank por sí solo performa 2,84\% por sobre el estándar de comparación.
