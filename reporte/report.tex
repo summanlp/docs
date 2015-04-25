@@ -72,7 +72,7 @@ Los pasos principales que se llevan a cabo son los siguientes:
 \subsection{Generación de resúmenes automáticos}
 El problema de la extracción de oraciones apunta a identificar las secuencias más representativas del texto. Para este caso, las unidades tomadas para aplicar el algoritmo serán oraciones completas \cite{introductionir}.
 
-Inicialmente, se construye un grafo en base al texto. Cada oración se considera como un vértice, y para asignarles peso a las aristas se debe definir una función de similitud entre dos oraciones dadas. Esta función será la que dicte cuánto una oración “recomienda” a otra, dependiendo de la similitud entre sus contenidos por abordar los mismos conceptos.
+Inicialmente, se construye un grafo en base al texto. Cada oración se considera como un vértice, y para asignarles peso a las aristas se debe definir una función de semejanza entre dos oraciones dadas. Esta función será la que dicte cuánto una oración “recomienda” a otra, dependiendo de la similitud entre sus contenidos por abordar los mismos conceptos.
     
 La función utilizada se define formalmente de la siguiente manera:
 
@@ -90,19 +90,19 @@ Similitud(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j
 
 \end{definicion}
     
-El resultado de este proceso es el texto representado como un grafo ponderado y altamente denso. En base a esto se aplica PageRank para calcular la relevancia de cada vértice.
+El resultado de este proceso es el texto representado como un grafo ponderado y altamente denso. A partir de este grafo se aplica PageRank para calcular la relevancia de cada vértice, es decir de cada oración del texo.
 
-Luego de aplicar el algoritmo de priorización se seleccionan las oraciones con mayor puntaje para incluirlas en el resumen. Estas, finalmente, se presentan de acuerdo al orden de aparición en el texto original.
+Luego de aplicar el algoritmo de relevancia/priorización se seleccionan las oraciones con mayor puntaje para incluirlas en el resumen. Estas, finalmente, se presentan de acuerdo al orden de aparición en el texto original.
 
 
 \section{Experimentos}
 
 \subsection{Evaluación}
-Se decidió usar la base de datos de la tarea de generación de resúmenes automáticos de la conferencia DUC (Document Understanding Conference) del año 2002 \cite{duc2002-guidelines}, al igual que en \cite{mihalcea-tarau}. El corpus cuenta de 567 documentos que fueron resumidos a cerca del 20\%.
+Se decidió usar la base de datos de la tarea de generación de resúmenes automáticos de la conferencia DUC (Document Understanding Conference) del año 2002 \cite{duc2002-guidelines}, este el mismo corpus que el usado en la presentación del algoritmo TextRank en \cite{mihalcea-tarau}. El corpus cuenta con 567 documentos que fueron resumidos a cerca del 20\% de su tamaño.
 
 Para llevar a cabo la evaluación se usó la versión 1.5.5 del paquete de métricas ROUGE \cite{Lin2004a}. Se utilizó la configuración usada en DUC, calculando sólo las mediciones ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza del 95\% y aplicando un método de \textit{stemming}. Se obtuvo un único puntaje promediando los tres valores.
 
-Para verificar el funcionamiento de todo el conjunto se implementó el método de referencia (\textit{baseline}) usado en \cite{mihalcea-tarau}, que construye el resumen extrayendo las primeras oraciones de cada artículo. Se comprobó que los resultados fueron similares: la versión original de TextRank mejora al \textit{baseline} por cerca de un 2,3\%.
+Para verificar el funcionamiento de todo el conjunto se desarrolló el método de referencia (\textit{baseline}) usado en \cite{mihalcea-tarau}, que construye el resumen extrayendo las primeras oraciones de cada artículo. Se comprobó que los resultados fueron similares: la versión original de TextRank mejora al \textit{baseline} en un 2,3\% aproximadamente.
 
 \subsection{Propuestas}
 En la siguiente sección se describen las variantes que se probaron sobre el algoritmo original de
@@ -117,11 +117,13 @@ Cabe destacar el parecido de esta métrica con los métodos de evaluación ROUGE
 
 
 \subsubsection{Similitud coseno}
-La similitud coseno es una medida de la similitud existente entre dos vectores en un espacio que posee un producto interior con el que se evalúa el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta “distancia” se utiliza el modelo del espacio vectorial, y así modelar a los documentos como vectores.
+La similitud coseno es una medida de la similitud existente entre dos vectores en un espacio que posee un producto interior con el que se evalúa el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta “distancia” se utiliza el modelo vectorial es decir que se modelan a los documentos como vectores.
 
-Este modelo algebraico es utilizado para representar documentos en lenguaje natural de una manera formal mediante el uso de vectores en un espacio lineal multidimensional. La teórica básica es que el parecido de un documento frente a otro puede calcularse usando la similitud coseno. Así un valor de coseno de cero significa que los documentos son ortogonales el uno al otro, y eso significa que no hay similitud.
+Este modelo algebraico es utilizado para representar documentos en lenguaje natural de una manera formal mediante el uso de vectores en un espacio multidimensional. La teórica básica es que el parecido de un documento frente a otro puede calcularse usando la similitud coseno. 
 
-La propuesta se basa en aplicar este modelo para tratar a cada oración del texto como un vector n-dimensional (con n la cantidad de palabras distintas presentes en el documento), y luego compararlas utilizando la similitud coseno. Las entradas de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término -- frecuencia inversa de documento” (TF--IDF de sus siglas en inglés) a cada palabra de la oración representada.
+Este modelo está basado en favorecer la dirección a la cuál apuntan los documentos independientemente de su longitud. Textos que hablan de los mismos temas pero tienen diferente longitud pueden tener una distancia angular muy pequeña resultando en un coseno cercano a uno que es el valor máximo cuando el ángulo entre los documentos es cero.
+
+La propuesta se basa en aplicar este modelo para tratar a cada oración del texto como un vector n-dimensional (siendo n la cantidad de palabras distintas presentes en el documento), y luego compararlas utilizando la similitud coseno. Las entradas de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término -- frecuencia inversa de documento” (TF--IDF de sus siglas en inglés) a cada palabra de la oración representada.
 
 Tomando como ejemplo el documento “Esta bien. Todo bien.”, las oraciones quedarían modeladas como vectores de la siguiente forma:
 
@@ -132,12 +134,10 @@ v2=[       0       , TFIDF("bien") , TFIDF("Todo") ]
 
 Dado que la imagen de la función TFIDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
 
-
 \subsubsection{BM25}
 Okapi BM25 es una función de ranking utilizada para la asignación de relevancia a los documentos en un buscador. 
 Está basada en los modelos probabilísticos de Recuperación de información, y actualmente 
-representa el estado del arte en algoritmos de recuperación de documentos 
-basados en frecuencia de término -- frecuencia inversa de documento.
+representa el estado del arte en algoritmos de recuperación de documentos basados en frecuencia de término -- frecuencia inversa de documento.
 
 \begin{definicion}
 Dadas dos oraciones R, S, BM25 se define como:
@@ -167,7 +167,7 @@ Existe una variante a BM25 llamada BM25+. Esta repara deficiencias relacionadas 
 La propuesta consistió en aplicar BM25 y BM25+ entre las oraciones de un texto, a fin de ordenarlas de acuerdo a su relevancia.
 
 
-\subsection{Resultados}
+\subsection{Resultados Obtenidos}
 Los mejores resultados se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0.25, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. Inicialmente se obtuvieron valores cercanos al 1,30\%, pero dado que esta función contempla el uso de \textit{stopwords} se procedió a eliminar la etapa de filtrado del preprocesamiento del texto, alcanzado así resultados sobresalientes. En el Cuadro 1 se detallan las alternativas ensayadas.
 
 \begin{table}
@@ -195,7 +195,7 @@ DUC Baseline & 0.39 & 0.1689 & 0.186 & -2,84\% \\ [2pt]
 \end{center}
 \end{table}
 
-Los tiempos de ejecución también se superaron. Se pudo procesar los 567 documentos de la base de datos de DUC2002 utilizando 84\% del tiempo requerido por la versión original.
+Los tiempos de ejecución también se superaron. Se pudieron procesar los 567 documentos de la base de datos de DUC2002 utilizando 84\% del tiempo requerido por la versión original.
 
 El resultado de la métrica de similitud coseno también fue satisfactoria, presentando una mejora de 2,54\% por sobre el método original. A su vez, los métodos de secuencias de máxima longitud también mostraron una mejora considerable: cerca del 1,40\% por sobre TextRank. En la Figura 1 se comparan los distintas técnicas.
 
@@ -205,10 +205,14 @@ El resultado de la métrica de similitud coseno también fue satisfactoria, pres
     \caption{Comparación de métricas.}
 \end{figure}
 
+
+
 \section{Conclusiones}
 En este trabajo se analizaron variantes al algoritmo de TextRank. A partir del mismo se propusieron e implementaron optimizaciones cuyos resultados fueron significativos: se obtuvo una mejoría del 2,92\% por sobre el método original. Este número es notable si se tiene en cuenta que TextRank por sí solo performa 2,84\% por sobre el estándar de comparación (baseline).
 
 Las evaluaciones fueron hechas con las mismas técnicas y conjuntos de datos utilizados en competencias internacionales, validando así las mediciones.
+
+En base a estos resultados proponemos la utilización de BM25 o BM25+ junto con TextRank como herramienta para la generación de resúmenes automáticos. Los ejemplos analizados y las métricas obtenidas demuestran resultados a los obtenidos por la versión original del algoritmo TextRank sin costo alguno extra de tiempo de procesamiento. 
 
 Queda para próximos trabajos explorar alternativas para la extracción de palabras claves, y el ensayo de distintos métodos algebraicos, haciendo uso del modelo del espacio vectorial.
 
