@@ -98,11 +98,11 @@ Luego de aplicar el algoritmo de priorización se seleccionan las oraciones con 
 \section{Experimentos}
 
 \subsection{Evaluación}
-Se decidió usar la base de datos de la tarea de generación de resúmenes automáticos de la conferencia DUC (Document Understanding Conference) del año 2002, al igual que en la publicación original del algoritmo TextRank. El corpus cuenta de 567 documentos que fueron resumidos a cerca del 20\%.
+Se decidió usar la base de datos de la tarea de generación de resúmenes automáticos de la conferencia DUC (Document Understanding Conference) del año 2002 \cite{duc2002-guidelines}, al igual que en \cite{mihalcea-tarau}. El corpus cuenta de 567 documentos que fueron resumidos a cerca del 20\%.
 
 Para llevar a cabo la evaluación se usó la versión 1.5.5 del paquete de métricas ROUGE \cite{Lin2004a}. Se utilizó la configuración usada en DUC, calculando sólo las mediciones ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza del 95\% y aplicando un método de \textit{stemming}. Se obtuvo un único puntaje promediando los tres valores.
 
-Para verificar el funcionamiento de todo el conjunto se implementó el método de referencia (\textit{baseline}) usado en la publicación, que construye el resumen extrayendo las primeras oraciones de cada artículo. Se comprobó que los resultados fueron similares: la versión original de TextRank mejora al \textit{baseline} por cerca de un 2,3\%.
+Para verificar el funcionamiento de todo el conjunto se implementó el método de referencia (\textit{baseline}) usado en \cite{mihalcea-tarau}, que construye el resumen extrayendo las primeras oraciones de cada artículo. Se comprobó que los resultados fueron similares: la versión original de TextRank mejora al \textit{baseline} por cerca de un 2,3\%.
 
 \subsection{Propuestas}
 En la siguiente sección se describen las variantes que se probaron sobre el algoritmo original de
