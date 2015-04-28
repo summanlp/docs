@@ -18,20 +18,21 @@
 
 \frontmatter
 
-\title{TextRank Variations for Automated Summarization}
+\title{Variations of TextRank for Automated Summarization}
 \titlerunning{Variantes de TextRank} 
 
 
 \maketitle
 
 \begin{abstract}
-This article describes the proposal and analysis of new variants of the TextRank algorithm for automated summarization of texts. We describe the generalities of the TextRank algorithm on its original version and the different variations that we tested. Some of these variants achieve a significative improvement over the original algorithm using the same metrics as dataset as the original publication. 
+This article describes our proposal for new variants of the TextRank algorithm for automated summarization of texts. We describe the generalities of the TextRank algorithm on its original version and the different variations of the algorithm that we created. Some of these variants achieve a significative improvement over the original algorithm using the same metrics as dataset as the original publication. 
 \keywords{TextRank, resumen, automático}
 
 \end{abstract}
 
 \section{Introducción}
 We can describe the process of automated summarization as the extraction of the most important sentences in a document. Using different levels of compression a summarized version of the document of arbitrary length can be obtained. The TexRank algorithm is one of the most used methods for this task. TextRank builds a graph of sentendes for a document and then applies PageRank to obtain a score for each sentence. The sentences with higher score are then used for the summary presented in the order in which they appear in the text. Using different schemes for the construction of the graph we can achieve different results. In this article we describe several different proposals for the construction of the TextRank graph and report the results obtained with them.
+
 The first section of this article describes previous work in the area and the TextRank algorithm in general. Then we describe the different metrics used for the evaluation of the results obtained from the proposed changes and the datasets used for these tests. Finally we report the results obtained for the different variations of the algorithm.
 \section{Trabajo previo}
 The field of automated summarization has advanced in a significative way since the late 60's 
@@ -54,93 +55,67 @@ The simmilarity function can use several different ideas, it can be based in the
 The steps needed to build a summary using TextRank are:
 
 \begin{enumerate}
-\item Identificar las unidades del texto (palabras u oraciones) y agregarlas al grafo como vértices.
-\item Identificar relaciones que conectan a estas unidades, y agregarlas al grafo como aristas entre los vértices. Las aristas pueden ser dirigidas o no, y ponderadas o no.
-\item Aplicar PageRank para asignarle un puntaje a cada vértice.
-\item Ordenar los vértices de acuerdo al puntaje y utilizarlo para armar el resumen de acuerdo a algún criterio.
+\item Identify the units of text, words or sentences and add them to the graph as vertices.
+\item Identify the relationships between these units and add them to the graph as edges. 
+\item Use PageRank to rank each vertex in the graph.
+\item Sort the vertices according to rank and use the most relevant sentences as the summary of the text.
 \end{enumerate}
 
-\subsection{Generación de resúmenes automáticos}
-El problema de la extracción de oraciones apunta a identificar las secuencias más representativas del texto. Para este caso, las unidades tomadas para aplicar el algoritmo serán oraciones completas \cite{introductionir}.
+\subsection{Automatic Summarization}
+The problem can be seen as the extraction of the most significative sentences in the document. In this work the lexical units used for the algorithm will be complete sentences \cite{introductionir}.
 
-Inicialmente, se construye un grafo en base al texto. Cada oración se considera como un vértice, y para asignarles peso a las aristas se debe definir una función de semejanza entre dos oraciones dadas. Esta función será la que dicte cuánto una oración “recomienda” a otra, dependiendo de la similitud entre sus contenidos por abordar los mismos conceptos.
-    
-La función utilizada se define formalmente de la siguiente manera:
+The simmilarity function used between sentences (nodes in the graph) can be formalized as:
 
 
 \begin{definicion}
-Sean $S_i$, $S_j$ dos oraciones representadas por un conjunto de $n$ palabras que en 
-$S_i$ aparecen como $S_i = w_{1}^{i}, w_{2}^{i},..., w_{n}^{i}$. La función de similitud para $S_i$, $S_j$ se define como:
+Given $S_i$, $S_j$ two sentences represented by a set of $n$ words that in 
+$S_i$ are represented as $S_i = w_{1}^{i}, w_{2}^{i},..., w_{n}^{i}$. The similarity function for $S_i$, $S_j$ can be defined as:
 
 
 \begin{equation}
-Similitud(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j}   \}  | }    
+Sim(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j}   \}  | }    
                               {  log(|S_{i}|) + log(|S_{j}|)  }
 \end{equation}
 
 
 \end{definicion}
-    
-El resultado de este proceso es el texto representado como un grafo ponderado y altamente denso. A partir de este grafo se aplica PageRank para calcular la relevancia de cada vértice, es decir de cada oración del texo.
 
-Luego de aplicar el algoritmo de relevancia/priorización se seleccionan las oraciones con mayor puntaje para incluirlas en el resumen. Estas, finalmente, se presentan de acuerdo al orden de aparición en el texto original.
+The result of this process is a dense graph representing the document. From this graph PageRank is used to compute the importance of each vertex. 
 
+The most significative sentences according to PageRank are selected as the summarization of the text and presented in the same order as they appear in the document.
+\section{Experiments}
 
-\section{Experimentos}
+\subsection{Evaluation}
+For testing we used the database of the 2002 DUC (Document Understanding Conference) \cite{duc2002-guidelines} this is the same corpus used in the TextRank original paper in \cite{mihalcea-tarau}. The corpus has 567 documents that are summarized to 20\% of their size.
 
-\subsection{Evaluación}
-Se decidió usar la base de datos de la tarea de generación de resúmenes automáticos de la conferencia DUC (Document Understanding Conference) del año 2002 \cite{duc2002-guidelines}, este el mismo corpus que el usado en la presentación del algoritmo TextRank en \cite{mihalcea-tarau}. El corpus cuenta con 567 documentos que fueron resumidos a cerca del 20\% de su tamaño.
+To evaluate results we used version 1.5.5 or the ROUGE package \cite{Lin2004a}. We used the same configuration used in DUC using ROUGE-1, ROUGE-2 and ROUGE-SU4 as metrics in a 95\% confidence applying stemming. The final result is an average of these three scores.
 
-Para llevar a cabo la evaluación se usó la versión 1.5.5 del paquete de métricas ROUGE \cite{Lin2004a}. Se utilizó la configuración usada en DUC, calculando sólo las mediciones ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza del 95\% y aplicando un método de \textit{stemming}. Se obtuvo un único puntaje promediando los tres valores.
-
-Para verificar el funcionamiento de todo el conjunto se desarrolló el método de referencia (\textit{baseline}) usado en \cite{mihalcea-tarau}, que construye el resumen extrayendo las primeras oraciones de cada artículo. Se comprobó que los resultados fueron similares: la versión original de TextRank mejora al \textit{baseline} en un 2,3\% aproximadamente.
-
-\subsection{Propuestas}
-En la siguiente sección se describen las variantes que se probaron sobre el algoritmo original de
-TextRank. Principalmente estas modificaciones apuntan a cambiar la forma en la cual se calculan las distancias entre las oraciones de los textos. Diferentes métricas arrojaron diferentes resultados y algunas de éstas variantes lograron una mejora significativa sobre el algoritmo original.
-
-\subsubsection{Subcadena común}
-Dadas dos frases, el problema de la subcadena común más larga consiste en identificar la secuencia de caracteres de mayor extensión presente en ambas. Por ejemplo, entre “la cocina verde” y “una cocina vale más si es verde”, la secuencia más larga es “a cocina v”.
-
-La propuesta consiste en modificar la función de distancia de la implementación original y reemplazarla por el largo de la subcadena común más larga. En el ejemplo anterior, la similitud sería de 10, dado que es el largo de la secuencia “a cocina v”.
-
-Cabe destacar el parecido de esta métrica con los métodos de evaluación ROUGE.
+To check the correct behaviour of our test suite a reference baseline method was used, the same used in \cite{mihalcea-tarau} which is based in the first sentences of each document. We reproduced the results of the standard TextRank Algorithm and found them identical to those reported in the the TextRank paper, a 2.3\% improvement over the baseline.
 
 
-\subsubsection{Similitud coseno}
-La similitud coseno es una medida de la similitud existente entre dos vectores en un espacio que posee un producto interior con el que se evalúa el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta “distancia” se utiliza el modelo vectorial es decir que se modelan a los documentos como vectores.
+\subsection{Our Variations}
+This sectoin will describe the different variations that we propose over the original TextRank algorithm. These ideas are based in changing the way in which distances between sentences are computed to weight the edges of the graph used for PageRank.We found some of these variations to produce significative improvements over the original algorithm.
 
-Este modelo algebraico es utilizado para representar documentos en lenguaje natural de una manera formal mediante el uso de vectores en un espacio multidimensional. La teórica básica es que el parecido de un documento frente a otro puede calcularse usando la similitud coseno. 
+\subsubsection{Longest Common Substring}
+From two sentences we identify the longest common substring (LCS) and report the simmilarity to be the length of the LCS. This metric is similar to the evaluation methods used in ROUGE.
 
-Este modelo está basado en favorecer la dirección a la cuál apuntan los documentos independientemente de su longitud. Textos que hablan de los mismos temas pero tienen diferente longitud pueden tener una distancia angular muy pequeña resultando en un coseno cercano a uno que es el valor máximo cuando el ángulo entre los documentos es cero.
-
-La propuesta se basa en aplicar este modelo para tratar a cada oración del texto como un vector n-dimensional (siendo n la cantidad de palabras distintas presentes en el documento), y luego compararlas utilizando la similitud coseno. Las entradas de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término -- frecuencia inversa de documento” (TF--IDF de sus siglas en inglés) a cada palabra de la oración representada.
-
-Tomando como ejemplo el documento “Esta bien. Todo bien.”, las oraciones quedarían modeladas como vectores de la siguiente forma:
-
-\begin{Verbatim}[xleftmargin=3em]
-v1=[ TFIDF("Esta") , TFIDF("bien") ,       0       ]
-v2=[       0       , TFIDF("bien") , TFIDF("Todo") ]
-\end{Verbatim}
-
-Dado que la imagen de la función TFIDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
+\subsubsection{Cosine Distance}
+The cosine similarity is a metric widely used to compare texts represented as vectors. We used a classical TF-IDF model to represent the documents as vectors and computed the cosine between vectors as a measure of similarity. Since the vectors are defined to be positive the cosine results in values in the range [0,1] where a value of 0 represents identical vectors and 1 represents orthogonal vectors. The cosine similarity can be computed as 1 minus the cosine distance between vectors. 
 
 \subsubsection{BM25}
-Okapi BM25 es una función de ranking utilizada para la asignación de relevancia a los documentos en un buscador. 
-Está basada en los modelos probabilísticos de Recuperación de información, y actualmente 
-representa el estado del arte en algoritmos de recuperación de documentos basados en frecuencia de término -- frecuencia inversa de documento.
+BM25 / Okapi-BM25 is a ranking function widely used as the state of the art for Informaion Retrieval tasks. BM25 is a variation of the TF-IDF model using a probabilistic model.
 
 \begin{definicion}
-Dadas dos oraciones R, S, BM25 se define como:
+Given two sentences R, S, BM25 is defined as:
 
 \begin{equation}
 BM25(R,S) = \sum_{i=1}^{n} IDF(s_i) \cdot \frac{f(s_i, R) \cdot (k_1 + 1)}{f(s_i, R) + k_1 \cdot (1 - b + b \cdot \frac{|R|}{avgDL})}
 \end{equation}
 
-donde $k$ y $b$ son parámetros que valen $k = 1,2$ y $b = 0,75$, y $avgDL$ es el largo promedio de las oraciones en el texto.
+where $k$ y $b$ are parameters. We used $k = 1,2$ and $b = 0,75$,  $avgDL$ is the average length of the sentences in our collection.
 \end{definicion}
 
-Esta función contempla la frecuencia inversa del documento de manera tal que si una palabra aparece en más de la mitad de los textos, el valor para ese término se vuelve negativo. Dado que este comportamiento no es deseable para esta aplicación, se utiliza la siguiente fórmula:
+In the way this function is defined a word appearing in more than half the documents of the collection will have a negative value. Since this can be a negative effect we used the following correction formula:
                 
 \begin{equation}
  IDF(q_i) =
@@ -150,24 +125,21 @@ Esta función contempla la frecuencia inversa del documento de manera tal que si
   \end{cases}
 \end{equation}                
                 
-donde $\varepsilon$ ronda entre 0,5 y 0,30 y $avgIDF$ es el idf promedio para todos los términos.
-También se ensayaron alternativas como igualar a cero el resultado en caso de ser negativo, o reemplazar la función inversa por una similar, cuyo resultado es no negativo, o estrictamente positivo. 
+where $\varepsilon$ takes a value betweebn 0,5 y 0,30 and $avgIDF$ is the average IDF for all terms.
 
-Existe una variante a BM25 llamada BM25+. Esta repara deficiencias relacionadas a la frecuencia de término y a la penalización a documentos largos frente a documentos cortos irrelevantes.
-
-La propuesta consistió en aplicar BM25 y BM25+ entre las oraciones de un texto, a fin de ordenarlas de acuerdo a su relevancia.
-
+We also used BM25+ a variation of BM25 that changes the way long documents are penalized.
 
 \subsection{Resultados Obtenidos}
-Los mejores resultados se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0.25, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. Inicialmente se obtuvieron valores cercanos al 1,30\%, pero dado que esta función contempla el uso de \textit{stopwords} se procedió a eliminar la etapa de filtrado del preprocesamiento del texto, alcanzado así resultados sobresalientes. En el Cuadro 1 se detallan las alternativas ensayadas.
+We tested LCS, Cosine Sim, BM25 and BM25+ as different ways to weight the edges for the TextRank graph. 
+The best results were obtained using BM25 and BM25+. The best result was 2.92\% above the original TextRank result using BM25 and $\varepsilon$ = 0.25. The following chart shows the results obtained for the different variations we proposed.
 
 \begin{table}
-\caption{Resultados de las distintas propuestas}
+\caption{Results}
 \begin{center}
 \begin{tabular}{l*{5}{c}r}
 \hline
 \rule{0pt}{12pt}
-Método & ROUGE-1 & ROUGE-2 & ROUGE-SU4 & Mejora \\[2pt]
+Method & ROUGE-1 & ROUGE-2 & ROUGE-SU4 & Improvement \\[2pt]
 \hline\rule{0pt}{12pt}\mbox{}\par\nobreak
 BM25 (Neg a epsilon) & 0.4042 & 0.1831 & 0.2018 & 2,92\% \\
 BM25+ (Neg a epsilon) & 0.404 & 0.1818 & 0.2008 & 2,60\% \\
@@ -186,28 +158,29 @@ DUC Baseline & 0.39 & 0.1689 & 0.186 & -2,84\% \\ [2pt]
 \end{center}
 \end{table}
 
-Los tiempos de ejecución también se superaron. Se pudieron procesar los 567 documentos de la base de datos de DUC2002 utilizando 84\% del tiempo requerido por la versión original.
+The performance in time was also improved. We could process the 567 documents from the DUC2002 database in 84\% of the time needed in the original version.
 
-El resultado de la métrica de similitud coseno también fue satisfactoria, presentando una mejora de 2,54\% por sobre el método original. A su vez, los métodos de secuencias de máxima longitud también mostraron una mejora considerable: cerca del 1,40\% por sobre TextRank. En la Figura 1 se comparan los distintas técnicas.
+The result of Cosine Similarity was also satisfactory with a 2.54\% improvement over the original method. The LCS variation also improved the original TextRank algorithm with 1.40\% total improvement.istintas técnicas.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{rouge-scores.pdf}
-    \caption{Comparación de métricas.}
+    \caption{Comparison.}
 \end{figure}
 
+\section{Reference Implementations and Gensim Contribution}
+A reference implementation of our proposals was coded as a Python module. It can be obtained for testing and to reproduce results from the followingg URL: ACA VIENE UNA URL.
 
+We also contributed the BM25-TextRank algorithm to the Gensim project. Gensim is a collection of text processing tools in Python designed to be efficient and scalable. Since Gensin didn't have an automated summarization module we contributed our work to the project. 
 
-\section{Conclusiones}
-En este trabajo se analizaron variantes al algoritmo de TextRank. A partir del mismo se propusieron e implementaron optimizaciones cuyos resultados fueron significativos: se obtuvo una mejoría del 2,92\% por sobre el método original. Este número es notable si se tiene en cuenta que TextRank por sí solo performa 2,84\% por sobre el estándar de comparación (baseline).
+Gensim can be found at: ACA VIENE LA URL DE GENSIM
 
-Las evaluaciones fueron hechas con las mismas técnicas y conjuntos de datos utilizados en competencias internacionales, validando así las mediciones.
+\section{Conclusions}
+This work presented three different variations to the TextRank algorithm for automatic summarization. The three variations presented improved significantly the results of the algorithm using the same metric and database used in the original paper. Given that TextRank performs 2.84\% over the baseline our improvement of 2.92\% over the TextRank result is an important result. 
 
-En base a estos resultados proponemos la utilización de BM25 o BM25+ junto con TextRank como herramienta para la generación de resúmenes automáticos. Los ejemplos analizados y las métricas obtenidas demuestran resultados a los obtenidos por la versión original del algoritmo TextRank sin costo alguno extra de tiempo de procesamiento. 
+The combination of TextRank with modern Informatio Retrieval ranking functions such as BM25 and BM25+ results in the creation of a robust method for automatic summarization that performs better than the stadard methods used previously. 
 
-Queda para próximos trabajos explorar alternativas para la extracción de palabras claves, y el ensayo de distintos métodos algebraicos, haciendo uso del modelo del espacio vectorial.
-
-
+Based on this results we suggest the use of BM25 along with TextRank for the task of unsupervised automatic summarization of texts. The results obtained and the examples analyzed show that this variation is better than the original TextRank algorithm without a performance penalty.
 \bibliography{report}{}
 \bibliographystyle{babunsrt}
 
