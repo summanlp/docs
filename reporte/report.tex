@@ -63,9 +63,9 @@ La primera sección de este artículo describe el trabajo previo existente en el
 
 
 \section{Trabajo previo}
-Se ha visto un gran avance en el campo de la generación automática de resúmenes desde finales de 1960 hasta la actualidad. Los métodos tradicionales tienen en cuenta la frecuencia de palabras o frases introductorias para identificar las oraciones más sobresalientes del texto. Otros enfoques se basan en la representación del texto en forma de grafo: las oraciones importantes y los conceptos son las entidades altamente conectadas y, por esto, forman parte del resumen \cite{barzilay}. 
+Se ha visto interés en el campo de la generación automática de resúmenes desde finales de la década del 1950 \cite{luhn}. Los métodos tradicionales tienen en cuenta la frecuencia de palabras o frases introductorias para identificar las oraciones más sobresalientes del texto. Otros enfoques más modernos se basan en la representación del texto en forma de grafo: las oraciones importantes y los conceptos son las entidades altamente conectadas y, por esto, forman parte del resumen \cite{barzilay}. 
 
-En la línea de representación del texto como un grafo conectado se usan técnicas de Recuperación de Información para identificar oraciones similares y determinar las más importantes, que formarán al resumen final \cite{salton}. El enfoque propuesto, tanto por Mihalcea y Tarau \cite{mihalcea-tarau} como por Erkan y Radev \cite{erkan}, consiste en utilizar el prestigio de las unidades léxicas (oraciones o palabras) dentro del grafo. Dicha técnica es la que adopta el algoritmo de TextRank.
+Con esta idea se usan métodos del campo de Recuperación de Información para identificar oraciones similares y determinar las más importantes, que formarán al resumen final \cite{salton}. El enfoque propuesto, tanto por Mihalcea y Tarau en TextRank \cite{mihalcea-tarau} como por Erkan y Radev en LexRank \cite{erkan}, consiste en utilizar el prestigio de las unidades léxicas (oraciones o palabras) dentro del grafo.
 
 
 \section{TextRank}
@@ -250,7 +250,6 @@ El resultado de la métrica de similitud coseno también fue satisfactoria, pres
     \includegraphics[width=1\textwidth]{rouge-scores.pdf}
     \caption{Comparación de puntajes obtenidos para la base de datos de DUC2002 en las métricas ROUGE-1 y 2.}
 \end{figure}
-
 
 \section{Conclusiones}
 En este trabajo se analizaron variantes al algoritmo de TextRank. A partir del mismo se propusieron e implementaron optimizaciones cuyos resultados fueron significativos: se obtuvo una mejoría del 2,92\% por sobre el método original. Este número es notable si se tiene en cuenta que TextRank por sí solo tiene un desempeño de  2,84\% por sobre el estándar de comparación (\textit{baseline}).
