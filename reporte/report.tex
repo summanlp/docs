@@ -90,6 +90,59 @@ Similitud(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j
 El resultado de este proceso es el texto representado como un grafo ponderado y altamente denso. Luego de aplicar el algoritmo de PageRank se seleccionan las oraciones con mayor puntaje para incluirlas en el resumen. Estas, finalmente, se presentan de acuerdo al orden de aparición en el texto original.
 
 
+\section{Variantes propuestas}
+
+Las variantes que se proponen al algoritmo original de TextRank consisten en cambiar la forma en la que se calcula la similitud entre las oraciones de los textos. En esta sección se describen aquellas con las que se obtuvieron mejores resultados. 
+
+
+\subsection{Subcadena común}
+El problema de la subcadena común más larga consiste en identificar la secuencia de caracteres de mayor extensión presente en dos oraciones. Por ejemplo, entre “la cocina verde” y “una cocina vale más si es verde”, la secuencia más larga es “a cocina v”.
+
+La propuesta consiste en reemplazar la función de similitud por el largo de la subcadena común más larga. En el ejemplo anterior, esta longitud sería de 10, dado que es el largo de la secuencia “a cocina v”.
+
+
+\subsection{Similitud coseno}
+La similitud coseno es una medida del parecido entre dos vectores en un espacio que posee un producto interior, y resulta de evaluar el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta “distancia” se utiliza el modelo vectorial, es decir, se modelan a los documentos como vectores.
+
+Este modelo algebraico es utilizado para representar documentos en lenguaje natural de una manera formal, y se basa en favorecer la dirección a la cuál apuntan los documentos independientemente de su longitud. Consecuentemente, textos que hablan de los mismos temas pero tienen diferente longitud pueden tener una gran similitud con esta métrica. 
+
+La propuesta se basa en aplicar este modelo para tratar a cada oración del texto como un vector n-dimensional (siendo n la cantidad de palabras distintas presentes en el documento), y luego compararlas utilizando la similitud coseno. Las componentes de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término -- frecuencia inversa de documento” (TF--IDF de sus siglas en inglés) a cada palabra de la oración representada.
+
+Dado que la imagen de la función TF--IDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
+
+\subsection{BM25}
+Okapi BM25 es una función utilizada para la asignación de relevancia a los documentos en un buscador.
+Está basada en los modelos probabilísticos de Recuperación de información, y actualmente 
+representa el estado del arte en algoritmos de recuperación de documentos basados en TF--IDF.
+
+\begin{definicion}
+Dadas dos oraciones R, S, BM25 se define como:
+
+\begin{equation}
+BM25(R,S) = \sum_{i=1}^{n} IDF(s_i) \cdot \frac{f(s_i, R) \cdot (k_1 + 1)}{f(s_i, R) + k_1 \cdot (1 - b + b \cdot \frac{|R|}{avgDL})}
+\end{equation}
+
+donde $k$ y $b$ son parámetros que valen $k = 1,2$ y $b = 0,75$, y $avgDL$ es el largo promedio de las oraciones en el texto.
+\end{definicion}
+
+Esta función penaliza aquellos términos que aparecen en más de la mitad de los textos, haciendo negativo a su valor. 
+Como este comportamiento no es compatible con el algoritmo de PageRank, se utiliza la siguiente fórmula:
+                
+\begin{equation}
+ IDF(q_i) =
+  \begin{cases}
+       log(N - n(q_i) + 0.5) - log(n(q_i) + 0.5)    & \text{si }  n(q_i) > N/2\\
+       \varepsilon \cdot avgIDF                     & \text{si }  n(q_i) \leq N/2\\
+  \end{cases}
+\end{equation}                
+                
+donde $\varepsilon$ ronda entre 0,5 y 0,30 y $avgIDF$ es el idf promedio para todos los términos.
+También se ensayaron las alternativas de igualar a cero el resultado en caso de ser negativo, y de reemplazar la función inversa por una similar, cuyo resultado es no negativo, o estrictamente positivo. 
+
+Existe, además, una variante a BM25 llamada BM25+. Esta repara deficiencias relacionadas a la frecuencia de término y a la penalización a documentos largos frente a documentos cortos irrelevantes.
+
+
+
 \section{Ejemplos}
 Tomando como ejemplo el artículo 114 de la conferencia DUC (Document Understanding Conference) del año 2002 \cite{duc2002-guidelines}:
 
@@ -147,69 +200,6 @@ TGF beta is normally present in heart cells, but the study published in Science 
 %     }%
 % }
 
-
-\section{Variantes propuestas}
-
-En la siguiente sección se describen las variantes que se probaron sobre el algoritmo original de
-TextRank. Principalmente estas modificaciones apuntan a cambiar la forma en la cual se calculan las distancias entre las oraciones de los textos. Diferentes métricas arrojaron diferentes resultados y algunas de éstas variantes lograron una mejora significativa sobre el algoritmo original.
-
-\subsection{Subcadena común}
-Dadas dos frases, el problema de la subcadena común más larga consiste en identificar la secuencia de caracteres de mayor extensión presente en ambas. Por ejemplo, entre “la cocina verde” y “una cocina vale más si es verde”, la secuencia más larga es “a cocina v”.
-
-La propuesta consiste en modificar la función de distancia de la implementación original y reemplazarla por el largo de la subcadena común más larga. En el ejemplo anterior, la similitud sería de 10, dado que es el largo de la secuencia “a cocina v”.
-
-Cabe destacar el parecido de esta métrica con los métodos de evaluación ROUGE.
-
-
-\subsection{Similitud coseno}
-La similitud coseno es una medida de la similitud existente entre dos vectores en un espacio que posee un producto interior con el que se evalúa el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta “distancia” se utiliza el modelo vectorial es decir que se modelan a los documentos como vectores.
-
-Este modelo algebraico es utilizado para representar documentos en lenguaje natural de una manera formal mediante el uso de vectores en un espacio multidimensional. La teórica básica es que el parecido de un documento frente a otro puede calcularse usando la similitud coseno. 
-
-Este modelo está basado en favorecer la dirección a la cuál apuntan los documentos independientemente de su longitud. Textos que hablan de los mismos temas pero tienen diferente longitud pueden tener una gran similitud con esta métrica. 
-
-La propuesta se basa en aplicar este modelo para tratar a cada oración del texto como un vector n-dimensional (siendo n la cantidad de palabras distintas presentes en el documento), y luego compararlas utilizando la similitud coseno. Las entradas de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término -- frecuencia inversa de documento” (TF--IDF de sus siglas en inglés) a cada palabra de la oración representada.
-
-Tomando como ejemplo el documento “Esta bien. Todo bien.”, las oraciones quedarían modeladas como vectores de la siguiente forma:
-
-\begin{Verbatim}[xleftmargin=3em]
-v1=[ TFIDF("Esta") , TFIDF("bien") ,       0       ]
-v2=[       0       , TFIDF("bien") , TFIDF("Todo") ]
-\end{Verbatim}
-
-Dado que la imagen de la función TFIDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
-
-\subsection{BM25}
-Okapi BM25 es una función de ranking utilizada para la asignación de relevancia a los documentos en un buscador. 
-Está basada en los modelos probabilísticos de Recuperación de información, y actualmente 
-representa el estado del arte en algoritmos de recuperación de documentos basados en frecuencia de término -- frecuencia inversa de documento.
-
-\begin{definicion}
-Dadas dos oraciones R, S, BM25 se define como:
-
-\begin{equation}
-BM25(R,S) = \sum_{i=1}^{n} IDF(s_i) \cdot \frac{f(s_i, R) \cdot (k_1 + 1)}{f(s_i, R) + k_1 \cdot (1 - b + b \cdot \frac{|R|}{avgDL})}
-\end{equation}
-
-donde $k$ y $b$ son parámetros que valen $k = 1,2$ y $b = 0,75$, y $avgDL$ es el largo promedio de las oraciones en el texto.
-\end{definicion}
-
-Esta función contempla la frecuencia inversa del documento de manera tal que si una palabra aparece en más de la mitad de los textos, el valor para ese término se vuelve negativo. Dado que este comportamiento no es deseable para esta aplicación, se utiliza la siguiente fórmula:
-                
-\begin{equation}
- IDF(q_i) =
-  \begin{cases}
-       log(N - n(q_i) + 0.5) - log(n(q_i) + 0.5)    & \text{si }  n(q_i) > N/2\\
-       \varepsilon \cdot avgIDF                     & \text{si }  n(q_i) \leq N/2\\
-  \end{cases}
-\end{equation}                
-                
-donde $\varepsilon$ ronda entre 0,5 y 0,30 y $avgIDF$ es el idf promedio para todos los términos.
-También se ensayaron alternativas como igualar a cero el resultado en caso de ser negativo, o reemplazar la función inversa por una similar, cuyo resultado es no negativo, o estrictamente positivo. 
-
-Existe una variante a BM25 llamada BM25+. Esta repara deficiencias relacionadas a la frecuencia de término y a la penalización a documentos largos frente a documentos cortos irrelevantes.
-
-La propuesta consistió en aplicar BM25 y BM25+ entre las oraciones de un texto, a fin de ordenarlas de acuerdo a su relevancia.
 
 
 \subsection{Evaluación}
