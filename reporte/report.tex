@@ -12,10 +12,13 @@
 \usepackage{tikz}
 \usetikzlibrary{shadows}
 
-\newcommand{\raisedtext}[1]{%
+\newcommand{\raisedtext}[1]{
+  \vspace{2mm}
   \begin{tikzpicture}
     [baseline=(X.base)]\node [drop shadow,fill=white,draw,very thin] (X) {#1};
-  \end{tikzpicture}}
+  \end{tikzpicture}
+  \vspace{2mm}
+}
 %%%%%%%%%%%%%%%%%%%
 
 \graphicspath{ {img/} }
@@ -142,10 +145,8 @@ También se ensayaron las alternativas de igualar a cero el resultado en caso de
 Existe, además, una variante a BM25 llamada BM25+. Esta repara deficiencias relacionadas a la frecuencia de término y a la penalización a documentos largos frente a documentos cortos irrelevantes.
 
 
-
-\section{Ejemplos}
-Tomando como ejemplo el artículo 114 de la conferencia DUC (Document Understanding Conference) del año 2002 \cite{duc2002-guidelines}:
-
+\section{Ejemplo}
+Se muestra a continuación un documento del conjunto de evaluación de la conferencia DUC (Document Understanding Conference) del año 2002 \cite{duc2002-guidelines}:
 
 % \noindent\fbox{%
 %     \parbox{\textwidth}{%
@@ -177,15 +178,11 @@ Tomando como ejemplo el artículo 114 de la conferencia DUC (Document Understand
 }
 }
 
-El algoritmo modela el texto como un grafo utilizando las oraciones como nodos.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[trim = 0mm 50mm 0mm 50mm, clip, scale=0.15,width=1\textwidth]{Untitled.pdf}
-    \caption{Grafo generado a partir del texto.}
-\end{figure}
 
-Finalmente, el resumen generado es el siguiente:
+Modelando el texto de entrada en el grafo mostrado en la Figura 1, el algoritmo de TextRank 
+produce el siguiente resumen:
+
 
 
 % \noindent\fbox{%
@@ -200,9 +197,14 @@ TGF beta is normally present in heart cells, but the study published in Science 
 %     }%
 % }
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[trim = 0mm 50mm 0mm 50mm, clip, scale=0.15,width=1\textwidth]{Untitled.pdf}
+    \caption{Grafo generado a partir del texto de ejemplo.}
+\end{figure}
 
 
-\subsection{Evaluación}
+\section{Evaluación}
 Se decidió usar la base de datos de la tarea de generación de resúmenes automáticos de la conferencia DUC (Document Understanding Conference) del año 2002 \cite{duc2002-guidelines}. Este el mismo corpus que el usado en la presentación del algoritmo TextRank en \cite{mihalcea-tarau}. El corpus cuenta con 567 documentos que fueron resumidos a cerca del 20\% de su tamaño.
 
 Para llevar a cabo la evaluación se usó la versión 1.5.5 del paquete de métricas ROUGE \cite{Lin2004a}. Se utilizó la configuración usada en DUC, calculando sólo las mediciones ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza del 95\%. Se obtuvo un único puntaje promediando los tres valores.
