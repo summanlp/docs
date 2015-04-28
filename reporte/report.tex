@@ -46,7 +46,7 @@
 \maketitle
 
 \begin{abstract}
-Este artículo describe el desarrollo y prueba de nuevas variantes del algoritmo
+Este artículo describe el desarrollo y pruebas de nuevas variantes del algoritmo
 TextRank para la generación de resúmenes automáticos. Se describen las generalidades
 del algoritmo TextRank en su versión original y las diferentes variantes
 que fueron propuestas y probadas. Algunas de estas logran una mejora en
@@ -57,9 +57,9 @@ resúmenes automáticos.
 \end{abstract}
 
 \section{Introducción}
-El proceso de generación extractiva de resúmenes automáticos consiste en extraer de un documento sus oraciones más representativas. Con diferentes niveles de compresión puede obtenerse una representación resumida del documento de una longitud arbitraria. El algoritmo TextRank se basa en aplicar el conocido algoritmo PageRank al grafo generado por las diferentes oraciones del texto. En este trabajo se describen variantes al algoritmo probadas, y sus resultados.
+El proceso de generación extractiva de resúmenes automáticos consiste en extraer de un documento sus oraciones más representativas. Con diferentes niveles de compresión puede obtenerse una representación resumida del documento de una longitud arbitraria. El algoritmo TextRank se basa en aplicar el conocido algoritmo PageRank al grafo generado por las oraciones del texto. En este trabajo se describen variantes al algoritmo probadas, y sus resultados.
 
-La primera sección de este artículo describe el trabajo previo existente en el área y el algoritmo TextRank en general. Luego se detallan las distintas variantes propuestas al algoritmo original y los resultados obtenidos con las mismas. Finalmente se describen las métricas utilizadas para la evaluación de los cambios propuestos y los conjuntos de datos utilizados.
+La primera sección de este artículo describe el trabajo previo existente en el área y el algoritmo TextRank en general. Luego se detallan las distintas variantes propuestas al algoritmo original y los resultados obtenidos con las mismas. Finalmente se describen las métricas y el conjunto de datos utilizados para la evaluación de los cambios propuestos.
 
 
 \section{Trabajo previo}
@@ -74,7 +74,7 @@ TextRank es un algoritmo no supervisado para generar resúmenes automáticos u o
 
 El algoritmo modela el texto en base a un grafo, intentando crear relaciones significativas (aristas) entre las oraciones del texto (vértices). A este grafo se le aplica una variación de PageRank \cite{pageetal98}, sirviéndose de la noción de “recomendación” entre las unidades léxicas. De esta manera explota la estructura del texto y determina la importancia de sus oraciones sin necesidad de datos previos de entrenamiento. Este método, en consecuencia, es aplicable a cualquier texto, incluso sin importar el idioma.
 
-El peso de cada arista queda determinado por una función de semejanza entre los vértices que conecta. Esta función será la que dicte cuánto una oración “recomienda” a otra, dependiendo de la similitud entre sus contenidos por abordar los mismos conceptos.
+El peso de cada arista queda determinado por una función de semejanza entre los vértices que conecta. Esta función será la que dicte cuánto una oración recomienda a otra, dependiendo de la similitud entre sus contenidos debido a que abordan los mismos conceptos.
     
 La función utilizada por el algoritmo se define formalmente de la siguiente manera:
 
@@ -105,9 +105,9 @@ La propuesta consiste en reemplazar la función de similitud por el largo de la 
 
 
 \subsection{Similitud coseno}
-La similitud coseno es una medida del parecido entre dos vectores en un espacio que posee un producto interior, y resulta de evaluar el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta “distancia” se utiliza el modelo vectorial, es decir, se modelan a los documentos como vectores.
+La similitud coseno es una medida del parecido entre dos vectores en un espacio que posee un producto interior, y resulta de evaluar el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta propiedad se utiliza el modelo vectorial, modelando a los documentos como vectores.
 
-Este modelo algebraico es utilizado para representar documentos en lenguaje natural de una manera formal, y se basa en favorecer la dirección a la cuál apuntan los documentos independientemente de su longitud. Consecuentemente, textos que hablan de los mismos temas pero tienen diferente longitud pueden tener una gran similitud con esta métrica. 
+Este modelo algebraico es utilizado para representar documentos en lenguaje natural de una manera formal, y tiene la característica de que favorece la dirección a la cuál apuntan los documentos independientemente de su longitud. Consecuentemente, textos que hablan de los mismos temas en distinta cantidad de palabras pueden tener una gran similitud con esta métrica. 
 
 La propuesta se basa en aplicar este modelo para tratar a cada oración del texto como un vector n-dimensional (siendo n la cantidad de palabras distintas presentes en el documento), y luego compararlas utilizando la similitud coseno. Las componentes de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término -- frecuencia inversa de documento” (TF--IDF de sus siglas en inglés) a cada palabra de la oración representada.
 
@@ -125,7 +125,7 @@ Dadas dos oraciones R, S, BM25 se define como:
 BM25(R,S) = \sum_{i=1}^{n} IDF(s_i) \cdot \frac{f(s_i, R) \cdot (k_1 + 1)}{f(s_i, R) + k_1 \cdot (1 - b + b \cdot \frac{|R|}{avgDL})}
 \end{equation}
 
-donde $k$ y $b$ son parámetros que valen $k = 1,2$ y $b = 0,75$, y $avgDL$ es el largo promedio de las oraciones en el texto.
+donde $k$ y $b$ son parámetros que usualmente valen $k = 1,2$ y $b = 0,75$, y $avgDL$ es el largo promedio de las oraciones en el texto.
 \end{definicion}
 
 Esta función penaliza aquellos términos que aparecen en más de la mitad de los textos, haciendo negativo a su valor. 
@@ -140,7 +140,7 @@ Como este comportamiento no es compatible con el algoritmo de PageRank, se utili
 \end{equation}                
                 
 donde $\varepsilon$ ronda entre 0,5 y 0,30 y $avgIDF$ es el idf promedio para todos los términos.
-También se ensayaron las alternativas de igualar a cero el resultado en caso de ser negativo, y de reemplazar la función inversa por una similar, cuyo resultado es no negativo, o estrictamente positivo. 
+También se ensayaron las alternativas de igualar a cero el resultado en caso de ser negativo, y de reemplazar la función inversa por una similar cuyo resultado sea no negativo o estrictamente positivo. 
 
 Existe, además, una variante a BM25 llamada BM25+. Esta repara deficiencias relacionadas a la frecuencia de término y a la penalización a documentos largos frente a documentos cortos irrelevantes.
 
@@ -199,7 +199,7 @@ TGF beta is normally present in heart cells, but the study published in Science 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[trim = 0mm 50mm 0mm 50mm, clip, scale=0.15,width=1\textwidth]{Untitled.pdf}
+    \includegraphics[trim = 0mm 50mm 0mm 50mm, clip, scale=0.15,width=1\textwidth]{graph.pdf}
     \caption{Grafo generado a partir del texto de ejemplo.}
 \end{figure}
 
