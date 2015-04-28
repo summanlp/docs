@@ -8,6 +8,16 @@
 \usepackage[spanish]{babelbib}
 \usepackage{graphicx}
 
+%%%%%%%%%% Text with box
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+
+\newcommand{\raisedtext}[1]{%
+  \begin{tikzpicture}
+    [baseline=(X.base)]\node [drop shadow,fill=white,draw,very thin] (X) {#1};
+  \end{tikzpicture}}
+%%%%%%%%%%%%%%%%%%%
+
 \graphicspath{ {img/} }
 
 % \urldef{\mails}\path|{fbarrios,fjlopez}@fi.uba.ar| 
@@ -103,10 +113,10 @@ Luego de aplicar el algoritmo de relevancia/priorización se seleccionan las ora
 Tomando como ejemplo el artículo 114 de la conferencia DUC (Document Understanding Conference) del año 2002 \cite{duc2002-guidelines}:
 
 
-\noindent\fbox{%
-    \parbox{\textwidth}{%
-% \begin{footnotesize}
-{\scriptsize
+% \noindent\fbox{%
+%     \parbox{\textwidth}{%
+% {\scriptsize
+\raisedtext{{\scriptsize \parbox{\linewidth}{
 \begin{enumerate}
 \item Growth Factor Protects Heart Following Attack, Study In Rats Shows 
 \item By PAUL RECER AP Science Writer WASHINGTON (AP) 
@@ -129,11 +139,9 @@ Tomando como ejemplo el artículo 114 de la conferencia DUC (Document Understand
 \item Jefferson Medical College, where the study was done, is part of Thomas Jefferson University in Philadelphia.
 \item Science, which published the study, is the journal of the American Association for the Advancement of Science. 
 \end{enumerate}
-% \end{footnotesize}
 }
-    }%
 }
-
+}
 
 El algoritmo modela el texto como un grafo utilizando las oraciones como nodos.
 
@@ -146,17 +154,17 @@ El algoritmo modela el texto como un grafo utilizando las oraciones como nodos.
 Finalmente, el resumen generado es el siguiente:
 
 
-\noindent\fbox{%
-    \parbox{\textwidth}{%
-% \begin{footnotesize}
-{\scriptsize
-A natural substance called transforming growth factor beta appears to be able to limit damage to cardiac cells following a heart attack, according to a study published in the journal Science.
+% \noindent\fbox{%
+%     \parbox{\textwidth}{%
+% {\scriptsize
+\raisedtext{{\scriptsize \parbox{\linewidth}{A natural substance called transforming growth factor beta appears to be able to limit damage to cardiac cells following a heart attack, according to a study published in the journal Science.
 In a study at the Jefferson Medical College in Philadelphia, a group of laboratory rats induced to have heart attacks suffered 50 percent less cell damage after injections of transforming growth factor beta than did rats that did not receive the TGF beta.
 Lefer said the TGF beta seems to block the action of other substances, such as tumor necrosis factor, that can cause blood vessels to narrow following a heart attack.
-TGF beta is normally present in heart cells, but the study published in Science said that it is missing from rat heart cells damaged by a simulated heart attack. \par
-}
-    }%
-}
+TGF beta is normally present in heart cells, but the study published in Science said that it is missing from rat heart cells damaged by a simulated heart attack.}}}
+% \par
+% }
+%     }%
+% }
 
 
 \section{Experimentos}
