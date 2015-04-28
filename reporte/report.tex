@@ -159,13 +159,12 @@ TGF beta is normally present in heart cells, but the study published in Science 
 }
 
 
-\section{Experimentos}
+\section{Variantes propuestas}
 
-\subsection{Propuestas}
 En la siguiente sección se describen las variantes que se probaron sobre el algoritmo original de
 TextRank. Principalmente estas modificaciones apuntan a cambiar la forma en la cual se calculan las distancias entre las oraciones de los textos. Diferentes métricas arrojaron diferentes resultados y algunas de éstas variantes lograron una mejora significativa sobre el algoritmo original.
 
-\subsubsection{Subcadena común}
+\subsection{Subcadena común}
 Dadas dos frases, el problema de la subcadena común más larga consiste en identificar la secuencia de caracteres de mayor extensión presente en ambas. Por ejemplo, entre “la cocina verde” y “una cocina vale más si es verde”, la secuencia más larga es “a cocina v”.
 
 La propuesta consiste en modificar la función de distancia de la implementación original y reemplazarla por el largo de la subcadena común más larga. En el ejemplo anterior, la similitud sería de 10, dado que es el largo de la secuencia “a cocina v”.
@@ -173,7 +172,7 @@ La propuesta consiste en modificar la función de distancia de la implementació
 Cabe destacar el parecido de esta métrica con los métodos de evaluación ROUGE.
 
 
-\subsubsection{Similitud coseno}
+\subsection{Similitud coseno}
 La similitud coseno es una medida de la similitud existente entre dos vectores en un espacio que posee un producto interior con el que se evalúa el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta “distancia” se utiliza el modelo vectorial es decir que se modelan a los documentos como vectores.
 
 Este modelo algebraico es utilizado para representar documentos en lenguaje natural de una manera formal mediante el uso de vectores en un espacio multidimensional. La teórica básica es que el parecido de un documento frente a otro puede calcularse usando la similitud coseno. 
@@ -191,7 +190,7 @@ v2=[       0       , TFIDF("bien") , TFIDF("Todo") ]
 
 Dado que la imagen de la función TFIDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
 
-\subsubsection{BM25}
+\subsection{BM25}
 Okapi BM25 es una función de ranking utilizada para la asignación de relevancia a los documentos en un buscador. 
 Está basada en los modelos probabilísticos de Recuperación de información, y actualmente 
 representa el estado del arte en algoritmos de recuperación de documentos basados en frecuencia de término -- frecuencia inversa de documento.
