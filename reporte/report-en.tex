@@ -64,15 +64,11 @@ TextRank is an unsupervised algorithm based in graphs for the automated summariz
 The algorithm applies a variation of PageRank \cite{pageetal98} over a graph constructed specifically for the task of summarization. This method provides an understanding of the structure of the document identifying its principal concepts without the need of previous training. Since the algorithm is based on PageRank it uses the idea of ranking of the elements in the graph, the most important elements are the ones that better describe the text. This approach allows TextRank to build summaries without the need of a training corpus or labeling and allows the use of the algorithm with different languages as long as there is a way to build the graph of sentences for it.
 
 \subsection{Text as a Graph}
-TextRank models any document as a graph, it can use words or sentences as the different nodes in the graph. Sentences are used for automated summarization and words for keyword extraction. After extracting sentences as nodes in a graph, the algorithm needs to build edges in between. A function to compute the similarity of sentences is then needed. The similarity function is used to weight the graph edges, the higher the similarity between sentences the more important the edge between them will be in the graph. In the domain of a Random Walker, as used frequently in PageRank, we can say that we are more likely to go from one sentence to another if those sentences are very similar. 
+For the task of automated summarization, TextRank models any document as a graph using sentences as nodes \cite{introductionir}. A function to compute the similarity of sentences is needed to build edges in between. This function is used to weight the graph edges, the higher the similarity between sentences the more important the edge between them will be in the graph. In the domain of a Random Walker, as used frequently in PageRank, we can say that we are more likely to go from one sentence to another if those sentences are very similar. 
 
-The similarity function can use several different ideas. It can be based in the semantic of the sentences, in their proximity in the text, common words, and many other different metrics. The goal of this article is to experiment with different similarity functions and report the results obtained when used along with TextRank.
+The similarity function can use several different ideas. It can be based in the semantic of the sentences, in their proximity in the text, common words, and many other different metrics. The goal of this article is to experiment with these similarity functions and report the results obtained when used along with TextRank.
 
-
-\subsection{Automatic Summarization}
-The problem can be seen as the extraction of the most significative sentences in the document. In this work the lexical units used for the algorithm will be complete sentences \cite{introductionir}.
-
-The similarity function used between sentences (nodes in the graph) can be formalized as:
+The similarity function featured in the original algorithm can be formalized as:
 
 
 \begin{definicion}
@@ -88,9 +84,7 @@ Sim(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j}   \}
 
 \end{definicion}
 
-The result of this process is a dense graph representing the document. From this graph PageRank is used to compute the importance of each vertex. 
-
-The most significative sentences according to PageRank are selected as the summarization of the text and presented in the same order as they appear in the document.
+The result of this process is a dense graph representing the document. From this graph, PageRank is used to compute the importance of each vertex. The most significative sentences are selected and presented in the same order as they appear in the document as the summary.
 
 \section{Example}
 A sample document from the 2002 DUC (Document Understanding Conference) dataset \cite{duc2002-guidelines} is shown in Figure \ref{fig:text}. The TextRank algorithm produces the summary shown in Figure \ref{fig:summary} using the graph shown in Figure \ref{fig:graph}.
