@@ -30,7 +30,7 @@ This article describes our proposal for new variants of the TextRank algorithm f
 
 \end{abstract}
 
-\section{Introducción}
+\section{Introduction}
 We can describe the process of automated summarization as the extraction of the most important sentences in a document. Using different levels of compression a summarized version of the document of arbitrary length can be obtained. The TexRank algorithm is one of the most used methods for this task. TextRank builds a graph of sentendes for a document and then applies PageRank to obtain a score for each sentence. The sentences with higher score are then used for the summary presented in the order in which they appear in the text. Using different schemes for the construction of the graph we can achieve different results. In this article we describe several different proposals for the construction of the TextRank graph and report the results obtained with them.
 
 The first section of this article describes previous work in the area and the TextRank algorithm in general. Then we describe the different metrics used for the evaluation of the results obtained from the proposed changes and the datasets used for these tests. Finally we report the results obtained for the different variations of the algorithm.
