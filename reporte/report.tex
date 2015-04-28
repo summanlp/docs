@@ -54,7 +54,7 @@ resúmenes automáticos.
 \end{abstract}
 
 \section{Introducción}
-El proceso de generación de resúmenes automáticos consiste en extraer de un documento sus oraciones más representativas. Con diferentes niveles de compresión puede obtenerse una representación resumida del documento de una longitud arbitraria. El algoritmo TextRank se basa en aplicar el conocido algoritmo PageRank al grafo generado por las diferentes oraciones del texto. En este trabajo se describen variantes al algoritmo probadas, y sus resultados.
+El proceso de generación extractiva de resúmenes automáticos consiste en extraer de un documento sus oraciones más representativas. Con diferentes niveles de compresión puede obtenerse una representación resumida del documento de una longitud arbitraria. El algoritmo TextRank se basa en aplicar el conocido algoritmo PageRank al grafo generado por las diferentes oraciones del texto. En este trabajo se describen variantes al algoritmo probadas, y sus resultados.
 
 La primera sección de este artículo describe el trabajo previo existente en el área y el algoritmo TextRank en general. Luego se detallan las distintas variantes propuestas al algoritmo original y los resultados obtenidos con las mismas. Finalmente se describen las métricas utilizadas para la evaluación de los cambios propuestos y los conjuntos de datos utilizados.
 
@@ -67,34 +67,17 @@ En la línea de representación del texto como un grafo conectado se usan técni
 
 \section{TextRank}
 
-\subsection{Descripción}
-TextRank es un algoritmo no supervisado basado en grafos para realizar resúmenes automáticos extractivos u obtener palabras claves de un texto. Fue presentado en 2004 por Rada Mihalcea y Paul Tarau \cite{mihalcea-tarau}.
+TextRank es un algoritmo no supervisado para generar resúmenes automáticos u obtener palabras claves de un texto. Fue presentado en 2004 por Rada Mihalcea y Paul Tarau \cite{mihalcea-tarau}.
 
-El algoritmo aplica una variación de PageRank \cite{pageetal98} sobre un grafo especialmente diseñado para la tarea, y se sirve de la noción de “recomendación” entre los elementos del grafo. De esta manera permite explotar la estructura del texto, identificando los conceptos principales sin necesidad de datos previos de entrenamiento. Es un método aplicable a cualquier texto, incluso sin importar el idioma.
+El algoritmo modela el texto en base a un grafo, intentando crear relaciones significativas (aristas) entre las oraciones del texto (vértices). A este grafo se le aplica una variación de PageRank \cite{pageetal98}, sirviéndose de la noción de “recomendación” entre las unidades léxicas. De esta manera explota la estructura del texto y determina la importancia de sus oraciones sin necesidad de datos previos de entrenamiento. Este método, en consecuencia, es aplicable a cualquier texto, incluso sin importar el idioma.
 
-El algoritmo modela el texto en base a un grafo, y luego busca crear relaciones significativas (aristas) entre las entidades léxicas (vértices). Las entidades pueden ser palabras, frases, oraciones, párrafos, entre otros. De manera similar, también debe definirse el tipo de relación que se usa para unir los vértices: semántica, contextual, de superposición, y demás.
-
-Los pasos principales que se llevan a cabo son los siguientes:
-
-\begin{enumerate}
-\item Identificar las unidades del texto y agregarlas al grafo como vértices.
-\item Identificar relaciones que conectan a estas unidades, y agregarlas al grafo como aristas. Las mismas pueden ser dirigidas o no, y ponderadas o no.
-\item Aplicar PageRank para asignarle un puntaje a cada vértice.
-\item Ordenar los vértices de acuerdo al puntaje y utilizarlo para armar el resumen de acuerdo a algún criterio.
-\end{enumerate}
-
-\subsection{Generación de resúmenes automáticos}
-El problema de la extracción de oraciones apunta a identificar las secuencias más representativas del texto. Para este caso, las unidades tomadas para aplicar el algoritmo serán oraciones completas.
-
-Inicialmente, se construye un grafo en base al texto. Cada oración se considera como un vértice, y para asignarles peso a las aristas se debe definir una función de semejanza entre dos oraciones dadas. Esta función será la que dicte cuánto una oración “recomienda” a otra, dependiendo de la similitud entre sus contenidos por abordar los mismos conceptos.
+El peso de cada arista queda determinado por una función de semejanza entre los vértices que conecta. Esta función será la que dicte cuánto una oración “recomienda” a otra, dependiendo de la similitud entre sus contenidos por abordar los mismos conceptos.
     
-La función utilizada se define formalmente de la siguiente manera:
-
+La función utilizada por el algoritmo se define formalmente de la siguiente manera:
 
 \begin{definicion}
 Sean $S_i$, $S_j$ dos oraciones representadas por un conjunto de $n$ palabras que en 
 $S_i$ aparecen como $S_i = w_{1}^{i}, w_{2}^{i},..., w_{n}^{i}$. La función de similitud para $S_i$, $S_j$ se define como:
-
 
 \begin{equation}
 Similitud(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j}   \}  | }    
@@ -104,9 +87,7 @@ Similitud(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j
 
 \end{definicion}
     
-El resultado de este proceso es el texto representado como un grafo ponderado y altamente denso. A partir de este grafo se aplica PageRank para calcular la relevancia de cada vértice, es decir de cada oración del texo.
-
-Luego de aplicar el algoritmo de relevancia/priorización se seleccionan las oraciones con mayor puntaje para incluirlas en el resumen. Estas, finalmente, se presentan de acuerdo al orden de aparición en el texto original.
+El resultado de este proceso es el texto representado como un grafo ponderado y altamente denso. Luego de aplicar el algoritmo de PageRank se seleccionan las oraciones con mayor puntaje para incluirlas en el resumen. Estas, finalmente, se presentan de acuerdo al orden de aparición en el texto original.
 
 
 \section{Ejemplos}
