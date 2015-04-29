@@ -47,7 +47,7 @@ This article describes our proposal for new variants of the TextRank algorithm f
 \end{abstract}
 
 \section{Introduction}
-We can describe the process of automated summarization as the extraction of the most important sentences in a document. Using different levels of compression a summarized version of the document of arbitrary length can be obtained. The TexRank algorithm is one of the most used methods for this task. TextRank builds a graph of sentences for a document and then applies PageRank to obtain a score for each sentence. In this article we describe several different proposals for the construction of the TextRank graph and report the results obtained with them.
+We can describe the process of automated summarization as the extraction of the most important sentences in a document. Using different levels of compression a summarized version of the document of arbitrary length can be obtained. The TextRank algorithm is one of the most used methods for this task. TextRank builds a graph of sentences for a document and then applies PageRank to obtain a score for each sentence. In this article we describe several different proposals for the construction of the TextRank graph and report the results obtained with them.
 
 The first section of this article describes previous work in the area and the TextRank algorithm in general. Then we report the results obtained for the different variations of the algorithm. Finally we describe the different metrics used for the evaluation of the results obtained from the proposed changes and the datasets used for these tests.
 
@@ -66,7 +66,7 @@ The algorithm applies a variation of PageRank \cite{pageetal98} over a graph con
 \subsection{Text as a Graph}
 For the task of automated summarization, TextRank models any document as a graph using sentences as nodes \cite{introductionir}. A function to compute the similarity of sentences is needed to build edges in between. This function is used to weight the graph edges, the higher the similarity between sentences the more important the edge between them will be in the graph. In the domain of a Random Walker, as used frequently in PageRank, we can say that we are more likely to go from one sentence to another if those sentences are very similar. 
 
-The similarity function can use several different ideas. It can be based in the semantic of the sentences, in their proximity in the text, common words, and many other different metrics. The goal of this article is to experiment with these functions and report the results obtained when used along with TextRank.
+The similarity function can use several different ideas. It can be based on the semantic of the sentences, on their proximity in the text, common words, and many other different metrics. The goal of this article is to experiment with these functions and report the results obtained when used along with TextRank.
 
 The function featured in the original algorithm can be formalized as:
 
@@ -146,7 +146,7 @@ From two sentences we identify the longest common substring (LCS) and report the
 The cosine similarity is a metric widely used to compare texts represented as vectors. We used a classical TF-IDF model to represent the documents as vectors and computed the cosine between vectors as a measure of similarity. Since the vectors are defined to be positive, the cosine results in values in the range [0,1] where a value of 1 represents identical vectors and 0 represents orthogonal vectors.
 
 \subsubsection{BM25}
-BM25 / Okapi-BM25 is a ranking function widely used as the state of the art for Informaion Retrieval tasks. BM25 is a variation of the TF-IDF model using a probabilistic model.
+BM25 / Okapi-BM25 is a ranking function widely used as the state of the art for Information Retrieval tasks. BM25 is a variation of the TF-IDF model using a probabilistic model.
 
 \begin{definicion}
 Given two sentences R, S, BM25 is defined as:
@@ -155,10 +155,10 @@ Given two sentences R, S, BM25 is defined as:
 BM25(R,S) = \sum_{i=1}^{n} IDF(s_i) \cdot \frac{f(s_i, R) \cdot (k_1 + 1)}{f(s_i, R) + k_1 \cdot (1 - b + b \cdot \frac{|R|}{avgDL})}
 \end{equation}
 
-where $avgDL$ is the average length of the sentences in our collection; $k$ and $b$ are free parameters. We used $k = 1,2$ and $b = 0,75$.
+where $k$ and $b$ are parameters. We used $k = 1,2$ and $b = 0,75$. $avgDL$ is the average length of the sentences in our collection.
 \end{definicion}
 
-In the way this function is defined a word appearing in more than half the documents of the collection will have a negative value. Since this can cause problems in the next stage of the algorithm, we used the following correction formula:
+This function definition implies that if a word appears in more than half the documents of the collection, it will have a negative value. Since this can cause problems in the next stage of the algorithm, we used the following correction formula:
                 
 \begin{equation}
  IDF(s_i) =
@@ -168,22 +168,22 @@ In the way this function is defined a word appearing in more than half the docum
   \end{cases}
 \end{equation}                
                 
-where $\varepsilon$ takes a value between 0,5 y 0,30 and $avgIDF$ is the average IDF for all terms.
+where $\varepsilon$ takes a value between 0.5 and 0.30 and $avgIDF$ is the average IDF for all terms.
 
 We also used BM25+, a variation of BM25 that changes the way long documents are penalized.
 
 
 \subsection{Evaluation}
-For testing we used the database of the 2002 Document Understanding Conference (DUC) \cite{duc2002-guidelines}. The corpus has 567 documents that are summarized to 20\% of their size, and is the same corpus used in \cite{mihalcea-tarau}. 
+For testing the proposed variations, we used the database of the 2002 Document Understanding Conference (DUC) \cite{duc2002-guidelines}. The corpus has 567 documents that are summarized to 20\% of their size, and is the same corpus used in \cite{mihalcea-tarau}. 
 
-To evaluate results we used version 1.5.5 of the ROUGE package \cite{Lin2004a}. The configuration settings were the same as those in DUC, where ROUGE-1, ROUGE-2 and ROUGE-SU4 were used as metrics in a 95\% confidence applying stemming. The final result is an average of these three scores.
+To evaluate results we used version 1.5.5 of the ROUGE package \cite{Lin2004a}. The configuration settings were the same as those in DUC, where ROUGE-1, ROUGE-2 and ROUGE-SU4 were used as metrics, using a confidence level of 95\% and applying stemming. The final result is an average of these three scores.
 
 To check the correct behaviour of our test suite we implemented the reference method used in \cite{mihalcea-tarau}, which extracts the first sentences of each document. We found the resulting scores of the original algorithm to be identical to those reported in \cite{mihalcea-tarau}: a 2.3\% improvement over the baseline.
 
 
 \subsection{Results}
 We tested LCS, Cosine Sim, BM25 and BM25+ as different ways to weight the edges for the TextRank graph. 
-The best results were obtained using BM25 and BM25+. We achieved a 2.92\% improvement above the original TextRank result using BM25 and $\varepsilon$ = 0.25. The following chart shows the results obtained for the different variations we proposed.
+The best results were obtained using BM25 and BM25+. We achieved an improvement of 2.92\% above the original TextRank result using BM25 and $\varepsilon$ = 0.25. The following chart shows the results obtained for the different variations we proposed.
 
 \begin{table}
 \caption{Results}
@@ -193,18 +193,18 @@ The best results were obtained using BM25 and BM25+. We achieved a 2.92\% improv
 \rule{0pt}{12pt}
 Method & ROUGE-1 & ROUGE-2 & ROUGE-SU4 & Improvement \\[2pt]
 \hline\rule{0pt}{12pt}\mbox{}\par\nobreak
-BM25 (Neg to epsilon) & 0.4042 & 0.1831 & 0.2018 & 2,92\% \\
-BM25+ (Neg to epsilon) & 0.404 & 0.1818 & 0.2008 & 2,60\% \\
-Cosine TF-IDF & 0.4108 & 0.177 & 0.1984 & 2,54\% \\
-BM25+ (IDF = log(N/NI)) & 0.4022 & 0.1805 & 0.1997 & 2,05\% \\ 
-BM25 (IDF = log(N/NI)) & 0.4012 & 0.1808 & 0.1998 & 1,97\% \\ 
-Longest Common Substring & 0.402 & 0.1783 & 0.1971 & 1,40\% \\
-BM25+ (Neg to zero) & 0.3992 & 0.1803 & 0.1976 & 1,36\% \\ 
-BM25 (Neg to zero) & 0.3991 & 0.1778 & 0.1966 & 0,89\% \\
+BM25 (Neg to epsilon) & 0.4042 & 0.1831 & 0.2018 & 2.92\% \\
+BM25+ (Neg to epsilon) & 0.404 & 0.1818 & 0.2008 & 2.60\% \\
+Cosine TF-IDF & 0.4108 & 0.177 & 0.1984 & 2.54\% \\
+BM25+ (IDF = log(N/NI)) & 0.4022 & 0.1805 & 0.1997 & 2.05\% \\ 
+BM25 (IDF = log(N/NI)) & 0.4012 & 0.1808 & 0.1998 & 1.97\% \\ 
+Longest Common Substring & 0.402 & 0.1783 & 0.1971 & 1.40\% \\
+BM25+ (Neg to zero) & 0.3992 & 0.1803 & 0.1976 & 1.36\% \\ 
+BM25 (Neg to zero) & 0.3991 & 0.1778 & 0.1966 & 0.89\% \\
 \textbf{TextRank} & \textbf{0.3983} & \textbf{0.1762} & \textbf{0.1948} & \textbf{--}\\
-BM25 & 0.3916 & 0.1725 & 0.1906 & -1,57\% \\
-BM25+ & 0.3903 & 0.1711 & 0.1894 & -2,07\% \\
-DUC Baseline & 0.39 & 0.1689 & 0.186 & -2,84\% \\ [2pt]
+BM25 & 0.3916 & 0.1725 & 0.1906 & -1.57\% \\
+BM25+ & 0.3903 & 0.1711 & 0.1894 & -2.07\% \\
+DUC Baseline & 0.39 & 0.1689 & 0.186 & -2.84\% \\ [2pt]
 \hline
 \end{tabular}
 \end{center}
