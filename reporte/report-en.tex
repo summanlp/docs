@@ -52,24 +52,23 @@ We can describe the process of automated summarization as the extraction of the 
 The first section of this article describes previous work in the area and the TextRank algorithm in general. Then we report the results obtained for the different variations of the algorithm. Finally we describe the different metrics used for the evaluation of the results obtained from the proposed changes and the datasets used for these tests.
 
 \section{Previous work}
-The field of automated summarization has advanced in a significative way since the late 60's. Traditional methods for text summarization analyze the frequency of words or sentences in the first paragraphs of the text to identify the most important lexical elements. Several statistical models have been developed based on training corpora to combine different heuristics using keywords, position and length of sentences, word frequency and titles \cite{hovy}. Other methods are based in the representation of the text as a graph: the most important sentences are the most connected ones in the graph and are used for the summarization \cite{barzilay}. On a different approach some algorithms analyze the semantic structure of the different textual units in a document with the goal of separating those that take a significative role in the representation of the document \cite{marcu}.
+The field of automated summarization has attracted interest since the late 50's \cite{luhn}. Traditional methods for text summarization analyze the frequency of words or sentences in the first paragraphs of the text to identify the most important lexical elements. Several statistical models have been developed based on training corpora to combine different heuristics using keywords, position and length of sentences, word frequency and titles \cite{hovy}. On a different approach, some algorithms analyze the semantic structure of the different textual units in a document with the goal of separating those that take a significative role in the representation of the document \cite{marcu}.
 
-The algorithms based on the construction of a graph to represent text use different information retrieval techniques to identify similar sentences and determine the most important ones to build a final summary \cite{salton}. The algorithms developed by Mihalcea and Tarau on TextRank \cite{mihalcea-tarau} and also by Erkan and Radev on LexRank \cite{erkan} are based in ranking the lexical units of the text (sentences or words).
+Other methods are based in the representation of the text as a graph: the most important sentences are the most connected ones in the graph and are used for building a final summary \cite{barzilay}. These algorithms use different information retrieval techniques to identify similar sentences and determine the most important ones \cite{salton}. The TextRank algorithm developed by Mihalcea and Tarau \cite{mihalcea-tarau} and the LexRank algorithm by Erkan and Radev \cite{erkan} are based in ranking the lexical units of the text (sentences or words).
 
 \section{TextRank}
 
 \subsection{Description}
-TextRank is an unsupervised algorithm based in graphs for the automated summarization of texts that can also be used to obtain the most important keywords in a document. It was introduced in 2004 by Rada Mihalcea and Paul Tarau in \cite{mihalcea-tarau}.
+TextRank is an unsupervised algorithm for the automated summarization of texts that can also be used to obtain the most important keywords in a document. It was introduced in 2004 by Rada Mihalcea and Paul Tarau in \cite{mihalcea-tarau}.
 
 The algorithm applies a variation of PageRank \cite{pageetal98} over a graph constructed specifically for the task of summarization. This method provides an understanding of the structure of the document identifying its principal concepts without the need of previous training. Since the algorithm is based on PageRank it uses the idea of ranking of the elements in the graph, the most important elements are the ones that better describe the text. This approach allows TextRank to build summaries without the need of a training corpus or labeling and allows the use of the algorithm with different languages as long as there is a way to build the graph of sentences for it.
 
 \subsection{Text as a Graph}
 For the task of automated summarization, TextRank models any document as a graph using sentences as nodes \cite{introductionir}. A function to compute the similarity of sentences is needed to build edges in between. This function is used to weight the graph edges, the higher the similarity between sentences the more important the edge between them will be in the graph. In the domain of a Random Walker, as used frequently in PageRank, we can say that we are more likely to go from one sentence to another if those sentences are very similar. 
 
-The similarity function can use several different ideas. It can be based in the semantic of the sentences, in their proximity in the text, common words, and many other different metrics. The goal of this article is to experiment with these similarity functions and report the results obtained when used along with TextRank.
+The similarity function can use several different ideas. It can be based in the semantic of the sentences, in their proximity in the text, common words, and many other different metrics. The goal of this article is to experiment with these functions and report the results obtained when used along with TextRank.
 
-The similarity function featured in the original algorithm can be formalized as:
-
+The function featured in the original algorithm can be formalized as:
 
 \begin{definicion}
 Given $S_i$, $S_j$ two sentences represented by a set of $n$ words that in 
@@ -90,7 +89,7 @@ The result of this process is a dense graph representing the document. From this
 A sample document from the 2002 DUC (Document Understanding Conference) dataset \cite{duc2002-guidelines} is shown in Figure \ref{fig:text}. The TextRank algorithm produces the summary shown in Figure \ref{fig:summary} using the graph shown in Figure \ref{fig:graph}.
 
 \begin{figure}
-\caption{Sample text from DUC.}
+\caption{Sample document from the DUC 2002 corpus.}
 \label{fig:text}
 \raisedtext{{\scriptsize \parbox{\linewidth}{
 \begin{enumerate}
@@ -141,10 +140,10 @@ TGF beta is normally present in heart cells, but the study published in Science 
 This section will describe the different variations that we propose over the original TextRank algorithm. These ideas are based in changing the way in which distances between sentences are computed to weight the edges of the graph used for PageRank. We found some of these variations to produce significative improvements over the original algorithm.
 
 \subsubsection{Longest Common Substring}
-From two sentences we identify the longest common substring (LCS) and report the similarity to be the length of the LCS. This metric is similar to the evaluation methods used in ROUGE.
+From two sentences we identify the longest common substring (LCS) and report the similarity to be its length.
 
 \subsubsection{Cosine Distance}
-The cosine similarity is a metric widely used to compare texts represented as vectors. We used a classical TF-IDF model to represent the documents as vectors and computed the cosine between vectors as a measure of similarity. Since the vectors are defined to be positive the cosine results in values in the range [0,1] where a value of 1 represents identical vectors and 0 represents orthogonal vectors.
+The cosine similarity is a metric widely used to compare texts represented as vectors. We used a classical TF-IDF model to represent the documents as vectors and computed the cosine between vectors as a measure of similarity. Since the vectors are defined to be positive, the cosine results in values in the range [0,1] where a value of 1 represents identical vectors and 0 represents orthogonal vectors.
 
 \subsubsection{BM25}
 BM25 / Okapi-BM25 is a ranking function widely used as the state of the art for Informaion Retrieval tasks. BM25 is a variation of the TF-IDF model using a probabilistic model.
@@ -156,10 +155,10 @@ Given two sentences R, S, BM25 is defined as:
 BM25(R,S) = \sum_{i=1}^{n} IDF(s_i) \cdot \frac{f(s_i, R) \cdot (k_1 + 1)}{f(s_i, R) + k_1 \cdot (1 - b + b \cdot \frac{|R|}{avgDL})}
 \end{equation}
 
-where $k$ y $b$ are parameters. We used $k = 1,2$ and $b = 0,75$,  $avgDL$ is the average length of the sentences in our collection.
+where $avgDL$ is the average length of the sentences in our collection; $k$ and $b$ are free parameters. We used $k = 1,2$ and $b = 0,75$.
 \end{definicion}
 
-In the way this function is defined a word appearing in more than half the documents of the collection will have a negative value. Since this can be a negative effect we used the following correction formula:
+In the way this function is defined a word appearing in more than half the documents of the collection will have a negative value. Since this can cause problems in the next stage of the algorithm, we used the following correction formula:
                 
 \begin{equation}
  IDF(s_i) =
@@ -175,16 +174,16 @@ We also used BM25+, a variation of BM25 that changes the way long documents are 
 
 
 \subsection{Evaluation}
-For testing we used the database of the 2002 Document Understanding Conference (DUC) \cite{duc2002-guidelines}. This is the same corpus used in the TextRank original paper in \cite{mihalcea-tarau}. The corpus has 567 documents that are summarized to 20\% of their size.
+For testing we used the database of the 2002 Document Understanding Conference (DUC) \cite{duc2002-guidelines}. The corpus has 567 documents that are summarized to 20\% of their size, and is the same corpus used in \cite{mihalcea-tarau}. 
 
 To evaluate results we used version 1.5.5 of the ROUGE package \cite{Lin2004a}. The configuration settings were the same as those in DUC, where ROUGE-1, ROUGE-2 and ROUGE-SU4 were used as metrics in a 95\% confidence applying stemming. The final result is an average of these three scores.
 
-To check the correct behaviour of our test suite a reference baseline method was used, the same used in \cite{mihalcea-tarau} which is based in the first sentences of each document. We reproduced the results of the standard TextRank algorithm and found them identical to those reported in the the TextRank paper, a 2.3\% improvement over the baseline.
+To check the correct behaviour of our test suite we implemented the reference method used in \cite{mihalcea-tarau}, which extracts the first sentences of each document. We found the resulting scores of the original algorithm to be identical to those reported in \cite{mihalcea-tarau}: a 2.3\% improvement over the baseline.
 
 
 \subsection{Results}
 We tested LCS, Cosine Sim, BM25 and BM25+ as different ways to weight the edges for the TextRank graph. 
-The best results were obtained using BM25 and BM25+. We achieved was 2.92\% above the original TextRank result using BM25 and $\varepsilon$ = 0.25. The following chart shows the results obtained for the different variations we proposed.
+The best results were obtained using BM25 and BM25+. We achieved a 2.92\% improvement above the original TextRank result using BM25 and $\varepsilon$ = 0.25. The following chart shows the results obtained for the different variations we proposed.
 
 \begin{table}
 \caption{Results}
@@ -211,15 +210,16 @@ DUC Baseline & 0.39 & 0.1689 & 0.186 & -2,84\% \\ [2pt]
 \end{center}
 \end{table}
 
-The performance in time was also improved. We could process the 567 documents from the DUC2002 database in 84\% of the time needed in the original version.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{rouge-scores-en.pdf}
+    \caption{ROUGE-1 and ROUGE-2 scores comparison.}
+\end{figure}
 
 The result of Cosine Similarity was also satisfactory with a 2.54\% improvement over the original method. The LCS variation also improved the original TextRank algorithm with 1.40\% total improvement.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth]{rouge-scores.pdf}
-    \caption{Comparison.}
-\end{figure}
+The performance in time was also improved. We could process the 567 documents from the DUC2002 database in 84\% of the time needed in the original version.
+
 
 \section{Reference Implementations and Gensim Contribution}
 A reference implementation of our proposals was coded as a Python module. It can be obtained for testing and to reproduce results from an URL that will be provided in the non-anonymous version.
@@ -227,9 +227,9 @@ A reference implementation of our proposals was coded as a Python module. It can
 We also contributed the BM25-TextRank algorithm to the Gensim project \cite{rehurek_lrec}.
 
 \section{Conclusions}
-This work presented three different variations to the TextRank algorithm for automatic summarization. The three variations presented improved significantly the results of the algorithm using the same metric and database used in the original paper. Given that TextRank performs 2.84\% over the baseline our improvement of 2.92\% over the TextRank result is an important result. 
+This work presented three different variations to the TextRank algorithm for automatic summarization. The three variations presented improved significantly the results of the algorithm using the same metric and database used in the original paper. Given that TextRank performs 2.84\% over the baseline, our improvement of 2.92\% over the TextRank result is an important result. 
 
-The combination of TextRank with modern Information Retrieval ranking functions such as BM25 and BM25+ results in the creation of a robust method for automatic summarization that performs better than the standard methods used previously. 
+The combination of TextRank with modern Information Retrieval ranking functions such as BM25 and BM25+ results in the creation of a robust method for automatic summarization that performs better than the standard techniques used previously. 
 
 Based on this results we suggest the use of BM25 along with TextRank for the task of unsupervised automatic summarization of texts. The results obtained and the examples analyzed show that this variation is better than the original TextRank algorithm without a performance penalty.
 
