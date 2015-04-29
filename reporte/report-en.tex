@@ -92,13 +92,13 @@ The result of this process is a dense graph representing the document. From this
 This section will describe the different variations that we propose over the original TextRank algorithm. These ideas are based in changing the way in which distances between sentences are computed to weight the edges of the graph used for PageRank. We found some of these variations to produce significative improvements over the original algorithm.
 
 \subsubsection{Longest Common Substring}
-From two sentences we identify the longest common substring (LCS) and report the similarity to be its length.
+From two sentences we identify the longest common substring and report the similarity to be its length \cite{gusfield}.
 
 \subsubsection{Cosine Distance}
-The cosine similarity is a metric widely used to compare texts represented as vectors. We used a classical TF-IDF model to represent the documents as vectors and computed the cosine between vectors as a measure of similarity. Since the vectors are defined to be positive, the cosine results in values in the range [0,1] where a value of 1 represents identical vectors and 0 represents orthogonal vectors.
+The cosine similarity is a metric widely used to compare texts represented as vectors. We used a classical TF-IDF model to represent the documents as vectors and computed the cosine between vectors as a measure of similarity. Since the vectors are defined to be positive, the cosine results in values in the range [0,1] where a value of 1 represents identical vectors and 0 represents orthogonal vectors \cite{singhal}.
 
 \subsubsection{BM25}
-BM25 / Okapi-BM25 is a ranking function widely used as the state of the art for Information Retrieval tasks. BM25 is a variation of the TF-IDF model using a probabilistic model.
+BM25 / Okapi-BM25 is a ranking function widely used as the state of the art for Information Retrieval tasks. BM25 is a variation of the TF-IDF model using a probabilistic model \cite{robertson}.
 
 \begin{definicion}
 Given two sentences R, S, BM25 is defined as:
@@ -122,7 +122,7 @@ This function definition implies that if a word appears in more than half the do
                 
 where $\varepsilon$ takes a value between 0.5 and 0.30 and $avgIDF$ is the average IDF for all terms.
 
-We also used BM25+, a variation of BM25 that changes the way long documents are penalized.
+We also used BM25+, a variation of BM25 that changes the way long documents are penalized \cite{lv}.
 
 
 \subsection{Evaluation}
