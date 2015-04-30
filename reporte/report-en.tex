@@ -121,6 +121,7 @@ This function definition implies that if a word appears in more than half the do
 \end{equation}                
                 
 where $\varepsilon$ takes a value between 0.5 and 0.30 and $avgIDF$ is the average IDF for all terms.
+Other corrective strategies were also tested, setting $\varepsilon$ = 0 and using simpler modifications of the classic IDF formula.
 
 We also used BM25+, a variation of BM25 that changes the way long documents are penalized \cite{lv}.
 
@@ -135,7 +136,7 @@ To check the correct behaviour of our test suite we implemented the reference me
 
 \subsection{Results}
 We tested LCS, Cosine Sim, BM25 and BM25+ as different ways to weight the edges for the TextRank graph. 
-The best results were obtained using BM25 and BM25+. We achieved an improvement of 2.92\% above the original TextRank result using BM25 and $\varepsilon$ = 0.25. The following chart shows the results obtained for the different variations we proposed.
+The best results were obtained using BM25 and BM25+ with the corrective formula shown in equation 3. We achieved an improvement of 2.92\% above the original TextRank result using BM25 and \mbox{$\varepsilon$ = 0.25}. The following chart shows the results obtained for the different variations we proposed.
 
 \begin{table}
 \caption{Evaluation results for the proposed TextRank variations.}
@@ -145,14 +146,14 @@ The best results were obtained using BM25 and BM25+. We achieved an improvement 
 \rule{0pt}{12pt}
 Method & ROUGE-1 & ROUGE-2 & ROUGE-SU4 & Improvement \\[2pt]
 \hline\rule{0pt}{12pt}\mbox{}\par\nobreak
-BM25 (Neg to epsilon) & 0.4042 & 0.1831 & 0.2018 & 2.92\% \\
-BM25+ (Neg to epsilon) & 0.404 & 0.1818 & 0.2008 & 2.60\% \\
+BM25 ($\varepsilon$ = 0.25) & 0.4042 & 0.1831 & 0.2018 & 2.92\% \\
+BM25+ ($\varepsilon$ = 0.25) & 0.404 & 0.1818 & 0.2008 & 2.60\% \\
 Cosine TF-IDF & 0.4108 & 0.177 & 0.1984 & 2.54\% \\
-BM25+ (IDF = log(N/NI)) & 0.4022 & 0.1805 & 0.1997 & 2.05\% \\ 
-BM25 (IDF = log(N/NI)) & 0.4012 & 0.1808 & 0.1998 & 1.97\% \\ 
+BM25+ (IDF = log($N$/$N_i$)) & 0.4022 & 0.1805 & 0.1997 & 2.05\% \\ 
+BM25 (IDF = log($N$/$N_i$)) & 0.4012 & 0.1808 & 0.1998 & 1.97\% \\ 
 Longest Common Substring & 0.402 & 0.1783 & 0.1971 & 1.40\% \\
-BM25+ (Neg to zero) & 0.3992 & 0.1803 & 0.1976 & 1.36\% \\ 
-BM25 (Neg to zero) & 0.3991 & 0.1778 & 0.1966 & 0.89\% \\
+BM25+ ($\varepsilon$ = 0) & 0.3992 & 0.1803 & 0.1976 & 1.36\% \\ 
+BM25 ($\varepsilon$ = 0) & 0.3991 & 0.1778 & 0.1966 & 0.89\% \\
 \textbf{TextRank} & \textbf{0.3983} & \textbf{0.1762} & \textbf{0.1948} & \textbf{--}\\
 BM25 & 0.3916 & 0.1725 & 0.1906 & -1.57\% \\
 BM25+ & 0.3903 & 0.1711 & 0.1894 & -2.07\% \\
@@ -168,7 +169,7 @@ DUC Baseline & 0.39 & 0.1689 & 0.186 & -2.84\% \\ [2pt]
     \caption{ROUGE-1 and ROUGE-2 scores comparison.}
 \end{figure}
 
-The result of Cosine Similarity was also satisfactory with a 2.54\% improvement over the original method. The LCS variation also improved the original TextRank algorithm with 1.40\% total improvement.
+The result of Cosine Similarity was also satisfactory with a 2.54\% improvement over the original method. The LCS variation also performed better than the original TextRank algorithm with 1.40\% total improvement.
 
 The performance in time was also improved. We could process the 567 documents from the DUC2002 database in 84\% of the time needed in the original version.
 
