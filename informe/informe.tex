@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{lscape}
 \usepackage{fancyhdr}
+
 \graphicspath{ {img/} }
 
 \newtheorem{definicion}{Definición} 
@@ -19,11 +20,11 @@
 \title{Módulo de resúmenes automáticos basado en TextRank con integración a Gensim}
 \author{Barrios, Federico \and López, Federico}
 
-\lhead{\includegraphics[scale=0.06]{./logo_fiuba.pdf}}
+\lhead{\includegraphics[scale=0.06]{logo_fiuba.pdf}}
 \chead{Módulo de resúmenes automáticos basado\linebreak en TextRank con integración a Gensim}
 \rhead{}
 
-\lfoot{Barrios - López}
+\lfoot{Barrios -- López}
 \rfoot{\thepage}
 \cfoot{Mayo, 2015}
 
@@ -32,10 +33,10 @@
 \thispagestyle{empty}
 % T\'itulo del documento.
 \begin{center}
-\includegraphics{./logo-fiuba.png}\\
+\includegraphics{logo-fiuba.png}\\
 \vspace{1cm}
 \textsc{\LARGE Universidad de Buenos Aires}\\[0.3cm]
-\textsc{\LARGE Facultad de Ingenier\'ia}\\[1.2cm]
+\textsc{\LARGE Facultad de Ingeniería}\\[1.2cm]
 \textsc{\LARGE Módulo de resúmenes automáticos basado en TextRank con integración a Gensim}\\[0.3cm]
 \end{center}
 
@@ -62,6 +63,7 @@ Mayo, 2015}
 \newpage
 \section{Motivación}
 Los resúmenes automatizados son muy utilizados en tareas relacionadas con el procesamiento de lenguaje natural y de aprendizaje automático. Su uso en motores de búsqueda, por ejemplo, mejora la eficiencia de indexación de textos y a su vez asiste en la presentación de resultados de manera efectiva. El incremento en la cantidad de información disponible en Internet ha intensificado su utilización en los últimos años y, en consecuencia, se ha dedicado enorme esfuerzo para mejorar los algoritmos existentes. 
+El desarrollo de este Trabajo Profesional está motivado por el número de aplicaciones del tema en cuestión en tareas de actualidad.
 
 
 \section{Objetivos}
@@ -128,23 +130,21 @@ En la sección ‘TextRank para palabras claves’ se analiza y desarrolla la ap
 
 
 \section{Trabajo previo}
-Se ha visto un gran avance en el campo de la generación automática de resúmenes desde finales de 1960 hasta la actualidad \cite{miranda}. Los métodos tradicionales tienen en cuenta la frecuencia de palabras o frases introductorias para identificar las oraciones más sobresalientes del texto. También, se han desarrollado modelos estadísticos basados en corpus de entrenamiento para combinar varias heurísticas: palabras clave, posición de las oraciones, longitud de las oraciones, frecuencia de palabras y palabras contenidas en los títulos \cite{hovy}. Otros enfoques se basan en la representación del texto en forma de grafo. Las oraciones importantes y los conceptos son las entidades altamente conectadas y, por esto, forman parte del resumen \cite{barzilay}. De igual modo, se ha propuesto analizar la estructura discursiva y extraer las relaciones retóricas entre las diferentes unidades textuales, y así separar las principales de las secundarias para descubrir las unidades que juegan un papel preponderante dentro de la estructura discursiva \cite{marcu}.
+El campo de la generación automática de resúmenes ha atraido interés desde finales de la década de 1950 hasta la actualidad \cite{luhn}. Los métodos tradicionales tienen en cuenta la frecuencia de palabras o frases introductorias para identificar las oraciones más sobresalientes del texto. También se han desarrollado modelos estadísticos basados en corpus de entrenamiento para combinar varias heurísticas: palabras clave, posición de las oraciones, longitud de las oraciones, frecuencia de palabras y palabras contenidas en los títulos \cite{hovy}. Otros enfoques más modernos se basan en la representación del texto en forma de grafo: las oraciones importantes y los conceptos son las entidades altamente conectadas y, por esto, forman parte del resumen \cite{barzilay}. 
 
-En la línea de representación del texto como un grafo conectado, se usan técnicas de Recuperación de Información para identificar oraciones similares y determinar las más importantes, que formarán al resumen final \cite{salton}. El enfoque propuesto, tanto por Mihalcea \& Tarau como por Erkan \& Radev \cite{erkan}, consiste en utilizar el prestigio de las unidades léxicas (oraciones o palabras) dentro del grafo. Dicha técnica ha sido la adoptada en el presente trabajo.
+Con esta idea se usan métodos del campo de Recuperación de Información para identificar oraciones similares y determinar las más importantes, que formarán al resumen final \cite{salton}. El enfoque propuesto, tanto por Mihalcea y Tarau en TextRank \cite{mihalcea-tarau} como por Erkan y Radev en LexRank \cite{erkan}, consiste en utilizar el prestigio de las unidades léxicas (oraciones o palabras) dentro del grafo.
 
 
 \section{Herramientas y fundamentos}
 
 \subsection{PageRank}
-PageRank es un algoritmo creado por Larry Page y Sergey Brin, fundadores de Google, en 1996, como parte de una investigación sobre motores de búsqueda. Su objetivo es asignar un valor numérico a cada nodo en una red, con el propósito de medir la importancia relativa de cada elemento del conjunto. Para esto analiza los vínculos que componen la red. La idea subyacente es que los nodos más relevantes de la red serán los que tengan la mayor cantidad y calidad de conexiones con otros nodos. 
+PageRank es un algoritmo creado en 1996 por Larry Page y Sergey Brin, fundadores de Google, como parte de una investigación sobre motores de búsqueda. Su objetivo es asignar un valor numérico a cada nodo en una red, con el propósito de medir la importancia relativa de cada elemento del conjunto. Para esto analiza los vínculos que componen la red. La idea subyacente es que los nodos más relevantes de la red serán los que tengan la mayor cantidad y calidad de conexiones con otros nodos.
 
-En sus orígenes, PageRank fue pensado para aplicarse sobre la red de Internet (World Wide Web), pero puede aplicarse a cualquier otra red para estimar sus elementos principales. En términos matemáticos, PageRank brinda una manera iterativa de calcular el autovector principal de la matriz de adyacencia del grafo. Esto da como resultado la distribución de probabilidad de acceder a los nodos de la red, navegando de manera aleatoria a través de los vínculos o aristas.
-
-Una de las características más notables del algoritmo es que toma en cuenta la información global de toda la red, y no sólo lo concerniente a cada nodo en particular. Si se arma un grafo en base a un documento, con las unidades léxicas o semánticas como vértices, se puede aplicar PageRank para priorizar los nodos principales. De esta manera, se pueden obtener las oraciones o palabras principales, utilizando información proveniente de todo el texto. En este enfoque está basado TextRank.
+En sus orígenes, PageRank fue pensado para aplicarse sobre la red de Internet, pero puede aplicarse a cualquier otra red para estimar la importancia de los nodos. En términos matemáticos, PageRank brinda una manera iterativa de calcular el autovector principal de la matriz de adyacencia del grafo. Esto da como resultado la distribución de probabilidad de acceder a los nodos de la red, navegando de manera aleatoria a través de los vínculos o aristas.
 
 
 \subsection{TextRank}
-TextRank es un algoritmo no supervisado basado en grafos para realizar resúmenes automáticos extractivos y/u obtener palabras claves de un texto. Fue presentado en 2004 por Rada Mihalcea y Paul Tarau en el paper “TextRank: Bringing Order into Texts” \cite{mihalcea-tarau}.
+TextRank es un algoritmo no supervisado basado en grafos para realizar resúmenes automáticos extractivos u obtener palabras claves de un texto. Fue presentado en 2004 por Rada Mihalcea y Paul Tarau en \cite{mihalcea-tarau}.
 
 El algoritmo aplica una variación de PageRank \cite{pageetal98} sobre un grafo especialmente diseñado para la tarea. De esta manera permite explotar la estructura del texto, identificando los conceptos principales, sin necesidad de datos previos de entrenamiento. Debido a que se basa en PageRank, se sirve de la noción del “prestigio” o “recomendación” entre los elementos del grafo. Por este motivo, TextRank puede ser aplicado a cualquier texto, incluso en distintos idiomas, generando un resumen basado sólo en las propiedades intrínsecas del texto.
 
@@ -153,19 +153,16 @@ El algoritmo modela el texto en base a un grafo, y luego, busca crear relaciones
 Los pasos principales que se llevan a cabo son los siguientes:
 
 \begin{enumerate}
-\item Identificar las unidades del texto (palabras u oraciones) y agregarlas al grafo como vértices.
+\item Identificar las unidades del texto y agregarlas al grafo como vértices.
 \item Identificar relaciones que conectan a estas unidades, y agregarlas al grafo como aristas entre los vértices. Las aristas pueden ser dirigidas o no, y ponderadas o no.
 \item Aplicar PageRank para asignarle un puntaje a cada vértice.
 \item Ordenar los vértices de acuerdo al puntaje y utilizarlo para armar el resumen de acuerdo a algún criterio.
 \end{enumerate}
 
-Las particularidades de los casos de creación de resúmenes y extracción de palabras claves se analizan en la sección 'Implementación'.
-
-
 \subsection{Gensim}
-Es una biblioteca de código libre, escrita en Python para el modelaje de tópicos y la indexación de documentos que está diseñada para trabajar con conjuntos de textos de gran tamaño. Su uso se ha expandido tanto en lo comercial como lo académico, apuntando especialmente al área de procesamiento del lenguaje natural y a la búsqueda y recuperación de la información.
+Gensim es una biblioteca de código libre, escrita en Python, para el modelaje de tópicos y la indexación de documentos que está diseñada para trabajar con conjuntos de textos de gran tamaño. Su uso se ha expandido tanto en lo comercial como lo académico, apuntando especialmente al área de procesamiento del lenguaje natural y a la búsqueda y recuperación de la información.
 
-Gensim utiliza un paradigma muy poderoso en el área de procesamiento de lenguaje natural, denominado VSM (modelo de espacio de vectores), en el cual se representan los documentos de un corpus como vectores de un espacio de muchas dimensiones. Esta representación explota la idea de que los textos en el área del modelado de tópicos se pueden expresar según un número de conceptos, lo que aumenta la eficiencia y también ayuda a eliminar ruido.
+Gensim utiliza un paradigma muy poderoso en el área de procesamiento de lenguaje natural, denominado VSM (modelo de espacio de vectores), en el cual se representan los documentos de un corpus como vectores de un espacio multidimensional. Esta representación explota la idea de que los textos en el área del modelado de tópicos se pueden expresar según un número de conceptos, lo que aumenta la eficiencia y también ayuda a eliminar ruido.
 
 La biblioteca está diseñada para proveer independencia del tamaño del corpus, es decir, para poder analizar textos que sean más grandes que la memoria RAM del sistema. El proyecto, además apunta a exponer una interfaz mínima e intuitiva utilizando terminología de procesamiento de lenguaje.
 
@@ -188,7 +185,7 @@ El mecanismo de funcionamiento de los métodos del paquete Rouge consiste en cal
 
 Rouge asigna un puntaje entre cero y uno a un esquema de evaluación conformado por una serie de documentos generados y sus referencias. Por diseño, se espera que buenos resúmenes tengan puntajes más altos; pero inevitablemente se requiere de trabajo humano para proveer las referencias.
 
-Para verificar el funcionamiento de Rouge se han usado las bases de datos de las conferencias DUC de los años 2001, 2002 y 2003. Se compararon las evaluaciones con los puntajes otorgados manualmente por los jurados para encontrar que todas las métricas arrojan muy buenos resultados; y a partir de la edición 2004 las evaluaciones se llevan a cabo usando exclusivamente Rouge.
+Debido a que los resultados arrojados por las métricas se correlacionan con los asignados manualmente, las evaluaciones en las competencias de generación de resúmenes automáticos se llevan a cabo usando exclusivamente Rouge.
 
 
 \section{Implementación}
@@ -200,30 +197,22 @@ La calidad de este proceso tendrá un gran impacto en los resultados obtenidos. 
 Aquí se detallan las etapas principales.
 
 \subsubsection{Separación del texto}
-Esta etapa, también conocida como tokenización consiste en separar el texto en oraciones o palabras. Separar palabras suele resultar más sencillo, dado que los espacios en blanco son una buena aproximación como límite de separación. Se debe tener un tratamiento especial de los casos tales como “can’t” o “don’t” en idiomas como el inglés.
+Esta etapa, también conocida como \textit{tokenización} consiste en separar el texto en oraciones o palabras. Separar palabras suele resultar más sencillo, dado que los espacios en blanco son una buena aproximación como límite de separación. 
 
-Separar por oraciones suele ser caso más complejo. Definir los límites es una cuestión realmente problemática en el área del lenguaje natural. Generalmente se utilizan los símbolos .!? como separadores, pero se deben tratar con cuidado excepciones como \textit{Ph.D., Dr., Lic., \$19.99, p.m. o RR.HH}.
-
-El enfoque más utilizado para resolver esta cuestión se basa en la aplicación de expresiones regulares teniendo en cuenta reglas como las siguientes:
-\begin{enumerate}
-\item El punto (“.”) finaliza una oración si la siguiente palabra comienza con mayúscula.
-\item Si la palabra precedente al punto pertenece a un listado de abreviaturas preestablecido, entonces no termina la oración.
-\end{enumerate}
-
-Otras alternativas consisten en el uso de algoritmos entrenados con datos específicos del área sobre la cual se esté trabajando.
+Separar por oraciones suele ser caso más complejo. Definir los límites es una cuestión realmente problemática en el área del lenguaje natural. Generalmente se utilizan los símbolos .!? como separadores, pero se deben tratar con cuidado excepciones como \textit{Ph.D.}, \textit{Dr.}, \textit{Lic.}, \textit{\$19.99}, \textit{p.m.} o \textit{RR.HH}. El enfoque más utilizado para resolver esta cuestión se basa en la aplicación de expresiones regulares, aunque existen otras alternativas que implementan algoritmos entrenados con datos específicos del área sobre la cual se esté trabajando.
 
 
 \subsubsection{Filtrado}
-Las palabras más frecuentes muchas veces no tienen tanto significado por sí solas. Por ejemplo: “el, los, un, por, en”. En muchas tareas de procesamiento de lenguaje natural estas palabras aportan “ruido”, y por lo tanto se las debe quitar. 
+Las palabras más frecuentes muchas veces no tienen tanto significado por sí solas. En muchas tareas de procesamiento de lenguaje natural estas palabras aportan “ruido”, y por lo tanto se las debe quitar. 
 
-La forma de filtrar palabras consiste en crear una lista de “palabras prohibidas” (\textit{stopwords} en inglés). Luego se recorre el texto, eliminando dichos términos.
+La forma de filtrar palabras consiste en crear una lista de “palabras prohibidas” (\textit{stopwords}) a ser eliminadas del texto.
 
 
 \subsubsection{Stemming}
-El proceso de \textit{stemming} (del inglés stem, significa raíz) o \textit{lemmatización} consiste en quitar la desinencia de las diferentes términos, para llevarlos a su raíz. Por ejemplo, las palabras “cantar, cantaba, cantando”, se las puede llevar todas a “canta”. Esta etapa se lleva a cabo con el objetivo de que el algoritmo detecte cuando se están tratando los mismos conceptos, dado que se utilizan las mismas palabras.
+El proceso de \textit{stemming} o \textit{lemmatización} consiste en quitar la desinencia de las diferentes términos, para llevarlos a su raíz. Esta etapa se lleva a cabo con el objetivo de que el algoritmo detecte cuando se están tratando los mismos conceptos, dado que se utilizan las mismas palabras.
+Por ejemplo, las palabras “canta”, “cantaba”, “cantando”, pueden ser asociadas al verbo “cantar”.
 
 El stemming es un proceso complejo dado que puede haber muchos casos excepcionales, y se necesitan reglas muy diferentes para cada idioma. El stemmer más usado en inglés es el Porter Stemmer. Para cada idioma existe una adaptación. Sin embargo, todos estos algoritmos tienen cierta tasa de error.
-
 
 
 \subsection{TextRank para extracción de oraciones}
