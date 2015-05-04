@@ -35,7 +35,7 @@
 \author{Barrios, Federico \and López, Federico}
 
 \lhead{\includegraphics[scale=0.06]{logo_fiuba.pdf}}
-\chead{Módulo de resúmenes automáticos basado\linebreak en TextRank con integración a Gensim}
+\chead{Módulo de Resúmenes Automáticos Basado\linebreak en TextRank con Integración a Gensim}
 \rhead{}
 
 \lfoot{Barrios -- López}
@@ -51,6 +51,7 @@
 \vspace{1cm}
 \textsc{\LARGE Universidad de Buenos Aires}\\[0.3cm]
 \textsc{\LARGE Facultad de Ingeniería}\\[1.2cm]
+\textsc{\LARGE Trabajo Profesional}\\[1.2cm]
 \textsc{\LARGE Módulo de resúmenes automáticos basado en TextRank con integración a Gensim}\\[0.3cm]
 \end{center}
 
@@ -58,8 +59,8 @@
 
 \begin{flushright}
 {\large
-Barrios, Federico -- 92954\\
-L\'opez, Federico -- 92278\\[0.1cm]
+Barrios, Federico -- 91954\\
+López, Federico -- 92278\\[0.1cm]
 \vspace{2cm}
 Mayo, 2015}
 \end{flushright}
@@ -77,7 +78,7 @@ Mayo, 2015}
 \newpage
 \section{Motivación}
 Los resúmenes automatizados son muy utilizados en tareas relacionadas con el procesamiento de lenguaje natural y de aprendizaje automático. Su uso en motores de búsqueda, por ejemplo, mejora la eficiencia de indexación de textos y a su vez asiste en la presentación de resultados de manera efectiva. El incremento en la cantidad de información disponible en Internet ha intensificado su utilización en los últimos años y, en consecuencia, se ha dedicado enorme esfuerzo para mejorar los algoritmos existentes. 
-El desarrollo de este Trabajo Profesional está motivado por el número de aplicaciones del tema en cuestión en tareas de actualidad.
+El desarrollo de este Trabajo Profesional está motivado por el número de aplicaciones del tema en tareas de actualidad.
 
 
 \section{Objetivos}
@@ -174,7 +175,7 @@ Los pasos principales que se llevan a cabo son los siguientes:
 \end{enumerate}
 
 \subsection{Gensim}
-Gensim es una biblioteca de código libre, escrita en Python, para el modelaje de tópicos y la indexación de documentos que está diseñada para trabajar con conjuntos de textos de gran tamaño. Su uso se ha expandido tanto en lo comercial como lo académico, apuntando especialmente al área de procesamiento del lenguaje natural y a la búsqueda y recuperación de la información.
+Gensim es una biblioteca de código libre, escrita en Python, para el modelaje de tópicos y la indexación de documentos que está diseñada para trabajar con conjuntos de textos de gran tamaño \cite{rehurek_lrec}. Su uso se ha expandido tanto en lo comercial como lo académico, apuntando especialmente al área de procesamiento del lenguaje natural y a la búsqueda y recuperación de la información.
 
 Gensim utiliza un paradigma muy poderoso en el área de procesamiento de lenguaje natural, denominado VSM (modelo de espacio de vectores), en el cual se representan los documentos de un corpus como vectores de un espacio multidimensional. Esta representación explota la idea de que los textos en el área del modelado de tópicos se pueden expresar según un número de conceptos, lo que aumenta la eficiencia y también ayuda a eliminar ruido.
 
@@ -184,22 +185,22 @@ Gensim proporciona implementaciones de algoritmos como TF-IDF, análisis semánt
 
 
 \subsection{Evaluación de resúmenes}
-La herramienta por defecto para evaluar los sistemas generadores de resúmenes es Rouge (Recall-Oriented Understudy for Gisting Evaluation). Este método fue desarrollado en la universidad de Southern California para automatizar la comparación entre resúmenes generados por el sistema bajo evaluación contra otros (ideales) escritos por seres humanos, tomados como referencia.
+La herramienta por defecto para evaluar los sistemas generadores de resúmenes es \mbox{ROUGE} (Recall-Oriented Understudy for Gisting Evaluation) \cite{Lin2004a}. Este método fue desarrollado en la universidad de Southern California para automatizar la comparación entre resúmenes generados por el sistema bajo evaluación contra otros (ideales) escritos por seres humanos, tomados como referencia.
 
-Históricamente, los puntajes asignados en tareas de competencias como DUC fueron manuales; juzgando coherencia, capitalización, cohesión, consistencia y contenido \cite{duc2002}. Todo este trabajo es caro y difícil de coordinar, demandando de al menos 3.000 horas hombre. El surgimiento de Rouge atiende la necesidad de automatizar ese proceso, reemplazando un método llamado BLEU, cuyos resultados no siempre se correlacionaban con los asignados por los jurados.
+Históricamente, los puntajes asignados en tareas de competencias como DUC fueron manuales; juzgando coherencia, capitalización, cohesión, consistencia y contenido \cite{duc2002}. Todo este trabajo es caro y difícil de coordinar, demandando de al menos 3.000 horas hombre. El surgimiento de ROUGE atiende la necesidad de automatizar ese proceso, reemplazando un método llamado BLEU, cuyos resultados no siempre se correlacionaban con los asignados por los jurados.
 
-El mecanismo de funcionamiento de los métodos del paquete Rouge consiste en calcular la sensibilidad (recall) de unidades léxicas entre los resúmenes de sistema y los de referencia. Se generan así diferentes métricas:
+El mecanismo de funcionamiento de los métodos del paquete ROUGE consiste en calcular la sensibilidad (recall) de unidades léxicas entre los resúmenes de sistema y los de referencia. Se generan así diferentes métricas:
 \begin{itemize}
-\item Rouge-N: cuando se tienen en cuenta n-gramas (n palabras). Este método favorece a documentos con palabras compartidas por más candidatos.
-\item Rouge-L: cuando se tiene en cuenta la subsecuencia máxima común (LCS, longest common subsequence). Este método propone que un conjunto de documentos va a ser más parecido mientras más larga sea la subsecuencia común máxima.
-\item Rouge-W: le asigna pesos a las subsecuencias según su largo.
-\item Rouge-S: es similar a Rouge-2, teniendo en cuenta bigramas pero permitiendo una cantidad arbitraria de espacios entre palabras.
-\item Rouge-SU: extiende la idea de Rouge-S, pero además le otorga valor a las palabras que haya en común, sin importar que no verifiquen un orden.
+\item ROUGE-N: cuando se tienen en cuenta n-gramas (n palabras). Este método favorece a documentos con palabras compartidas por más candidatos.
+\item ROUGE-L: cuando se tiene en cuenta la subsecuencia máxima común (LCS, longest common subsequence). Este método propone que un conjunto de documentos va a ser más parecido mientras más larga sea la subsecuencia común máxima.
+\item ROUGE-W: le asigna pesos a las subsecuencias según su largo.
+\item ROUGE-S: es similar a ROUGE-2, teniendo en cuenta bigramas pero permitiendo una cantidad arbitraria de espacios entre palabras.
+\item ROUGE-SU: extiende la idea de ROUGE-S, pero además le otorga valor a las palabras que haya en común, sin importar que no verifiquen un orden.
 \end{itemize}
 
-Rouge asigna un puntaje entre cero y uno a un esquema de evaluación conformado por una serie de documentos generados y sus referencias. Por diseño, se espera que buenos resúmenes tengan puntajes más altos; pero inevitablemente se requiere de trabajo humano para proveer las referencias.
+ROUGE asigna un puntaje entre cero y uno a un esquema de evaluación conformado por una serie de documentos generados y sus referencias. Por diseño, se espera que buenos resúmenes tengan puntajes más altos; pero inevitablemente se requiere de trabajo humano para proveer las referencias.
 
-Debido a que los resultados arrojados por las métricas se correlacionan con los asignados manualmente, las evaluaciones en las competencias de generación de resúmenes automáticos se llevan a cabo usando exclusivamente Rouge.
+Debido a que los resultados arrojados por las métricas se correlacionan con los asignados manualmente, las evaluaciones en las competencias de generación de resúmenes automáticos se llevan a cabo usando exclusivamente ROUGE \cite{mihalcea-tarau}.
 
 
 \section{Implementación}
@@ -263,11 +264,11 @@ Finalmente, las palabras preseleccionadas se marcan en el texto. En caso que est
 
 
 \subsection{Métodos de evaluación}
-Considerando que parte del alcance planteado incluye la propuesta de mejoras al método, se trabajó con el paquete ROUGE, desarrollado en lenguaje Perl. Se usó un proyecto de Python que funciona como wrapper para adaptar los textos de entrada (pyrouge) y ejecutar automáticamente la evaluación. 
+Considerando que parte del alcance planteado incluye la propuesta de mejoras al método, se trabajó con el paquete ROUGE, desarrollado en lenguaje Perl. Se usó un proyecto de Python que funciona como wrapper para adaptar los textos de entrada (pyROUGE) y ejecutar automáticamente la evaluación. 
 
 Se implementó, además, una capa de abstracción adicional para acotar la cantidad de opciones que se manejan, y para automatizar la corrida de múltiples textos de una base de datos.
 
-Al ser un paquete de evaluación muy completo y versátil, Rouge provee una gran cantidad de parámetros. Se configuraron sus opciones como se usan en las conferencias de DUC, calculando ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza del 95\% y aplicando un método de stemming \cite{duc2007}. 
+Al ser un paquete de evaluación muy completo y versátil, ROUGE provee una gran cantidad de parámetros. Se configuraron sus opciones como se usan en las conferencias de DUC, calculando ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza del 95\% y aplicando un método de stemming \cite{duc2007}. 
 
 Una de las restricciones que posee este método de evaluación es que requiere de resúmenes hechos por seres humanos para tomar como referencia, lo que implica un esfuerzo humano considerable si se quiere probar el rendimiento del método con varios textos. Se utilizó el corpus de DUC edición 2002, por ser en el que se desarrollaron las pruebas del paper original de TextRank.
 
@@ -369,7 +370,7 @@ Se muestran ambos resúmenes en las figuras \ref{fig:bm25} y \ref{fig:textrank}.
 \end{figure}
 
 \begin{figure}[h!]
-    \caption{Resumen generado por TextRank usando la variación de similitud BM25.}
+    \caption{Resumen generado por TextRank usando similitud BM25.}
     \label{fig:bm25}
     \raisedtext{{\scriptsize \parbox{\linewidth}{
     The small Academy Award statue is part of the public domain, U.S. District Court Judge Laughlin Waters said in a ruling released Thursday.
@@ -393,7 +394,7 @@ The academy noted that the ruling applied only to the statuette and that the aca
 Los mejores resultados se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0,25 en la ecuación 3, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. En el Cuadro 1 se detallan las alternativas ensayadas.
 
 \begin{table}
-\caption{Resultados de las distintas propuestas.}
+\caption{Resultados de las propuestas.}
 \begin{center}
 \begin{tabular}{l*{5}{c}r}
 \hline
@@ -420,7 +421,9 @@ Referencia DUC & 0,39 & 0,1689 & 0,186 & -2,84\% \\ [2pt]
 
 Los tiempos de ejecución también se superaron. Se pudieron procesar los 567 documentos de la base de datos de DUC2002 utilizando 84\% del tiempo requerido por la versión original.
 
-El resultado de la métrica de similitud coseno también fue satisfactoria, presentando una mejora de 2,54\% por sobre el método original. A su vez, los métodos de secuencias de máxima longitud también mostraron una mejora considerable: cerca del 1,40\% por sobre TextRank. En la Figura 1 se comparan los distintas técnicas.
+El resultado de la métrica de similitud coseno también fue satisfactoria, presentando una mejora de 2,54\% por sobre el método original. A su vez, los métodos de secuencias de máxima longitud también mostraron una mejora considerable: cerca del 1,40\% por sobre TextRank. 
+
+En la Figura 1 se comparan las distintas técnicas.
 
 \begin{figure}[h!]
     \centering
@@ -430,8 +433,8 @@ El resultado de la métrica de similitud coseno también fue satisfactoria, pres
 
 
 \section{Integración a Gensim}
-La integración del módulo a Gensim\footnote{Pull request: \url{https://github.com/piskvorky/gensim/pull/324}
-} se desarrolló a partir de su última versión, la 0.11.1-1. Se agregan a la biblioteca ambas funcionalidades descriptas anteriormente: la extracción de palabras claves y la generación automática de resúmenes extractivos.
+La integración del módulo a Gensim\footnote{Pull request: \url{https://github.com/piskvorky/gensim/pull/324}} se desarrolló a partir de la última versión a la fecha, la 0.11.1-1. 
+Se agregaron a la biblioteca las dos funcionalidades descriptas en el desarrollo del presente trabajo: la extracción de palabras claves y la generación automática de resúmenes extractivos.
 
 En la integración se incluyen tres casos de uso:
 \begin{itemize}
@@ -455,11 +458,11 @@ Queda para próximos trabajos explorar alternativas para la extracción de palab
 \section{Anexo I: modificaciones}
 Además de las mejoras descriptas en la sección “Mejoras”, también se ensayaron otras ideas cuyos resultados no fueron tan destacables como los mencionados.
 
-Como se explicó anteriormente, las modificaciones apuntan a cambiar el criterio de similaridad entre oraciones. Algunas modificaciones que se tuvieron en cuenta son similares a la de subcadena común, que otorga puntajes de acuerdo a la cantidad de unidades léxicas en orden que estén presentes en las dos oraciones. Estas métricas son similares a las usadas por el paquete ROUGE, y los métodos de subsecuencia de palabras común, subsecuencia de palabras común con peso, bigramas comunes y SU4 son idénticos a los usados por los métodos ROUGE-L, ROUGE-W, ROUGE-2 y ROUGE-SU4.
+Como se explicó anteriormente, las modificaciones apuntan a cambiar el criterio de similaridad entre oraciones. Algunas de las que se tuvieron en cuenta tienen un concepto similar a la de subcadena común, que otorga puntajes de acuerdo a la cantidad de unidades léxicas en orden que estén presentes en las dos oraciones. Estas métricas utilizan las técnicas usadas por el paquete ROUGE: los métodos de subsecuencia de palabras común, subsecuencia de palabras común con peso, bigramas comunes y SU4 son idénticos a los usados por los métodos ROUGE-L, ROUGE-W, ROUGE-2 y ROUGE-SU4 respectivamente.
 
-Se implementaron también métricas de distancias de Levenshtein, un método que pondera con un valor más alto a las palabras clave del texto, y una lógica de envejecimiento que asigna puntaje adicional a aquéllas palabras que se mencionaron más recientemente.
+Se implementaron también métricas de distancias de Levenshtein \cite{levenshtein}, un método que pondera con un valor más alto a las palabras clave del texto, y una lógica de envejecimiento que asigna puntaje adicional a aquéllas palabras que se mencionaron más recientemente.
 
-Finalmente, se experimentó también reemplazando el algoritmo de PageRank (que utiliza como solución el autovector asociado al valor asociado más grande de la matriz de similaridad) por el de HITS (que utiliza el vector singular asociado al valor singular más grande de la matriz); y también se probó aproximando la solución reduciendo el rango de la matriz con DVS. 
+Finalmente, se experimentó también reemplazando el algoritmo de PageRank (que utiliza como solución el autovector asociado al valor asociado más grande de la matriz de similaridad) por el de HITS (que utiliza el vector singular asociado al valor singular más grande de la matriz) \cite{kleinberg}; y también se hicieron pruebas aproximando la solución al reducir el rango de la matriz con DVS. 
 
 \subsection{Resultados}
 \begin{tabular}{l*{5}{c}r}
