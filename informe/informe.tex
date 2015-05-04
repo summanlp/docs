@@ -281,10 +281,12 @@ La propuesta se basa en aplicar este modelo para tratar a cada oración del text
 
 Tomando como ejemplo el documento “Esta bien. Todo bien.”, las oraciones quedarían modeladas como vectores de la siguiente forma:
 
-\begin{Verbatim}[xleftmargin=3em]
-v1=[ TFIDF("Esta") , TFIDF("bien") ,       0       ]
-v2=[       0       , TFIDF("bien") , TFIDF("Todo") ]
-\end{Verbatim}
+\begin{center}
+    \begin{Verbatim}[xleftmargin=3em]
+    v1=[ TFIDF("Esta") , TFIDF("bien") ,       0       ]
+    v2=[       0       , TFIDF("bien") , TFIDF("Todo") ]
+    \end{Verbatim}
+\end{center}
 
 Dado que la imagen de la función TF--IDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
 
@@ -324,25 +326,25 @@ También se experimentó con una variante de este método, conocida como BM25+, 
 Los mejores resultados se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0,25 en la ecuación 3, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. En el Cuadro 1 se detallan las alternativas ensayadas.
 
 \begin{table}
-\caption{Resultados de las distintas propuestas}
+\caption{Resultados de las distintas propuestas.}
 \begin{center}
 \begin{tabular}{l*{5}{c}r}
 \hline
 \rule{0pt}{12pt}
 Método & ROUGE-1 & ROUGE-2 & ROUGE-SU4 & Mejora \\[2pt]
-\hline\rule{0pt}{12pt}
-BM25 (Neg a epsilon) & 0.4042 & 0.1831 & 0.2018 & 2,92\% \\
-BM25+ (Neg a epsilon) & 0.404 & 0.1818 & 0.2008 & 2,60\% \\
-Cosine TF-IDF & 0.4108 & 0.177 & 0.1984 & 2,54\% \\
-BM25+ (IDF = log(N/NI)) & 0.4022 & 0.1805 & 0.1997 & 2,05\% \\ 
-BM25 (IDF = log(N/NI)) & 0.4012 & 0.1808 & 0.1998 & 1,97\% \\ 
-Longest Common Substring & 0.402 & 0.1783 & 0.1971 & 1,40\% \\
-BM25+ (Neg a cero) & 0.3992 & 0.1803 & 0.1976 & 1,36\% \\ 
-BM25 (Neg a cero) & 0.3991 & 0.1778 & 0.1966 & 0,89\% \\
-\textbf{TextRank} & \textbf{0.3983} & \textbf{0.1762} & \textbf{0.1948} & \textbf{-}\\
-BM25 & 0.3916 & 0.1725 & 0.1906 & -1,57\% \\
-BM25+ & 0.3903 & 0.1711 & 0.1894 & -2,07\% \\
-DUC Baseline & 0.39 & 0.1689 & 0.186 & -2,84\% \\ [2pt]
+\hline\rule{0pt}{12pt}\mbox{}\par\nobreak
+BM25 ($\varepsilon$ = 0,25) & 0,4042 & 0,1831 & 0,2018 & 2,92\% \\
+BM25+ ($\varepsilon$ = 0,25) & 0,404 & 0,1818 & 0,2008 & 2,60\% \\
+Similitud coseno & 0,4108 & 0,177 & 0,1984 & 2,54\% \\
+BM25+ (IDF = log($N$/$N_i$)) & 0,4022 & 0,1805 & 0,1997 & 2,05\% \\ 
+BM25 (IDF = log($N$/$N_i$)) & 0,4012 & 0,1808 & 0,1998 & 1,97\% \\ 
+Subcadena común & 0,402 & 0,1783 & 0,1971 & 1,40\% \\
+BM25+ ($\varepsilon$ = 0) & 0,3992 & 0,1803 & 0,1976 & 1,36\% \\ 
+BM25 ($\varepsilon$ = 0) & 0,3991 & 0,1778 & 0,1966 & 0,89\% \\
+\textbf{TextRank} & \textbf{0,3983} & \textbf{0,1762} & \textbf{0,1948} & \textbf{--}\\
+BM25 & 0,3916 & 0,1725 & 0,1906 & -1,57\% \\
+BM25+ & 0,3903 & 0,1711 & 0,1894 & -2,07\% \\
+Referencia DUC & 0,39 & 0,1689 & 0,186 & -2,84\% \\ [2pt]
 \hline
 \end{tabular}
 \end{center}
@@ -390,40 +392,43 @@ Como se explicó anteriormente, las modificaciones apuntan a cambiar el criterio
 
 Se implementaron también métricas de distancias de Levenshtein, un método que pondera con un valor más alto a las palabras clave del texto, y una lógica de envejecimiento que asigna puntaje adicional a aquéllas palabras que se mencionaron más recientemente.
 
-Finalmente, se experimentó también reemplazando el algoritmo de PageRank (que utiliza como solución el autovector asociado al valor asociado más grande de la matriz de similaridad) por el de HITS (que utiliza el vector singular asociado al valor singular más grande de la matriz); y también se probó aproximando la solución reduciendo el rango de la matriz. 
+Finalmente, se experimentó también reemplazando el algoritmo de PageRank (que utiliza como solución el autovector asociado al valor asociado más grande de la matriz de similaridad) por el de HITS (que utiliza el vector singular asociado al valor singular más grande de la matriz); y también se probó aproximando la solución reduciendo el rango de la matriz con DVS. 
 
 \subsection{Resultados}
-\begin{tabular}{ | l | l | l | l | l | l | l | }
-\hline
-	Método & ROUGE1 & ROUGE2 & ROUGESU4 & Mejora & Tiempo\\ \hline
-	TextRank & 0.3983 & 0.1762 & 0.1948 & - & 0:00:25\\ \hline
-	BM25 (Neg a epsilon) & 0.4042 & 0.1831 & 0.2018 & 2,92\% & 0:00:21\\ \hline
-	BM25+ (Neg a epsilon) & 0.404 & 0.1818 & 0.2008 & 2,60\% & 0:00:21\\ \hline
-	Cosine TF-IDF & 0.4108 & 0.177 & 0.1984 & 2,54\% & 0:03:30\\ \hline
-	BM25+ (IDF = log(N/NI)) & 0.4022 & 0.1805 & 0.1997 & 2,05\% & 0:00:24\\ \hline
-	BM25 (IDF = log(N/NI)) & 0.4012 & 0.1808 & 0.1998 & 1,97\% & 0:00:22\\ \hline
-	Longest Common Substring & 0.402 & 0.1783 & 0.1971 & 1,40\% & 0:18:32\\ \hline
-	LCW Subsequence & 0.4032 & 0.1773 & 0.1968 & 1,38\% & 0:01:02\\ \hline
-	Weighted LCW Subsequence & 0.4032 & 0.1773 & 0.1968 & 1,38\% & 0:01:12\\ \hline
-	BM25+ (Neg a cero) & 0.3992 & 0.1803 & 0.1976 & 1,36\% & 0:00:17\\ \hline
-	BM25 (Neg a cero) & 0.3991 & 0.1778 & 0.1966 & 0,89\% & 0:00:22\\ \hline
-	Distancia temporal & 0.3992 & 0.1762 & 0.195 & 0,48\% & 0:03:15\\ \hline
-	Levenshtein & 0.3961 & 0.1781 & 0.1955 & 0,38\% & 0:27:49\\ \hline
-	Longest Common Subsequence & 0.396 & 0.1775 & 0.1949 & 0,22\% & 0:28:08\\ \hline
-	SU4 & 0.3955 & 0.1732 & 0.1924 & -0,73\% & 0:01:02\\ \hline
-	Prioridad keywords & 0.3952 & 0.1721 & 0.1915 & -1,03\% & 0:07:13\\ \hline
-	Peso de conceptos & 0.3953 & 0.1713 & 0.1914 & -1,14\% & 0:04:09\\ \hline
-	Distancia temporal invertida & 0.3913 & 0.1725 & 0.1912 & -1,53\% & 0:03:05\\ \hline
-	BM25 & 0.3916 & 0.1725 & 0.1906 & -1,57\% & 0:00:18\\ \hline
-	HITS & 0.3914 & 0.1699 & 0.1898 & -2,03\% & 0:00:46\\ \hline
-	BM25+ & 0.3903 & 0.1711 & 0.1894 & -2,07\% & 0:00:17\\ \hline
-	HITS + DVS & 0.3912 & 0.1686 & 0.189 & -2,33\% & 0:00:46\\ \hline
-	DUC Baseline & 0.39 & 0.1689 & 0.186 & -2,84\% & 0:00:01\\ \hline
-	Bigramas comunes & 0.393 & 0.1633 & 0.1842 & -3,42\% & 0:00:50\\ \hline
-	Weighted LCSubstring & 0.3755 & 0.1509 & 0.1729 & -8,79\% & 0:17:23\\ \hline
-	Levenshtein normalizado & 0.348 & 0.1374 & 0.1565 & -16,28\% & 0:28:13\\ \hline
+\begin{tabular}{l*{5}{c}r}
+    \hline
+    \rule{0pt}{12pt}
+	Método & ROUGE1 & ROUGE2 & ROUGESU4 & Mejora \\[2pt]
+    \hline\rule{0pt}{12pt}\mbox{}\par\nobreak
+	BM25 ($\varepsilon$ = 0,25) & 0,4042 & 0,1831 & 0,2018 & 2,92\% \\ 
+	BM25+ ($\varepsilon$ = 0,25) & 0,404 & 0,1818 & 0,2008 & 2,60\% \\ 
+	Similitud coseno & 0,4108 & 0,177 & 0,1984 & 2,54\% \\ 
+	BM25+ (IDF = log($N$/$N_i$)) & 0,4022 & 0,1805 & 0,1997 & 2,05\% \\ 
+	BM25 (IDF = log($N$/$N_i$)) & 0,4012 & 0,1808 & 0,1998 & 1,97\% \\ 
+	Subcadena común & 0,402 & 0,1783 & 0,1971 & 1,40\% \\
+	Subsec. palabras común & 0,4032 & 0,1773 & 0,1968 & 1,38\% \\ 
+	Subsec. palabras común con peso & 0,4032 & 0,1773 & 0,1968 & 1,38\% \\ 
+	BM25+ ($\varepsilon$ = 0) & 0,3992 & 0,1803 & 0,1976 & 1,36\% \\ 
+	BM25 ($\varepsilon$ = 0) & 0,3991 & 0,1778 & 0,1966 & 0,89\% \\ 
+	Distancia temporal & 0,3992 & 0,1762 & 0,195 & 0,48\% \\ 
+	Levenshtein & 0,3961 & 0,1781 & 0,1955 & 0,38\% \\ 
+	Subsecuencia común & 0,396 & 0,1775 & 0,1949 & 0,22\% \\ 
+    \textbf{TextRank} & \textbf{0,3983} & \textbf{0,1762} & \textbf{0,1948} & \textbf{--} \\
+	SU4 & 0,3955 & 0,1732 & 0,1924 & -0,73\% \\ 
+	Prioridad keywords & 0,3952 & 0,1721 & 0,1915 & -1,03\% \\
+	Peso de conceptos & 0,3953 & 0,1713 & 0,1914 & -1,14\% \\
+	Distancia temporal invertida & 0,3913 & 0,1725 & 0,1912 & -1,53\% \\
+	BM25 & 0,3916 & 0,1725 & 0,1906 & -1,57\% \\
+	HITS & 0,3914 & 0,1699 & 0,1898 & -2,03\% \\
+	BM25+ & 0,3903 & 0,1711 & 0,1894 & -2,07\% \\
+	HITS + DVS & 0,3912 & 0,1686 & 0,189 & -2,33\% \\
+	Referencia DUC & 0,39 & 0,1689 & 0,186 & -2,84\% \\
+	Bigramas comunes & 0,393 & 0,1633 & 0,1842 & -3,42\% \\
+	Weighted LCSubstring & 0,3755 & 0,1509 & 0,1729 & -8,79\% \\
+	Levenshtein normalizado & 0,348 & 0,1374 & 0,1565 & -16,28\% \\
 \end{tabular}
 
+\newpage
 \bibliography{informe}{}
 \bibliographystyle{babunsrt}
 
