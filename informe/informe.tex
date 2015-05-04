@@ -13,6 +13,20 @@
 
 \graphicspath{ {img/} }
 
+%%%%%%%%%% Text with box
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+
+\newcommand{\raisedtext}[1]{
+  \vspace{1mm}
+  \begin{tikzpicture}
+    [baseline=(X.base)]\node [drop shadow,fill=white,draw,very thin] (X) {#1};
+  \end{tikzpicture}
+  \vspace{1mm}
+}
+%%%%%%%%%%%%%%%%%%%
+
+
 \newtheorem{definicion}{Definición} 
 
 \urldef{\mails}\path|{fbarrios,fjlopez}@fi.uba.ar| 
@@ -321,6 +335,59 @@ También se ensayaron otras alternativas como establecer $\varepsilon = 0$ y usa
 
 También se experimentó con una variante de este método, conocida como BM25+, que repara deficiencias de BM25 relacionadas a la frecuencia de término y a la penalización a documentos largos frente a documentos cortos irrelevantes \cite{lv}.
 
+\subsection{Ejemplo}
+En la Figura \ref{fig:text} se muestra un documento de ejemplo del conjunto de datos de la conferencia DUC del año 2002.
+El resumen generado por el algoritmo de TextRank usando la función BM25 como similitud superó al original por un 30\% en la métrica de ROUGE-1 y por un 54\% en ROUGE-2.
+
+Se muestran ambos resúmenes en las figuras \ref{fig:bm25} y \ref{fig:textrank}.
+
+\begin{figure}[h!]
+\caption{Documento de ejemplo del conjunto de datos de DUC 2002.}
+\label{fig:text}
+\raisedtext{{\scriptsize \parbox{\linewidth}{
+\begin{enumerate}
+\itemsep0em
+\item Oscar Trophy Has No Copyright
+\item By JOHN HORN
+\item Associated Press Writer
+\item LOS ANGELES (AP)
+\item The Oscar statuette, one of the most recognizable images in the entertainment world, has no copyright protection, a federal judge has ruled.
+\item The small Academy Award statue is part of the public domain, U.S. District Court Judge Laughlin Waters said in a ruling released Thursday.
+\item The decision was a setback for the Academy of Motion Picture Arts and Sciences, which had sued a Chicago-based manufacturer of an employee-incentive trophy similar to the Oscar.
+\item Academy President Karl Malden said the ruling ``comes as a shock to me''.
+\item The academy said it would appeal.
+\item The academy claimed that the Star Award, the trophy look-alike made by Creative House Promotions, violated copyright laws, diluted the academy's trademark and represented unfair competition.
+\item The Star Award depicted a naked, muscular male much like the Oscar, just two inches shorter and holding a star instead of a sword.
+\item It had a gold finish similar to the Oscar, and stood on a circular gold cap mounted on a cylindrical base.
+\item Although Waters acknowledged that the Creative House trophy is ``very similar'' to the Oscar, he rejected all of the academy's legal claims, saying that the statuette became part of the public domain prior to Jan. 1, 1978, the effective date of the Copyright Act of 1976.
+\item The film industry's top award was distributed from the first ceremony in 1929 until about 1941 without the ``c'' mark indicating a copyright.
+\item The judge ruled, too, that the Oscar not only was an honorary award but also was used to promote the film industry, and therefore did not have a ``limited purpose,'' as required by the copyright act.
+\item The academy noted that the ruling applied only to the statuette and that the academy's trademark and service marks for the Oscar and the Academy Award names and symbols are unaffected.
+\item ``We are surprised that the court would base its decision on events which occurred half a century ago, overlooking the meticulous fashion in which the Academy has protected the integrity of its institutional symbol for decades,'' Malden said in a statement.
+\end{enumerate}
+}}}
+\end{figure}
+
+\begin{figure}[h!]
+    \caption{Resumen generado por TextRank usando la variación de similitud BM25.}
+    \label{fig:bm25}
+    \raisedtext{{\scriptsize \parbox{\linewidth}{
+    The small Academy Award statue is part of the public domain, U.S. District Court Judge Laughlin Waters said in a ruling released Thursday.
+The academy claimed that the Star Award, the trophy look-alike made by Creative House Promotions, violated copyright laws, diluted the academy's trademark and represented unfair competition.
+Although Waters acknowledged that the Creative House trophy is ``very similar'' to the Oscar, he rejected all of the academy's legal claims, saying that the statuette became part of the public domain prior to Jan. 1, 1978, the effective date of the Copyright Act of 1976.
+    }}}
+\end{figure}
+
+\begin{figure}[h!]
+    \caption{Resumen generado por la versión original de TextRank.}
+    \label{fig:textrank}
+    \raisedtext{{\scriptsize \parbox{\linewidth}{
+    Although Waters acknowledged that the Creative House trophy is ``very similar'' to the Oscar, he rejected all of the academy's legal claims, saying that the statuette became part of the public domain prior to Jan. 1, 1978, the effective date of the Copyright Act of 1976.
+The judge ruled, too, that the Oscar not only was an honorary award but also was used to promote the film industry, and therefore did not have a ``limited purpose,'' as required by the copyright act.
+The academy noted that the ruling applied only to the statuette and that the academy's trademark and service marks for the Oscar and the Academy Award names and symbols are unaffected.
+    }}}
+\end{figure}
+
 
 \subsection{Resultados}
 Los mejores resultados se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0,25 en la ecuación 3, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. En el Cuadro 1 se detallan las alternativas ensayadas.
@@ -398,7 +465,7 @@ Finalmente, se experimentó también reemplazando el algoritmo de PageRank (que 
 \begin{tabular}{l*{5}{c}r}
     \hline
     \rule{0pt}{12pt}
-	Método & ROUGE1 & ROUGE2 & ROUGESU4 & Mejora \\[2pt]
+	Método & ROUGE-1 & ROUGE-2 & ROUGE-SU4 & Mejora \\[2pt]
     \hline\rule{0pt}{12pt}\mbox{}\par\nobreak
 	BM25 ($\varepsilon$ = 0,25) & 0,4042 & 0,1831 & 0,2018 & 2,92\% \\ 
 	BM25+ ($\varepsilon$ = 0,25) & 0,404 & 0,1818 & 0,2008 & 2,60\% \\ 
