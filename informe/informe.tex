@@ -216,15 +216,15 @@ El stemming es un proceso complejo dado que puede haber muchos casos excepcional
 
 
 \subsection{TextRank para extracción de oraciones}
-El problema de la extracción de oraciones apunta a identificar las secuencias más representativas del texto. Para este caso, las unidades tomadas para aplicar el algoritmo serán oraciones completas \cite{introductionir}.
+El problema de la extracción de oraciones apunta a identificar las secuencias más representativas del texto. Para este caso, las unidades léxicas tenidas en cuenta para aplicar el algoritmo serán oraciones completas \cite{introductionir}.
 
-Inicialmente, se construye un grafo en base al texto. En este caso, se agrega cada oración como vértice. Para crear las aristas con su peso correspondiente, se debe definir una función de similitud entre dos oraciones dadas. Esta función de similitud será la que dicte cuánto una oración “recomienda” a otra, dado que ambas poseen contenidos similares y abordan los mismos conceptos.
+Inicialmente, se construye un grafo en base al texto, agregando a cada oración como vértice. Para crear las aristas con su peso correspondiente, se debe definir una función de similitud entre dos oraciones dadas. Esta función será la que dicte cuánto una oración “recomienda” a otra por poseer contenidos similares y abordar los mismos conceptos.
     
-La función utilizada formalmente se define de la siguiente manera:
+La función utilizada formalmente por el algoritmo original se define de la siguiente manera:
 
 \begin{definicion}
 Sean $S_i$, $S_j$ dos oraciones representadas por un conjunto de $n$ palabras que en 
-$S_i$ aparecen como $S_i = w_{1}^{i}, w_{2}^{i},..., w_{n}^{i}$, la función de similitud para $S_i$, $S_j$ se define como:
+$S_i$ aparecen como $S_i = w_{1}^{i}, w_{2}^{i},..., w_{n}^{i}$. La función de similitud para $S_i$, $S_j$ se define como:
 
 \begin{equation}
 Similitud(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j}   \}  | }    
@@ -232,19 +232,18 @@ Similitud(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j
 \end{equation}
 \end{definicion}
     
-El resultado de este proceso es el texto representado como un grafo ponderado y altamente conexo. En base a esto se aplica PageRank para priorizar los vértices más relevantes.
-
-Luego de aplicar el algoritmo de priorización, se seleccionan las oraciones con mayor puntaje para incluirlas en el resumen. Finalmente, dichas oraciones se las presenta de acuerdo al orden de aparición en el texto original.
+El resultado de este proceso es el texto representado como un grafo altamente denso, al cuál se le aplicará PageRank para seleccionar los vértices más relevantes.
+Finalmente, a las oraciones más importantes se las presenta de acuerdo al orden de aparición en el texto original.
 
 
 \subsection{TextRank para palabras claves}
-La otra aplicación que se le puede dar a TextRank es la extracción de palabras claves (\textit{keywords}) de un texto. Es un problema similar a la extracción de oraciones, dado que el objetivo es identificar un conjunto de unidades que sean representativas de dicho texto. Aquí, las unidades serán palabras, sueltas o combinadas.
+La otra aplicación que se le puede dar a TextRank es la extracción de palabras clave (\textit{keywords}) de un texto. Es un problema similar a la extracción de oraciones, dado que el objetivo es identificar un conjunto de unidades que sean representativas de dicho texto. Aquí, las unidades serán palabras, sueltas o combinadas.
 
 Al igual que en el caso de la extracción de oraciones, luego de la etapa de preprocesamiento, las palabras no filtradas se agregan al grafo. Se pueden agregar filtros sintácticos adicionales para limitar el análisis sólo a, por ejemplo, sustantivos y verbos, o cualquier otra combinación. 
 
-En lugar de una función de similitud, aquí se define una función de coocurrencia: dos vértices estarán conectados si las palabras que representan ocurren en el texto dentro de una ventana de n palabras. El largo de la ventana n, suele tomar un valor entre dos (2) y diez (10). Los vínculos de coocurrencia demuestran una relación entre los elementos sintácticos que sirve como indicador de la cohesión del texto. Es por ello que son útiles para indicar la relevancia de las palabras principales.
+En lugar de una función de similitud, aquí se define una función de coocurrencia: dos vértices estarán conectados si las palabras que representan ocurren en el texto dentro de una ventana de n palabras, que suele tomar un valor entre dos y diez. Los vínculos de coocurrencia demuestran una relación entre los elementos sintácticos que sirve como indicador de la cohesión del texto. Es por ello que son útiles para indicar la relevancia de las palabras principales.
 
-Con el grafo no ponderado y no dirigido construido, el valor de cada vértice se setea a uno (1), y se aplica el PageRank. Una vez asignados los puntajes, se toman los k vértices más relevantes, donde k suele ser un tercio de la cantidad de vértices totales. 
+Con el grafo no ponderado y no dirigido construido, el valor de cada vértice se establece en uno, y se aplica el PageRank. Una vez asignados los puntajes, se toman los k vértices más relevantes, donde k suele ser un tercio de la cantidad de vértices totales. 
 
 Finalmente, las palabras preseleccionadas se marcan en el texto. En caso que estas palabras formen secuencias adyacentes, se las une en un “concepto clave”. Por ejemplo, si se preseleccionan las palabras “Puerto” y “Rico”, y en el texto figuran juntas, se las combina en “Puerto Rico”.
 
@@ -258,8 +257,7 @@ Al ser un paquete de evaluación muy completo y versátil, Rouge provee una gran
 
 Una de las restricciones que posee este método de evaluación es que requiere de resúmenes hechos por seres humanos para tomar como referencia, lo que implica un esfuerzo humano considerable si se quiere probar el rendimiento del método con varios textos. Se utilizó el corpus de DUC edición 2002, por ser en el que se desarrollaron las pruebas del paper original de TextRank.
 
-Todos los resultados obtenidos se compararon contra un sistema "baseline" que genera resúmenes que consisten de las primeras 100 palabras de cada texto. Comparando el rendimiento de TextRank contra el baseline se pudo comprobar que la implementación del algoritmo era certera \cite{baselines}.
-
+Todos los resultados obtenidos se compararon contra un sistema de referencia (\textit{baseline}) que genera resúmenes que consisten de las primeras 100 palabras de cada texto \cite{baselines}.
 Se configuró un ambiente de integración continua para permitir la ejecución de evaluaciones automatizadas y que además verifica la calidad del código programado. 
 
 
@@ -269,19 +267,17 @@ En esta sección se analizan las propuestas de mejora que arrojaron mejores resu
 \subsection{Propuestas}
 
 \subsubsection{Subcadena común}
-Dadas dos frases, el problema de la subcadena común más larga consiste en identificar la secuencia de caracteres de mayor extensión presente en ambas. Por ejemplo, entre “la cocina verde” y “una cocina vale más si es verde”, la secuencia más larga es “a cocina v”.
+Dadas dos frases, el problema de la subcadena común más larga consiste en identificar la secuencia de caracteres de mayor extensión presente en ambas. Por ejemplo, entre “la cocina verde” y “una cocina vale más si es verde”, la secuencia más larga es “a cocina v” \cite{gusfield}.
 
 La propuesta consiste en modificar la función de distancia de la implementación original y reemplazarla por el largo de la subcadena común más larga. En el ejemplo anterior, la similitud sería de 10, dado que es el largo de la secuencia “a cocina v”.
 
-Cabe destacar el parecido de esta métrica con los métodos de evaluación ROUGE.
-
 
 \subsubsection{Similitud coseno}
-La similitud coseno es una medida de la similitud existente entre dos vectores en un espacio que posee un producto interior con el que se evalúa el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta “distancia” se debe modelar a los documentos como vectores. Para ello se utiliza el modelo del espacio vectorial.
+La similitud coseno es una medida del parecido entre dos vectores en un espacio que posee un producto interior, y resulta de evaluar el valor del coseno del ángulo comprendido entre ellos. Para poder hacer uso de esta propiedad se utiliza el modelo vectorial, modelando a los documentos como vectores.
 
-El modelo del espacio vectorial es un modelo algebraico utilizado para representar documentos en lenguaje natural de una manera formal mediante el uso de vectores en un espacio lineal multidimensional. La teórica básica es que el parecido de un documento frente a otro puede calcularse usando la similitud coseno. Así un valor de coseno de cero significa que los documentos son ortogonales el uno al otro, y eso significa que no hay similitud.
+Este modelo algebraico es utilizado para representar documentos en lenguaje natural de una manera formal, y tiene la característica de que favorece la dirección a la cuál apuntan los documentos independientemente de su longitud. Consecuentemente, textos que hablan de los mismos temas en distinta cantidad de palabras pueden tener una gran similitud con esta métrica \cite{singhal}. 
 
-La propuesta se basa en aplicar el modelo del espacio vectorial para tratar a cada oración del texto como un vector n-dimensional, con n la cantidad de palabras distintas presentes en el documento, y luego compararlas utilizando la similitud coseno . Las entradas de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término - frecuencia inversa de documento” (TF-IDF de sus siglas en inglés) a cada palabra de la oración representada.
+La propuesta se basa en aplicar este modelo para tratar a cada oración del texto como un vector n-dimensional (siendo n la cantidad de palabras distintas presentes en el documento), y luego compararlas utilizando la similitud coseno. Las componentes de cada vector estarán compuestas por el resultado de aplicar la función “frecuencia de término -- frecuencia inversa de documento” (TF--IDF de sus siglas en inglés) a cada palabra de la oración representada.
 
 Tomando como ejemplo el documento “Esta bien. Todo bien.”, las oraciones quedarían modeladas como vectores de la siguiente forma:
 
@@ -290,14 +286,12 @@ v1=[ TFIDF("Esta") , TFIDF("bien") ,       0       ]
 v2=[       0       , TFIDF("bien") , TFIDF("Todo") ]
 \end{Verbatim}
 
-Dado que la imagen de la función TFIDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
+Dado que la imagen de la función TF--IDF está contenida en el intervalo [0,1], todos los vectores quedan conformados por entradas no negativas, haciendo que ninguna similitud sea menor a cero. 
 
 
 \subsubsection{BM25}
-Okapi BM25 es una función de ranking utilizada para la asignación de relevancia a los documentos en un buscador. 
-Está basada en los modelos probabilísticos de Recuperación de información, y actualmente 
-representa el estado del arte en algoritmos de recuperación de documentos 
-basados en frecuencia de término -- frecuencia inversa de documento.
+BM25 / Okapi BM25 es una función de ranking utilizada como estado de arte para tareas de Recuperación de Información. 
+Esta función es una variación del modelo TF--IDF usando un modelo probabilístico \cite{robertson}.
 
 \begin{definicion}
 Dadas dos oraciones R, S, BM25 se define como:
@@ -306,10 +300,11 @@ Dadas dos oraciones R, S, BM25 se define como:
 BM25(D,Q) = \sum_{i=1}^{n} IDF(q_i) \cdot \frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot (1 - b + b \cdot \frac{|D|}{avgDL})}
 \end{equation}
 
-donde $k$ y $b$ son parámetros que valen $k = 1,2$ y $b = 0,75$, y $avgDL$ es el largo promedio de las oraciones en el texto.
+donde $k$ y $b$ son parámetros establecidos a $1,2$ y $0,75$, respectivamente. $avgDL$ es el largo promedio de las oraciones en el texto.
 \end{definicion}
 
-Esta función contempla la frecuencia inversa del documento de manera tal que si una palabra aparece en más de la mitad de los textos, el valor para ese término se vuelve negativo. Dado que este comportamiento no es deseable en este caso en particular, se utiliza la siguiente fórmula:
+Esta función define que el valor de aquellas palabras que aparecen en más de la mitad de los textos resulte negativo. 
+Dado que este comportamiento puede traer problemas en las fases posteriores del algoritmo, se aplica la siguiente fórmula correctiva:
                 
 \begin{equation}
  IDF(q_i) =
@@ -319,16 +314,14 @@ Esta función contempla la frecuencia inversa del documento de manera tal que si
   \end{cases}
 \end{equation}                
                 
-donde $\varepsilon$ ronda entre 0,5 y 0,30 y avgIDF es el idf promedio para todos los términos).
-También se ensayaron alternativas como hacer cero el resultado, en caso de ser negativo, o reemplazar la función inversa por una similar, cuyo resultado es no negativo, o estrictamente positivo. 
+donde $\varepsilon$ ronda entre 0,5 y 0,30 y avgIDF es el idf promedio para todos los términos.
+También se ensayaron otras alternativas como establecer $\varepsilon = 0$ y usar modificaciones más simples a la fórmula clásica de IDF.
 
-Existe una variante de este método, conocida como BM25+. Esta repara deficiencias de BM25 relacionadas a la frecuencia de término y a la penalización a documentos largos frente a documentos cortos irrelevantes.
-
-La propuesta consistió en aplicar BM25 y BM25+ entre las oraciones de un texto, a fin de ordenarlas de acuerdo a su relevancia.
+También se experimentó con una variante de este método, conocida como BM25+, que repara deficiencias de BM25 relacionadas a la frecuencia de término y a la penalización a documentos largos frente a documentos cortos irrelevantes \cite{lv}.
 
 
 \subsection{Resultados}
-Los resultados óptimos se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0.25, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. Inicialmente se obtenían valores cercanos al 1,30\% pero dado que esta función contempla el uso de stopwords, se procedió a eliminar la etapa de filtrado del preprocesamiento del texto, alcanzado así resultados sobresalientes. En la Tabla 1 se detallan las alternativas ensayadas.
+Los mejores resultados se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante $\varepsilon$ = 0,25 en la ecuación 3, dando una mejora total de 2,92\% para BM25 y 2,60\% para BM25+. En el Cuadro 1 se detallan las alternativas ensayadas.
 
 \begin{table}
 \caption{Resultados de las distintas propuestas}
