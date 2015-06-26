@@ -1,0 +1,398 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{lscape}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+
+\newcommand{\tabitem}{\par\hspace*{\labelsep}\textbullet\hspace*{\labelsep}}
+
+\title{Propuesta de Trabajo Profesional}
+\author{Barrios, Federico & López, Federico}
+\date{\today}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{center}
+\includegraphics{./logo-fiuba.png}\\
+\vspace{1cm}
+\textsc{\LARGE Universidad de Buenos Aires}\\[0.3cm]
+\textsc{\LARGE Facultad de Ingeniería}\\[1.2cm]
+\textsc{\Large Propuesta de Trabajo Profesional}\\[0.3cm]
+\vspace{1.5cm}
+\textsc{\Large Módulo de resúmenes automáticos basado en TextRank con integración a Gensim}\\[0.3cm]
+\end{center}
+
+\begin{flushright}
+{\large
+\vspace{2.5cm}
+Barrios, Federico -- 91954\\
+L\'opez, Federico -- 92278\\[0.1cm]
+}
+
+\end{flushright}
+
+\newpage
+\tableofcontents
+
+\setcounter{page}{1}
+\newpage
+\section{Introducción}
+
+El siguiente documento presenta la propuesta de Trabajo Profesional de Ingeniería en Informática de los estudiantes Federico Barrios (padrón 91954) y Federico López (padrón 92278).
+
+El objetivo del proyecto es aplicar los conocimientos adquiridos en la carrera; el tema elegido es \textbf{``Módulo de resúmenes automáticos basado en TextRank con integración a Gensim''}.
+
+Los resúmenes automatizados son muy utilizados en tareas relacionadas al procesamiento de lenguaje natural y de aprendizaje automático. Su uso en motores de búsqueda, por ejemplo, mejora la eficiencia de indexación de textos y a su vez asiste en la presentación de resultados de manera efectiva. El incremento en la cantidad de información disponible en Internet ha intensificado su utilización en los últimos años y, en consecuencia, se ha dedicado enorme esfuerzo para mejorar los algoritmos existentes. El número de aplicaciones del tema en cuestión en tareas de actualidad sirven como motivación para el desarrollo de este Trabajo Profesional.
+
+Por otra parte, realizar un aporte de software libre responde a la intención de contribuir con la comunidad que a diario provee de herramientas de uso académico y profesional.
+
+\section{Descripción del problema}
+
+Un resumen es una reducción a términos breves y precisos de lo esencial de una fuente de información. Su objetivo es el de extraer contenido intentando sintetizar sus conceptos más importantes, y su uso es altamente benéfico en tareas de aprendizaje debido a que:
+\begin{itemize}
+    \item Facilitan la selección de información
+    \item Acortan tiempos de lectura
+    \item Simplifican búsquedas en textos
+    \item Optimizan la creación de índices
+\end{itemize}
+La investigación indica, además, que contribuyen en tareas automatizadas: su utilización para presentar resultados de motores de búsquedas atrajo el interés de académicos desde principios de la década del 2000, convirtiéndose hoy en día en una funcionalidad básica de los principales buscadores de Internet.
+
+Sin embargo, si bien esta tarea puede no resultar costosa para un ser humano, durante muchos años fue considerada como difícil de automatizar. Este tema es uno de los que investiga el campo de procesamiento de lenguaje natural, dedicado a facilitar la interacción entre las computadoras y los seres humanos. Entre las herramientas más importantes con las que cuenta este área se encuentra el modelado de tópicos, que revela los conceptos de los que trata un texto a base de un análisis estadístico.
+
+\section{Ejemplos}
+A continuación se presentan algunos ejemplos de aplicación de resúmenes automáticos, obtenidos a partir de una herramienta disponible en Internet:\cite{tools4noobs}
+
+\begin{itemize}
+    \item Artículo de Wikipedia sobre sumarización automática, en español:\footnote{\texttt{http://es.wikipedia.org/wiki/Sumarización\_automática}}
+
+\emph{``Dos tipos particulares de sumarización encontrados a menudo en la literatura son extracción de frases principales, cuyo objetivo es seleccionar palabras o frases individuales para `etiquetar' un documento, y sumarización de documentos, cuyo objetivo es seleccionar oraciones enteras para crear sumarios formados por párrafos cortos.''}
+
+    \item Artículo de Wikipedia sobre sumarización automática, en inglés:\footnote{\texttt{http://en.wikipedia.org/wiki/Automatic\_summarization}}
+
+\emph{``Two particular types of summarization often addressed in the literature are keyphrase extraction, where the goal is to select individual words or phrases to `tag' a document, and document summarization, where the goal is to select whole sentences to create a short paragraph summary.''}
+
+    \item Publicación que presenta a TextRank:
+
+\emph{``In the following, we investigate and evaluate the application of \mbox{TextRank} to two natural language processing tasks involving ranking of text units: (1) A keyword extraction task, consisting of the selection of keyphrases representative for a given text; and (2) A sentence extraction task, consisting of the identification of the most `important' sentences in a text, which can be used to build extractive summaries.''}
+
+    \item \textit{El Principito}:\footnote{Antoine de Saint-Exupéry. 1943. \textit{El Principito.} (orig. \textit{Le Petit Prince}).}
+
+\emph{``¿Es que no es cosa seria averiguar por qué las flores pierden el tiempo fabricando unas espinas que no les sirven para nada? ¿Es que no es importante la guerra de los corderos y las flores? ¿No es esto más serio e importante que las sumas de un señor gordo y colorado? Y si yo sé de una flor única en el mundo y que no existe en ninguna parte más que en mi planeta; si yo sé que un buen día un corderillo puede aniquilarla sin darse cuenta de ello, ¿es que esto no es importante? El principito enrojeció y después continuó: ---Si alguien ama a una flor de la que sólo existe un ejemplar en millones y millones de estrellas, basta que las mire para ser dichoso.''}
+
+\end{itemize}
+
+
+\section{Objetivos}
+
+El Trabajo Profesional consta de tres objetivos principales:
+\begin{itemize}
+    \item Desarrollar el módulo para generar resúmenes automáticos usando un algoritmo conocido.
+    \item Analizar, diseñar e implementar modificaciones para intentar mejorar el rendimiento del algoritmo seleccionado.
+    \item Integrar las implementaciones a una herramienta de código abierto de procesamiento del lenguaje natural.
+\end{itemize}
+
+\section{Carácteristicas del trabajo}
+\subsection{Módulo}
+
+El módulo de creación de resúmenes automáticos está basado en \mbox{TextRank},
+algoritmo propuesto por Rada Mihalcea y Paul Tarau. Su concepto es determinar las frases más significativas basándose en la estructura del texto, de la misma manera que el célebre PageRank de Google selecciona las páginas Web más importantes. 
+
+TextRank es un método no supervisado (dado que no requiere de información de otros documentos como entrenamiento para obtener una salida) y extractivo (pues el resultado final es una selección de oraciones del documento original). A su vez, tiene la ventaja de que puede ser utilizado sobre cualquier pieza sin importar su idioma, ya que simplemente analiza la relación entre oraciones.
+
+\subsection{Modificaciones y evaluación de performance}
+
+La segunda parte del Trabajo consiste en analizar otros enfoques al problema en cuestión para mejorar el algoritmo implementado. 
+
+Teniendo en cuenta que existen alternativas muy diferentes para realizar la tarea, sólo se considerarán aquéllas que se puedan adaptar a lo desarrollado en la etapa anterior.
+
+Se evaluará cómo se comporta el enfoque propuesto a TextRank usando las técnicas 
+de uso estándar:
+\begin{itemize}
+    \item Se aplicarán las métricas de precisión (\textit{precision}), exhaustividad 
+(\textit{recall}) y valor-F (\textit{F-measure}) para obtener una medida de qué tan acertada es la 
+selección de palabras clave.
+    \item El conjunto de métricas ROUGE (\textit{Recall-Oriented Understudy for Gisting 
+Evaluation}) 
+para comparar el resultado obtenido con otro conjunto de 
+resúmenes.
+    \item Evaluación humana de coherencia, dado que las herramientas desarrolladas para realizar automáticamente esta tarea devuelven resultados no concluyentes
+\end{itemize}
+
+\subsection{Integración}
+
+El objetivo final del Trabajo Profesional es integrar la implementación lograda al entorno Gensim (ver \emph{Tecnología}). Dicha herramienta permite detectar los principales temas tratados en una colección de documentos, a través del modelaje de tópicos. Estas nociones se obtienen a partir de estadísticas relacionadas con las palabras de la colección.
+
+Se propone integrar el módulo basado en TextRank y las modificaciones, en caso de que arrojaran resultados concluyentes.
+
+
+\section{Tecnologías}
+
+\subsection{Framework principal}
+
+El framework principal, al cual se integrará el desarrollo final, será Gensim.\cite{gensim} Éste es una biblioteca escrita en Python para el modelaje de tópicos y la indexación de documentos que está diseñada para trabajar con conjuntos de textos de gran tamaño. Su uso se ha expandido tanto en el ámbito comercial como en el académico, apuntando especialmente al área de procesamiento del lenguaje natural y a la búsqueda y recuperación de la información. 
+
+Sus características principales son:
+\begin{itemize}
+    \item Utiliza las extensiones científicas de Python NumPy\cite{numpy} 
+    y SciPy,\cite{scipy} y está optimizado a través Cython.\cite{cython}
+    \item Todos sus algoritmos están diseñados para procesar entradas mucho 
+    mayores que la memoria RAM disponible.
+    \item Procesamiento distribuido
+    \item Interfaces intuitivas
+    \item Documentación extensiva
+\end{itemize}
+
+Provee herramientas para:
+\begin{itemize}
+    \item Análisis semántico latente
+    \item Alocación de Dirichlet latente
+    \item Proceso jerárquico de Dirichlet
+    \item Proyecciones aleatorias
+    \item Deep learning
+\end{itemize}
+
+Además, Gensim es una herramienta de código libre, un modelo de desarrollo caracterizado por la distribución de software y su código fuente de manera libre, ilimitada y gratuita tanto a usuarios como a desarrolladores.
+
+\subsection{Herramientas y otras tecnologías}
+
+\begin{center}
+\begin{tabular}{|p{7cm}|p{5cm}|}
+    \hline
+        \textbf{Categoría} & 
+        
+        \textbf{Herramientas} \\
+    \hline
+        Lenguajes de programación & 
+        
+        \tabitem Python
+        \tabitem JavaScript \\
+    \hline
+        Frameworks gráficos & 
+        
+        \tabitem Gexf-js\cite{gephi}
+        \tabitem Highcharts\cite{highcharts} \\
+    \hline
+        Entornos de desarrollo & 
+        
+        \tabitem IPython\cite{ipython}
+        \tabitem Sublime Text\cite{sublime} \\
+    \hline
+        Control de versiones & 
+        
+        \tabitem Git\cite{git} \\
+    \hline
+        Administración y control del proyecto & 
+        
+        \tabitem Trello\cite{trello}
+        \tabitem Goole Docs\cite{gdocs} \\
+    \hline
+\end{tabular}
+\end{center}
+
+\section{Alcance}
+
+El alcance del presente Trabajo Profesional comprende:
+\begin{itemize}
+    \item Desarrollo del módulo de generación de resúmenes automáticos.
+    \item Desarrollo e implementación de modificaciones con su correspondiente 
+evaluación de desempeño en base a métricas preestablecidas.
+    \item Interfaz web para la utilización del módulo.
+    \item Integración del módulo a Gensim.
+\end{itemize}
+
+
+\section{Plan de trabajo}
+\subsection{Equipo de trabajo}
+
+El equipo de trabajo estará conformador por:
+\begin{itemize}
+    \item Tutores: Lic. Rosa Wachenchauzer, Lic. Luis Argerich.
+    \item Desarrolladores: Federico Barrios y Federico López
+\end{itemize}
+
+\subsection{Metodología}
+Para la ejecución del proyecto se usará una metodología ágil basada en SCRUM. 
+La misma consistirá en definir una serie de iteraciones con fechas pautadas de 
+reuniones de avance y entregas. 
+
+Al inicio de cada iteración se hará una priorización de los requerimientos 
+pendientes de desarrollo. Posteriormente se procederá a su implementación, y 
+para finalizar cada iteración se hará una presentación de los entregables 
+pautados.
+
+Las reuniones, entregas, presentaciones y la priorización de los requerimientos 
+para cada iteración se hará en conjunto con los tutores del Trabajo.
+
+\subsection{Estimación}
+Se muestra a continuación el listado de tareas necesarias para alcanzar los
+objetivos descriptos anteriormente. Todos los esfuerzos están expresados en 
+horas.
+
+\begin{center}
+    \begin{tabular}{ | c | l | c | c | c | }
+    \hline
+        \textbf{\# It.}     & \textbf{Descripción} & \textbf{Esf.} & \textbf{Rec.} & \textbf{Tot.}  \\ \hline
+        --                  & Propuesta                                     & 15    & 2     & 30    \\ \hline
+        \multirow{2}{*}{1}  & Configuración del entorno                     & 15    & 1     & 15    \\
+                            & Interfaz web básica                           & 10    & 2     & 20    \\ \hline
+        \multirow{4}{*}{2}  & Módulo principal: investigación y análisis    & 30    & 2     & 60    \\
+                            & Módulo principal: diseño                      & 30    & 2     & 60    \\
+                            & Módulo principal: implementación              & 30    & 2     & 60    \\
+                            & Integración con interfaz web                  & 15    & 1     & 15    \\ \hline
+        \multirow{4}{*}{3}  & Búsqueda de bases de datos                    & 15    & 1     & 15    \\
+                            & Uso de módulo de ROUGE                        & 30    & 2     & 60    \\
+                            & Integración con Gephi: escribir grafo         & 25    & 1     & 25    \\
+                            & Integración con Gephi: transformar grafo      & 15    & 1     & 15    \\ \hline
+        \multirow{2}{*}{4}  & Modificaciones: análisis y diseño             & 15    & 2     & 30    \\
+                            & Modificaciones: implementación                & 25    & 2     & 50    \\ \hline
+        \multirow{2}{*}{5}  & Análisis de datos e informes de resultados    & 20    & 2     & 40    \\ 
+                            & Integración con Highcharts                    & 15    & 1     & 15    \\ \hline
+        \multirow{3}{*}{6}  & Integración con Gensim: análisis y diseño     & 20    & 2     & 40    \\ 
+                            & Integración con Gensim: implementación        & 20    & 2     & 40    \\ 
+                            & Integración con Gensim: documentación         & 15    & 2     & 30    \\ \hline
+        --                  & Reuniones                                     & 15    & 2     & 30    \\ \hline
+        --                  & Presentación                                  & 15    & 2     & 30    \\ \hline    
+    \end{tabular}
+\end{center}
+
+Además, se debe tener en cuenta el tiempo dedicado a administración del proyecto, estimado en un 15\% del tiempo
+de desarrollo, resultando en:
+
+\begin{center}
+    \begin{tabular}{ | l | c | }
+    \hline
+        \textbf{Descripción}    & \textbf{Esfuerzo} \\ \hline
+        Iteración 1             & 35   \\ \hline
+        Iteración 2             & 195  \\ \hline
+        Iteración 3             & 115  \\ \hline
+        Iteración 4             & 80   \\ \hline
+        Iteración 5             & 55   \\ \hline
+        Iteración 6             & 110  \\ \hline
+        Otros                   & 90   \\ \hline
+        Administración          & 102  \\ \hline \hline
+        \textbf{Esfuerzo total} & 782  \\ \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Cronograma de entregables}
+A continuación se enumera un cronograma tentativo de entregables. Queda sujeto a 
+modificaciones por parte de los tutores, en base a la ejecución del proyecto:
+
+\begin{center}
+\begin{tabular}{ | c | p{5.8cm} | p{5.8cm} |}
+    \hline
+        \textbf{\# It.} & 
+        
+        \textbf{Entregables} & 
+        
+        \textbf{Hitos} \\
+    \hline
+        1 &
+        
+        \tabitem Interfaz web básica para utilización del módulo. &
+        
+        \tabitem Configuración de entorno de desarrollo terminada. \\
+    \hline   
+        2 & 
+        
+        \tabitem Módulo de resúmenes automáticos utilizando \mbox{TextRank}. & 
+        
+        \tabitem Implementación del módulo terminada.
+        \tabitem Integración con interfaz web. \\
+    \hline   
+        3 & 
+        
+        \tabitem Módulo ROUGE para métricas.
+        \tabitem Gráfico de relación de conceptos a través de interfaz web. &
+        
+        \tabitem Integración con Gexf-js terminada. \\
+    \hline   
+        4 & 
+        
+        \tabitem Versiones modificadas del módulo de resúmenes.
+        \tabitem Datos recolectados. & 
+        
+        \tabitem Implementación de modificaciones sobre el módulo de resúmenes terminado.
+        \tabitem Datos obtenidos luego de realizar pruebas sobre las modificaciones planteadas. \\
+    \hline   
+        5 & 
+        
+        \tabitem Informe de análisis de datos recolectados.
+        \tabitem Gráficos de resultados de la métricas integrados en la interfaz web. & 
+        
+        \tabitem Integración con Highcharts terminada. \\
+    \hline  
+        6 & 
+        
+        \tabitem Versión de Gensim con módulo de resúmenes automáticos integrado. & 
+        
+        \tabitem Integración con Gensim terminada. \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+\section{Bibliografía}
+\begin{itemize}
+	\item Borko, Bernier. 1975. \textit{Abstracting Concepts and Methods.}
+    \item McKeown, Radev. 1999. \textit{Generating Summaries of Multiple News Articles.}
+	\item Mani. 2001. \textit{Summarization Evaluation: An Overview.}
+	\item Roussinov, Chen. 2001. \textit{Information Navigation on the Web by Clustering and Summarizing Query Results. }
+	\item Mani, Klein, House, Hirschman, Firmin, Sundheim. 2002. \textit{SUMMAC: a Text Summarization Evaluation.}
+	\item Hassel. 2004. \textit{Evaluation of Automatic Text Summarization, a Practical Implementation.}
+	\item Lin. 2004. \textit{ROUGE: A Package for Automatic Evaluation of Summaries.}
+	\item Mihalcea, Tarau. 2004. \textit{TextRank: Bringing Order into Texts.}
+	\item Wang, Lawrence. 2004. \textit{Methods and Systems for Generating Textual Information.} United States Patent 7310633.
+	\item Das, Martins. 2007. \textit{A Survey on Automatic Text Summarization.}
+	\item Rose, Orr, Kantamneni. 2007. \textit{Summary Attributes and Perceived Search Quality.}
+\end{itemize}
+
+\newpage
+\begin{thebibliography}{1}
+
+  \bibitem{tools4noobs} \emph{Tools for noobs}. Herramienta de resúmenes en línea. \\
+	\texttt{http://www.tools4noobs.com/summarize/}
+
+  \bibitem{gensim} \emph{Gensim}. Biblioteca de modelado de tópicos. \\ 
+	\texttt{http://radimrehurek.com/gensim/}
+
+  \bibitem{numpy} \emph{NumPy}. Paquete de Python para procesamiento numérico. \\ 
+	\texttt{http://www.numpy.org/}
+
+  \bibitem{scipy} \emph{SciPy}. Paquete de Python para computación científica. \\ 
+	\texttt{http://www.scipy.org/}
+
+  \bibitem{cython} \emph{Cython}. Extensiones en lenguaje C para Python. \\ 
+	\texttt{http://cython.org/}
+
+  \bibitem{gephi} \emph{Gexf-js}. Extensión de Gephi para JavaScript. \\ 
+	\texttt{https://github.com/raphv/gexf-js}
+
+  \bibitem{highcharts} \emph{Highcharts}. Librería de JavaScript para realizar gráficos interactivos. \\
+	\texttt{http://www.highcharts.com/}
+
+  \bibitem{ipython} \emph{IPython}. Consola interactiva para Python. \\
+	\texttt{http://ipython.org/}
+
+  \bibitem{sublime} \emph{Sublime Text}. Editor de textos para programación. \\
+	\texttt{http://www.sublimetext.com/}
+
+  \bibitem{git} \emph{Git}. Herramienta para el control de versiones.\\
+	\texttt{http://git-scm.com/}
+
+  \bibitem{trello} \emph{Trello}.  Herramienta de gestión para trabajo en grupos.\\
+	\texttt{http://trello.com/}
+
+  \bibitem{gdocs} \emph{Google Docs}. Herramienta para trabajo sobre documentos en línea \\
+	\texttt{https://docs.google.com/}
+
+\end{thebibliography}
+
+
+
+\end{document}
