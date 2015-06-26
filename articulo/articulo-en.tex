@@ -54,16 +54,20 @@ This article describes our proposal for new variants of the similarity function 
 \section{Introduction}
 The process of automated summarization can be described as the extraction of the most important sentences in a document. Using different levels of compression a summarized version of the document of arbitrary length can be obtained. The TextRank algorithm is one of the most used methods for this task. 
 
-TextRank is highly portable to other domains, genres, or languages since it does not require deep linguistic knowledge, nor domain or language specific annotated corpora. It builds a graph of sentences for a document and then applies PageRank to obtain a score for each sentence. 
+TextRank builds a graph of sentences for a document and then applies PageRank to obtain a score for each sentence. It is highly portable to other domains, genres, or languages since it does not require deep linguistic knowledge, nor domain or language specific annotated corpora. 
 
 As a result of its applicability, this algorithm has a widely spread usage these days. In this article we describe several different proposals for the construction of the TextRank graph and report the results obtained with them.
 
 The first section of this article describes previous work in the area and the TextRank algorithm in general. Then we report the results obtained for the different variations of the similarity function. Finally we describe the different metrics used for the evaluation of the results obtained from the proposed changes and the datasets used for these tests.
 
 \section{Previous work}
-The field of automated summarization has attracted interest since the late 50's \cite{luhn}. Traditional methods for text summarization analyze the frequency of words or sentences in the first paragraphs of the text to identify the most important lexical elements. Several statistical models have been developed based on training corpora to combine different heuristics using keywords, position and length of sentences, word frequency and titles \cite{hovy}. On a different approach, some algorithms analyze the semantic structure of the different textual units in a document with the goal of separating those that take a significative role in the representation of the document \cite{marcu}.
+The field of automated summarization has attracted interest since the late 50's \cite{luhn}. Traditional methods for text summarization analyze the frequency of words or sentences in the first paragraphs of the text to identify the most important lexical elements. The mainstream research in this field emphasizes extractive approaches to summarization using statistical methods \cite{a_survey}. Several statistical models have been developed based on training corpora to combine different heuristics using keywords, position and length of sentences, word frequency or titles \cite{hovy}. 
 
-Other methods are based in the representation of the text as a graph: the most important sentences are the most connected ones in the graph and are used for building a final summary \cite{barzilay}. These algorithms use different information retrieval techniques to identify similar sentences and determine the most important ones \cite{salton}. The TextRank algorithm developed by Mihalcea and Tarau \cite{mihalcea-tarau} and the LexRank algorithm by Erkan and Radev \cite{erkan} are based in ranking the lexical units of the text (sentences or words).
+Other methods are based in the representation of the text as a graph. The graph-based ranking approaches consider the intrinsic structure of the texts instead of treating texts as simple aggregations of terms. Thus it is able to capture and express richer information in determining important concepts \cite{similarity_functions}.
+
+The selected text fragments to use in the graph construction can be phrases \cite{lexical_chains}, sentences \cite{luhn}, or paragraphs \cite{scalable_summarization}. Currently, many successful systems adopt the sentences considering the tradeoff between content richness and grammar correctness. According to these approach the most important sentences are the most connected ones in the graph and are used for building a final summary \cite{barzilay}. To identify relations between sentences (edges for the graph) there are several measures: overlapping words, cosine distance, query-sensitive similarity or combinations of the previous, with supervised learning functions \cite{similarity_functions}.
+
+Finally, these algorithms use different information retrieval techniques to determine the most important sentences (vertices) and build the summary \cite{salton}. The TextRank algorithm developed by Mihalcea and Tarau \cite{mihalcea-tarau} and the LexRank algorithm by Erkan and Radev \cite{erkan} are based in ranking the lexical units of the text (sentences or words) using variation of PageRank \cite{pageetal98}. Other graph-based ranking algorithms such as HITS \cite{kleinberg} or Positional Function \cite{herings} may be also applied.
 
 \section{TextRank}
 
@@ -92,13 +96,15 @@ Sim(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j}   \}
 
 \end{definicion}
 
+Explicar la función en palabras!!!!!!!!!!!!!!! Se pueden tomar partes del paper original
+
 The result of this process is a dense graph representing the document. From this graph, PageRank is used to compute the importance of each vertex. The most significative sentences are selected and presented in the same order as they appear in the document as the summary.
 
 
 \section{Experiments}
 
 \subsection{Our Variations}
-This section will describe the different variations that we propose over the original TextRank algorithm. These ideas are based in changing the way in which distances between sentences are computed to weight the edges of the graph used for PageRank. We found some of these variations to produce significative improvements over the original algorithm.
+This section will describe the different modifications that we propose over the original TextRank algorithm. These ideas are based in changing the way in which distances between sentences are computed to weight the edges of the graph used for PageRank. These similarity measures are orthogonal to the TextRank model, thus they can be easily integrated into the algorithm. We found some of these variations to produce significative improvements over the original algorithm.
 
 \subsubsection{Longest Common Substring}
 From two sentences we identify the longest common substring and report the similarity to be its length \cite{gusfield}.
