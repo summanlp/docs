@@ -37,11 +37,10 @@
 \title{Variations of TextRank for Automated Summarization}
 \titlerunning{Variantes de TextRank} 
 
-\author{Federico Barrios, Federico López, Luis Argerich, Rosa Wachenchauzer}
-\institute{Facultad de Ingeniería, Universidad de Buenos Aires,\\
-Av. Paseo Colón 850, Ciudad Autónoma de Buenos Aires, Argentina\\
-\mails\\
-\url{http://ingenieria.uba.ar/}}
+\author{Federico Barrios\inst{1}, Federico López\inst{1}, Luis Argerich\inst{1}, Rosa Wachenchauzer\inst{1}\inst{2}}
+\institute{Facultad de Ingeniería, Universidad de Buenos Aires,\\Ciudad Autónoma de Buenos Aires, Argentina. \\
+\and Universidad Nacional de Tres de Febrero, Caseros, Argentina.\\
+\mails}
 
 \maketitle
 
@@ -77,7 +76,7 @@ TextRank is an unsupervised algorithm for the automated summarization of texts t
 The algorithm applies a variation of PageRank \cite{pageetal98} over a graph constructed specifically for the task of summarization. This produces a ranking of the elements in the graph: the most important elements are the ones that better describe the text. This approach allows TextRank to build summaries without the need of a training corpus or labeling and allows the use of the algorithm with different languages.
 
 \subsection{Text as a Graph}
-For the task of automated summarization, TextRank models any document as a graph using sentences as nodes \cite{introductionir}. A function to compute the similarity of sentences is needed to build edges in between. This function is used to weight the graph edges, the higher the similarity between sentences the more important the edge between them will be in the graph. In the domain of a Random Walker, as used frequently in PageRank, we can say that we are more likely to go from one sentence to another if they are very similar. 
+For the task of automated summarization, TextRank models any document as a graph using sentences as nodes \cite{introductionir}. A function to compute the similarity of sentences is needed to build edges in between. This function is used to weight the graph edges, the higher the similarity between sentences the more important the edge between them will be in the graph. In the domain of a Random Walker, as used frequently in PageRank \cite{pageetal98}, we can say that we are more likely to go from one sentence to another if they are very similar. 
 
 TextRank determines the relation of similarity between two sentences based on the content that both share. This overlap is determined simply as the number of common lexical tokens between them. To avoid promoting long sentences, the similarity function also divides this relation with the lenght of each sentence.
 
