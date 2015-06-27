@@ -79,7 +79,7 @@ The algorithm applies a variation of PageRank \cite{pageetal98} over a graph con
 \subsection{Text as a Graph}
 For the task of automated summarization, TextRank models any document as a graph using sentences as nodes \cite{introductionir}. A function to compute the similarity of sentences is needed to build edges in between. This function is used to weight the graph edges, the higher the similarity between sentences the more important the edge between them will be in the graph. In the domain of a Random Walker, as used frequently in PageRank, we can say that we are more likely to go from one sentence to another if they are very similar. 
 
-The similarity function can use several different ideas. It can be based on the semantic of the sentences, on their proximity in the text, common words, and many other different metrics. The goal of this article is to experiment with these functions and report the results obtained when used along with TextRank.
+TextRank determines the relation of similarity between two sentences based on the content that both share. This overlap is determined simply as the number of common lexical tokens between them. To avoid promoting long sentences, the similarity function also divides this relation with the lenght of each sentence.
 
 The function featured in the original algorithm can be formalized as:
 
@@ -95,8 +95,6 @@ Sim(S_{i},S_{j}) = \frac{ | \{   w_{k} | w_{k} \in S_{i} \& w_{k} \in S_{j}   \}
 
 
 \end{definicion}
-
-Explicar la función en palabras!!!!!!!!!!!!!!! Se pueden tomar partes del paper original
 
 The result of this process is a dense graph representing the document. From this graph, PageRank is used to compute the importance of each vertex. The most significative sentences are selected and presented in the same order as they appear in the document as the summary.
 
