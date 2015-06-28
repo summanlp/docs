@@ -53,7 +53,7 @@ This article presents new alternatives to the similarity function for the TextRa
 \section{Introduction}
 In the field of natural language processing, an extractive summarization task can be described as the selection of the most important sentences in a document. Using different levels of compression, a summarized version of the document of arbitrary length can be obtained.
 
-TextRank is an extractive summarization algorithm widely used as a result of its applicability: it is highly portable to other domains, genres, or languages since it does not require deep linguistic knowledge, nor domain or language specific annotated corpora. The algorithm builds a graph with the sentences of a document and then applies PageRank to obtain a score for each sentence.
+TextRank is a graph-based extractive summarization algorithm. It is domain and language independent since it does not require deep linguistic knowledge, nor domain or language specific annotated corpora \cite{mihalcea}. These features makes the algorithm widely used: it performs well summarizing structured text like news articles, but it has also shown good results in other usages such as summarizing meeting transcriptions \cite{garg} and assessing web content credibility \cite{balcerzak}.
 
 In this article we present different proposals for the construction of the graph and report the results obtained with them.
 
@@ -66,7 +66,7 @@ Other methods are based in the representation of the text as a graph. The graph-
 
 The selected text fragments to use in the graph construction can be phrases \cite{lexical_chains}, sentences \cite{luhn}, or paragraphs \cite{scalable_summarization}. Currently, many successful systems adopt the sentences considering the tradeoff between content richness and grammar correctness. According to these approach the most important sentences are the most connected ones in the graph and are used for building a final summary \cite{barzilay}. To identify relations between sentences (edges for the graph) there are several measures: overlapping words, cosine distance, query-sensitive similarity or combinations of the previous, with supervised learning functions \cite{similarity_functions}.
 
-Finally, these algorithms use different information retrieval techniques to determine the most important sentences (vertices) and build the summary \cite{salton}. The TextRank algorithm developed by Mihalcea and Tarau \cite{mihalcea-tarau} and the LexRank algorithm by Erkan and Radev \cite{erkan} are based in ranking the lexical units of the text (sentences or words) using variation of PageRank \cite{pageetal98}. Other graph-based ranking algorithms such as HITS \cite{kleinberg} or Positional Function \cite{herings} may be also applied.
+These algorithms use different information retrieval techniques to determine the most important sentences (vertices) and build the summary \cite{salton}. The TextRank algorithm developed by Mihalcea and Tarau \cite{mihalcea-tarau} and the LexRank algorithm by Erkan and Radev \cite{erkan} are based in ranking the lexical units of the text (sentences or words) using variation of PageRank \cite{pageetal98}. Other graph-based ranking algorithms such as HITS \cite{kleinberg} or Positional Function \cite{herings} may be also applied.
 
 \section{TextRank}
 
