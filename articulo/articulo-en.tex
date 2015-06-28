@@ -185,11 +185,10 @@ The result of Cosine Similarity was also satisfactory with a 2.54\% improvement 
 
 The performance in time was also improved. We could process the 567 documents from the DUC2002 database in 84\% of the time needed in the original version.
 
+\section{Reference Implementation and Gensim Contribution}
+A reference implementation of our proposals was coded as a Python module\footnote{Source code available at: \url{https://github.com/summanlp/textrank}} and can be obtained for testing and to reproduce results.
 
-\section{Reference Implementations and Gensim Contribution}
-A reference implementation of our proposals was coded as a Python module. It can be obtained for testing and to reproduce results from an URL that will be provided in the non-anonymous version.
-
-We also contributed the BM25-TextRank algorithm to the Gensim project \cite{rehurek_lrec}.
+We also contributed the BM25-TextRank algorithm to the Gensim project\footnote{Source code available at: \url{https://github.com/summanlp/gensim}} \cite{rehurek_lrec}.
 
 \section{Conclusions}
 This work presented three different variations to the TextRank algorithm for automatic summarization. The three alternatives improved significantly the results of the algorithm using the same test configuration as in the original publication. Given that TextRank performs 2.84\% over the baseline, our improvement of 2.92\% over the TextRank score is an important result. 
