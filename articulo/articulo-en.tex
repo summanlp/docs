@@ -55,9 +55,9 @@ In the field of natural language processing, an extractive summarization task ca
 
 TextRank is an extractive summarization algorithm widely used as a result of its applicability: it is highly portable to other domains, genres, or languages since it does not require deep linguistic knowledge, nor domain or language specific annotated corpora. The algorithm builds a graph with the sentences of a document and then applies PageRank to obtain a score for each sentence.
 
-In this article we present different proposals for the construction of the TextRank graph and report the results obtained with them.
+In this article we present different proposals for the construction of the graph and report the results obtained with them.
 
-The first section of this article describes previous work in the area and an overview of the TextRank algorithm. Then we report the results obtained using the variations. Finally we describe the different metrics used for the evaluation of the results obtained from the proposed changes and the datasets used for these tests.
+The first sections of this article describe previous work in the area and an overview of the TextRank algorithm. Then we present the variations and describe the different metrics and dataset used for the evaluation. Finally we report the results obtained using the proposed changes.
 
 \section{Previous work}
 The field of automated summarization has attracted interest since the late 50's \cite{luhn}. Traditional methods for text summarization analyze the frequency of words or sentences in the first paragraphs of the text to identify the most important lexical elements. The mainstream research in this field emphasizes extractive approaches to summarization using statistical methods \cite{a_survey}. Several statistical models have been developed based on training corpora to combine different heuristics using keywords, position and length of sentences, word frequency or titles \cite{hovy}. 
