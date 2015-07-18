@@ -5,6 +5,10 @@ Summarization module
 This module adds to gensim an automatic summarization feature.
 The algorithm used to obtain the summaries is a [variation](https://github.com/summanlp/docs/raw/master/articulo/articulo-en.pdf) of [TextRank](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf).
 
+Because this module uses an extractive approach (the generated summary will be a collection of the most relevant sentences in the text),
+the provided text must be well punctuated so that it can be split in sentences.
+
+
 Basic usage
 -----------
 
@@ -30,16 +34,48 @@ The most basic usage is the summarization of a text given as a string:
     >>> That night, the White House had the rainbow projected on the outside of the building to celebrate the decision."""
     >>>
     >>> print(summarize(text))
-    >>> On Friday, the United States Supreme Court declared same-sex marriage legal in all fifty US states.
-    >>> The Supreme Court ruled by a five-to-four vote that bans on same-sex marriage were not constitutional.
-    >>> This decision made the United States the 21st country to legalise same-sex marriage.
+    On Friday, the United States Supreme Court declared same-sex marriage legal in all fifty US states.
+    The Supreme Court ruled by a five-to-four vote that bans on same-sex marriage were not constitutional.
+    This decision made the United States the 21st country to legalise same-sex marriage.
 
 (Sample text taken from [Wikinews](https://en.wikinews.org/wiki/US_Supreme_Court_declares_same-sex_marriage_legal))
 
 
+If the text is too short (less than ten sentences), a warning will be issued:
+
+    >>> import logging
+    >>> logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.WARNING)
+    >>>
+    >>> shorttext = """On Friday, the United States Supreme Court declared same-sex marriage legal in all fifty US states. 
+    >>> More than 30 states already permitted gay marriage. 
+    >>> The Supreme Court ruled by a five-to-four vote that bans on same-sex marriage were not constitutional. 
+    >>> The majority decision was delivered by Justice Anthony Kennedy.
+    >>> Same-sex marriage was banned in more than a dozen states. 
+    >>> Justices Sotomayor, Ginsburg, Kagan, Breyer and Kennedy voted in favour while Justices Roberts, Alito, Scalia and Thomas voted against."""
+    >>>
+    >>> print(summarize(shorttext))
+    WARNING: Input text is expected to have at least 10 sentences.
+    WARNING: Input corpus is expected to have at least 10 documents.
+    The Supreme Court ruled by a five-to-four vote that bans on same-sex marriage were not constitutional.
+
 
 Extra parameters
 ----------------
+
+When called with no extra arguments, the `summarize` method returns the summarized text split by setences with newlines.
+If the `split` named parameter is set to `True`, the output will be a list instead:
+
+    >>> from pprint import pprint 
+    >>> pprint(summarize(text, split=True))
+    ['On Friday, the United States Supreme Court declared same-sex marriage legal in all fifty US states.',
+     'The Supreme Court ruled by a five-to-four vote that bans on same-sex marriage were not constitutional.',
+     'This decision made the United States the 21st country to legalise same-sex marriage.']
+
+Note that in both cases the extracted sentences are returned in the original order.
+
+
+Corpus summarization
+--------------------
 
 
 Performance
