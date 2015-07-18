@@ -74,6 +74,30 @@ If the `split` named parameter is set to `True`, the output will be a list inste
 Note that in both cases the extracted sentences are returned in the original order.
 
 
+The summary shown in the first example was composed of three sentences of a text with sixteen.
+By default, the summary selects the top 20% most relevant sentences in the text. 
+This can be adjusted with the `ratio` and `word_count` parameters.
+
+The `ratio` changes the percentage of relevant sentences selected:
+
+    >>> print(summarize(text, ratio=0.4))
+    On Friday, the United States Supreme Court declared same-sex marriage legal in all fifty US states.
+    The Supreme Court ruled by a five-to-four vote that bans on same-sex marriage were not constitutional.
+    The majority decision was delivered by Justice Anthony Kennedy.
+    Same-sex marriage was banned in more than a dozen states.
+    This decision made the United States the 21st country to legalise same-sex marriage.
+    That night, the White House had the rainbow projected on the outside of the building to celebrate the decision.
+
+The `word_count` parameter determines how many words will the output contain.
+For this, the algorithm will select the top sentences trying to make a summary with a word count as close 
+as possible as the indicated.
+
+    >>> print(summarize(text, word_count=20))
+    On Friday, the United States Supreme Court declared same-sex marriage legal in all fifty US states.
+
+If both the `ratio` and `word_count` parameters are provided, the `ratio` will be ignored.
+
+
 Corpus summarization
 --------------------
 
