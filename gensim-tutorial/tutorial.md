@@ -2,8 +2,8 @@
 Summarization module
 ====================
 
-This module adds to gensim an automatic summarization feature.
-The algorithm used to obtain the summaries is a [variation](https://github.com/summanlp/docs/raw/master/articulo/articulo-en.pdf) of [TextRank](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf).
+This tutorial introduces the automatic summarization feature.
+The algorithm used by the module is a [variation](https://github.com/summanlp/docs/raw/master/articulo/articulo-en.pdf) of [TextRank](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf).
 
 Because this module uses an extractive approach (the generated summary will be a collection of the most relevant sentences in the text),
 the provided text must be well punctuated so that it can be split in sentences.
