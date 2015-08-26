@@ -177,17 +177,15 @@
             <PageItemAttributes/>
         </PAGEOBJECT>
         <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="178.5" YPOS="1855.40872338761" WIDTH="680.314960629921" HEIGHT="541.016473462781" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" ISIZE="24" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 680.315 0 680.315 0 680.315 0 680.315 0 680.315 541.016 680.315 541.016 680.315 541.016 680.315 541.016 0 541.016 0 541.016 0 541.016 0 541.016 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 680.315 0 680.315 0 680.315 0 680.315 0 680.315 541.017 680.315 541.017 680.315 541.017 680.315 541.017 0 541.017 0 541.017 0 541.017 0 541.017 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="22" gYpos="171.272896615958" gWidth="2279" gHeight="656.75" ALIGN="3" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
-            <ITEXT FONTSIZE="24" CH="Para probar el funcionamiento del algoritmo se decidio usar la base de datos de la tarea de generacion de resumenes automáticos de la conferencia DUC (Document Understanding Conference) del año 2002. El corpus es el"/>
+            <ITEXT FONTSIZE="24" CH="Para probar el funcionamiento del algoritmo se decidio usar la base de datos de la tarea de generacion de resumenes automáticos de la conferencia DUC (Document Understanding Conference) del año 2002. "/>
             <para ALIGN="3"/>
-            <ITEXT FONTSIZE="24" CH="mismo que el usado en la presentación del algoritmo TextRank."/>
             <para ALIGN="3"/>
-            <ITEXT CH="Para llevar a cabo la evaluación se usó la versión 1.5.5 del paquete de métri-"/>
+            <ITEXT FONTSIZE="24" CH="Fue usada la misma base de datos de prueba que la utilizada en la publicación que presentó el algoritmo de TextRank."/>
             <para ALIGN="3"/>
-            <ITEXT CH="cas ROUGE. Se utilizó la configuración usada en DUC, calculando sólo las"/>
+            <ITEXT CH="Se llevó a cabo la evaluación usando, además, las mismas configuraciones de pruebas que en DUC: la versión 1.5.5 del paquete de métricas ROUGE, calculando sólo las mediciones ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza del 95%. "/>
             <para ALIGN="3"/>
-            <ITEXT CH="mediciones ROUGE-1, ROUGE-2 y ROUGE-SU4 en un intervalo de confianza"/>
             <para ALIGN="3"/>
-            <ITEXT CH="del 95 %. Se obtuvo un único puntaje promediando los tres valores."/>
+            <ITEXT CH="Se obtuvo un único puntaje promediando los tres valores."/>
             <trail ALIGN="3"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
@@ -335,52 +333,42 @@
             <trail/>
             <PageItemAttributes/>
         </PAGEOBJECT>
-        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="639.4137931" YPOS="726.924855947783" WIDTH="417.828" HEIGHT="187.840335742657" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="489.4137931" gYpos="459.174855947783" gWidth="2300.62" gHeight="681.340983630769" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
+        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="639.4137931" YPOS="726.924855947783" WIDTH="417.828" HEIGHT="187.840335742657" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="489.4137931" gYpos="459.174855947783" gWidth="2300.62" gHeight="681.340983630769" ALIGN="3" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
             <ITEXT FONT="Liberation Sans Bold" FONTSIZE="40" CH="2. Preprocesamiento"/>
-            <para/>
-            <para/>
-            <para/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="- Separación en oraciones"/>
-            <para/>
-            <para/>
+            <para ALIGN="3" LINESPMode="1"/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="- Filtro de palabras"/>
-            <para/>
-            <para/>
+            <para ALIGN="3" LINESPMode="1"/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="- Lematización"/>
-            <trail/>
+            <trail ALIGN="3" LINESPMode="1"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
-        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="1086.4137931" YPOS="726.924855947783" WIDTH="417.828" HEIGHT="187.840335742657" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="936.4137931" gYpos="459.174855947783" gWidth="2300.62" gHeight="681.340983630769" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
+        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="1086.4137931" YPOS="726.924855947783" WIDTH="417.828" HEIGHT="187.840335742657" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="936.4137931" gYpos="459.174855947783" gWidth="2300.62" gHeight="681.340983630769" ALIGN="3" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
             <ITEXT FONT="Liberation Sans Bold" FONTSIZE="40" CH="3. Armado del grafo"/>
-            <para/>
-            <para/>
-            <para/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="- Uso de la función de similitud"/>
-            <para/>
-            <para/>
+            <para ALIGN="3" LINESPMode="1"/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="- Se le asigna un puntaje a"/>
-            <para/>
-            <para/>
-            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH=" cada par de oraciones"/>
-            <trail/>
+            <ITEXT CH=" "/>
+            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="cada par de oraciones"/>
+            <trail ALIGN="3" LINESPMode="1"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
-        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="1533.4137931" YPOS="726.924855947783" WIDTH="417.828" HEIGHT="187.840335742657" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="1383.4137931" gYpos="459.174855947783" gWidth="2300.62" gHeight="681.340983630769" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
+        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="1533.4137931" YPOS="726.924855947783" WIDTH="417.828" HEIGHT="218.178592328079" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 218.179 417.828 218.179 417.828 218.179 417.828 218.179 0 218.179 0 218.179 0 218.179 0 218.179 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 218.178 417.828 218.178 417.828 218.178 417.828 218.178 0 218.178 0 218.178 0 218.178 0 218.178 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="1383.4137931" gYpos="459.174855947783" gWidth="2300.62" gHeight="681.340983630769" ALIGN="3" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
             <ITEXT FONT="Liberation Sans Bold" FONTSIZE="40" CH="4. PageRank"/>
-            <para/>
-            <para/>
-            <para/>
-            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="- Se aplica una variación del"/>
-            <para/>
-            <para/>
-            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="algoritmo para obtener las"/>
-            <para/>
-            <para/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="Se aplica una variación del algoritmo para obtener las"/>
+            <ITEXT CH=" "/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="oraciones más representativas"/>
-            <para/>
-            <para/>
+            <ITEXT CH=" "/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="30" CH="del texto."/>
-            <trail/>
+            <trail ALIGN="3" LINESPMode="1"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
         <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="1976.413793" YPOS="726.924855947783" WIDTH="417.828" HEIGHT="187.840335742657" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 417.828 0 417.828 0 417.828 0 417.828 0 417.828 187.84 417.828 187.84 417.828 187.84 417.828 187.84 0 187.84 0 187.84 0 187.84 0 187.84 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="1826.413793" gYpos="459.174855947783" gWidth="2300.62" gHeight="681.340983630769" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
@@ -405,73 +393,45 @@
             <trail/>
             <PageItemAttributes/>
         </PAGEOBJECT>
-        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="200.4137931" YPOS="1355.97203367165" WIDTH="716.137931037931" HEIGHT="282.241379306897" RADRECT="0" FRTYPE="0" CLIPEDIT="0" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 282.241 716.138 282.241 716.138 282.241 716.138 282.241 0 282.241 0 282.241 0 282.241 0 282.241 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 282.241 716.138 282.241 716.138 282.241 716.138 282.241 0 282.241 0 282.241 0 282.241 0 282.241 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
+        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="200.4137931" YPOS="1355.97203367165" WIDTH="716.137931037931" HEIGHT="282.241379306897" RADRECT="0" FRTYPE="0" CLIPEDIT="0" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 282.241 716.138 282.241 716.138 282.241 716.138 282.241 0 282.241 0 282.241 0 282.241 0 282.241 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 282.241 716.138 282.241 716.138 282.241 716.138 282.241 0 282.241 0 282.241 0 282.241 0 282.241 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" ALIGN="3" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
             <ITEXT FONT="Liberation Sans Bold" FONTSIZE="40" CH="Subcadena común más larga"/>
-            <para/>
-            <para/>
-            <para/>
-            <para/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="Devuelve la longitud de la subcadena"/>
             <ITEXT FONTSIZE="40" CH=" "/>
-            <para/>
-            <para/>
-            <para/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="más larga presente en las dos"/>
             <ITEXT FONTSIZE="40" CH=" "/>
-            <para/>
-            <para/>
-            <para/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="oraciones."/>
-            <trail/>
+            <trail ALIGN="3" LINESPMode="1"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
-        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="934.4137931" YPOS="1355.97203377165" WIDTH="716.137931" HEIGHT="282.2413793" RADRECT="0" FRTYPE="0" CLIPEDIT="0" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 282.241 716.138 282.241 716.138 282.241 716.138 282.241 0 282.241 0 282.241 0 282.241 0 282.241 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 282.241 716.138 282.241 716.138 282.241 716.138 282.241 0 282.241 0 282.241 0 282.241 0 282.241 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
+        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="934.4137931" YPOS="1355.97203377165" WIDTH="716.137931" HEIGHT="282.2413793" RADRECT="0" FRTYPE="0" CLIPEDIT="0" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 282.241 716.138 282.241 716.138 282.241 716.138 282.241 0 282.241 0 282.241 0 282.241 0 282.241 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 282.241 716.138 282.241 716.138 282.241 716.138 282.241 0 282.241 0 282.241 0 282.241 0 282.241 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" ALIGN="3" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
             <ITEXT FONT="Liberation Sans Bold" FONTSIZE="40" CH="Similitud coseno"/>
-            <para/>
-            <para/>
-            <para/>
-            <para/>
-            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="Usando el modelo TF-IDF representa"/>
-            <para/>
-            <para/>
-            <para/>
-            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="cada oración como un vector y computa"/>
-            <para/>
-            <para/>
-            <para/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="Usando el modelo TF-IDF representa cada oración como un vector y computa"/>
+            <ITEXT CH=" "/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="el resultado como el coseno del ángulo"/>
-            <para/>
-            <para/>
-            <para/>
-            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="que comprenden"/>
-            <ITEXT CH="."/>
-            <para/>
+            <ITEXT CH=" "/>
+            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="que comprenden."/>
+            <para ALIGN="3" LINESPMode="1"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
-        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="1671.4137931" YPOS="1355.97203377165" WIDTH="716.137931" HEIGHT="282.2413793" RADRECT="0" FRTYPE="0" CLIPEDIT="0" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 282.241 716.138 282.241 716.138 282.241 716.138 282.241 0 282.241 0 282.241 0 282.241 0 282.241 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 282.241 716.138 282.241 716.138 282.241 716.138 282.241 0 282.241 0 282.241 0 282.241 0 282.241 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
-            <ITEXT FONT="Liberation Sans Bold" FONTSIZE="40" CH="BM25"/>
-            <para/>
-            <para/>
-            <para/>
-            <para/>
-            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="Implementa una variación de la famosa"/>
-            <para/>
-            <para/>
-            <para/>
-            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="función BM25 para recuperación de"/>
-            <para/>
-            <para/>
-            <para/>
-            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="información; que no permite que haya"/>
-            <para/>
-            <para/>
-            <para/>
+        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="1671.4137931" YPOS="1355.97203377165" WIDTH="716.137931" HEIGHT="316.6263914252" RADRECT="0" FRTYPE="0" CLIPEDIT="0" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 316.626 716.138 316.626 716.138 316.626 716.138 316.626 0 316.626 0 316.626 0 316.626 0 316.626 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 316.626 716.138 316.626 716.138 316.626 716.138 316.626 0 316.626 0 316.626 0 316.626 0 316.626 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" ALIGN="3" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
+            <ITEXT FONT="Liberation Sans Bold" FONTSIZE="40" CH="BM25 y BM25+"/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <para ALIGN="3" LINESPMode="1"/>
+            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="Implementan variaciones de las famosas funciones para recuperación de"/>
+            <ITEXT CH=" "/>
+            <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="información; que no permiten que haya"/>
+            <ITEXT CH=" "/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="resultados que tomen valores"/>
-            <para/>
-            <para/>
-            <para/>
+            <ITEXT CH=" "/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="negativos."/>
-            <para/>
+            <para ALIGN="3" LINESPMode="1"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
         <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="444.4137931" YPOS="1127.97203377165" WIDTH="716.137931" HEIGHT="181.275861965517" RADRECT="0" FRTYPE="0" CLIPEDIT="0" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 181.276 716.138 181.276 716.138 181.276 716.138 181.276 0 181.276 0 181.276 0 181.276 0 181.276 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 716.138 0 716.138 0 716.138 0 716.138 0 716.138 181.276 716.138 181.276 716.138 181.276 716.138 181.276 0 181.276 0 181.276 0 181.276 0 181.276 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
@@ -479,13 +439,10 @@
             <para/>
             <para/>
             <para/>
-            <para/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="Cuenta las palabras en común entre"/>
-            <para/>
-            <para/>
-            <para/>
+            <ITEXT CH=" "/>
             <ITEXT FONT="Liberation Sans Regular" FONTSIZE="40" CH="cada par de oraciones."/>
-            <trail/>
+            <trail ALIGN="3" LINESPMode="1"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
         <PAGEOBJECT OwnPage="0" PTYPE="2" XPOS="1234.65517241379" YPOS="1151.66168884062" WIDTH="997.241379310345" HEIGHT="141.724137931034" RADRECT="0" FRTYPE="0" CLIPEDIT="0" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LOCALSCX="1.46107358691788" LOCALSCY="1.46107358691788" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" SCALETYPE="0" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="../mockups/6.png" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="0" EMBEDDED="0" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 997.241 0 997.241 0 997.241 0 997.241 0 997.241 141.724 997.241 141.724 997.241 141.724 997.241 141.724 0 141.724 0 141.724 0 141.724 0 141.724 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 997.241 0 997.241 0 997.241 0 997.241 0 997.241 141.724 997.241 141.724 997.241 141.724 997.241 141.724 0 141.724 0 141.724 0 141.724 0 141.724 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="0" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
@@ -510,13 +467,18 @@
             <PageItemAttributes/>
         </PAGEOBJECT>
         <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="937.5" YPOS="1854.408723" WIDTH="680.314960629921" HEIGHT="241.500367909091" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" ISIZE="24" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 680.315 0 680.315 0 680.315 0 680.315 0 680.315 241.5 680.315 241.5 680.315 241.5 680.315 241.5 0 241.5 0 241.5 0 241.5 0 241.5 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 680.315 0 680.315 0 680.315 0 680.315 0 680.315 241.501 680.315 241.501 680.315 241.501 680.315 241.501 0 241.501 0 241.501 0 241.501 0 241.501 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" ALIGN="3" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
-            <ITEXT FONTSIZE="24" CH="Los mejores resultados se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante EPSILON = 0,25, arrojando una mejora total de 2,92% para BM25 y 2,60% para BM25+. Los tiempos de ejecución también se superaron. Se pudieron procesar los 567 documentos de la base de datos de DUC2002 utilizando un 84% del tiempo requerido por la versión original."/>
+            <ITEXT FONTSIZE="24" CH="Los mejores resultados se obtuvieron usando BM25 y BM25+. El incremento más alto se logró al reemplazar los valores negativos por la constante ε = 0,25, arrojando una mejora total de 2,92% para BM25 y 2,60% para BM25+. "/>
+            <para ALIGN="3"/>
+            <para ALIGN="3"/>
+            <ITEXT FONTSIZE="24" CH="Los tiempos de ejecución también se superaron. Se pudieron procesar los 567 documentos de la base de datos de DUC2002 utilizando un 84% del tiempo requerido por la versión original."/>
             <trail ALIGN="3"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
         <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="1690.84645669291" YPOS="2208.63636363636" WIDTH="680.314960629921" HEIGHT="191.788832863636" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" ISIZE="24" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 680.315 0 680.315 0 680.315 0 680.315 0 680.315 191.789 680.315 191.789 680.315 191.789 680.315 191.789 0 191.789 0 191.789 0 191.789 0 191.789 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 680.315 0 680.315 0 680.315 0 680.315 0 680.315 191.789 680.315 191.789 680.315 191.789 680.315 191.789 0 191.789 0 191.789 0 191.789 0 191.789 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" ALIGN="3" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
             <para ALIGN="3"/>
-            <ITEXT FONTSIZE="24" CH="El resultado de la métrica de similitud coseno también fue satisfactoria, presentando una mejora de 2,54% por sobre el método original. A su vez, los métodos de secuencias de máxima longitud también mostraron una mejora considerable: cerca del 1,40 % por sobre TextRank."/>
+            <ITEXT FONTSIZE="24" CH="El resultado de la métrica de similitud coseno también fue satisfactoria, presentando una mejora de 2,54% por sobre el método original. "/>
+            <para ALIGN="3"/>
+            <ITEXT FONTSIZE="24" CH="A su vez, los métodos de secuencias de máxima longitud también mostraron una mejora considerable: cerca del 1,40 % por sobre TextRank."/>
             <trail ALIGN="3"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
@@ -551,11 +513,25 @@
             <trail ALIGN="3"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
-        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="180.5" YPOS="3025.408723" WIDTH="1049.5" HEIGHT="283.4101746" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" COLUMNS="1" COLGAP="0" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" ISIZE="24" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 1049.5 0 1049.5 0 1049.5 0 1049.5 0 1049.5 283.41 1049.5 283.41 1049.5 283.41 1049.5 283.41 0 283.41 0 283.41 0 283.41 0 283.41 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 1049.5 0 1049.5 0 1049.5 0 1049.5 0 1049.5 283.411 1049.5 283.411 1049.5 283.411 1049.5 283.411 0 283.411 0 283.411 0 283.411 0 283.411 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" ALIGN="4" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
-            <ITEXT FONTSIZE="24" CH="El desarrollo fue hecho integramente en Python 2.7, en el marco de un proyecto open source. El módulo se puede descargar desde los repositorios públicos de PyPI."/>
-            <para/>
-            <ITEXT CH="Las funcionalidades fueron agregadas al proyecto de procesamiento de lenguaje natural y modelaje de tópicos Gensim, y están disponibles desde la versión 0.12.0"/>
-            <trail/>
+        <PAGEOBJECT OwnPage="0" PTYPE="4" XPOS="180.5" YPOS="3025.408723" WIDTH="2226.90157480315" HEIGHT="283.4101746" RADRECT="0" FRTYPE="0" CLIPEDIT="1" PWIDTH="1" PCOLOR="None" PCOLOR2="None" TXTFILL="Black" COLUMNS="2" COLGAP="85.0393700787402" NAMEDLST="" SHADE="100" SHADE2="100" GRTYP="0" ROT="0" PLINEART="1" PLINEEND="0" PLINEJOIN="0" LINESPMode="1" LOCALSCX="1" LOCALSCY="1" LOCALX="0" LOCALY="0" PICART="1" PLTSHOW="0" BASEOF="0" textPathType="0" textPathFlipped="0" FLIPPEDH="0" FLIPPEDV="0" ISIZE="24" SCALETYPE="1" RATIO="1" PRINTABLE="1" ANNOTATION="0" ANNAME="" TEXTFLOWMODE="0" TEXTFLOW="0" TEXTFLOW2="0" TEXTFLOW3="0" AUTOTEXT="0" EXTRA="0" TEXTRA="0" BEXTRA="0" REXTRA="0" FLOP="0" PFILE="" PFILE2="" PFILE3="" PRFILE="" EPROF="" IRENDER="1" EMBEDDED="1" LOCK="0" LOCKR="0" REVERS="0" TransValue="0" TransValueS="0" TransBlend="0" TransBlendS="0" isTableItem="0" TopLine="0" LeftLine="0" RightLine="0" BottomLine="0" isGroupControl="0" NUMDASH="0" DASHS="" DASHOFF="0" NUMPO="16" POCOOR="0 0 0 0 2226.9 0 2226.9 0 2226.9 0 2226.9 0 2226.9 283.41 2226.9 283.41 2226.9 283.41 2226.9 283.41 0 283.41 0 283.41 0 283.41 0 283.41 0 0 0 0 " NUMCO="16" COCOOR="0 0 0 0 2226.9 0 2226.9 0 2226.9 0 2226.9 0 2226.9 283.411 2226.9 283.411 2226.9 283.411 2226.9 283.411 0 283.411 0 283.411 0 283.411 0 283.411 0 0 0 0 " NUMGROUP="0" GROUPS="" startArrowIndex="0" endArrowIndex="0" OnMasterPage="" ImageClip="" ImageRes="1" Pagenumber="0" isInline="0" fillRule="1" doOverprint="0" gXpos="0" gYpos="0" gWidth="0" gHeight="0" ALIGN="3" LAYER="0" BOOKMARK="0" NEXTITEM="-1" BACKITEM="-1">
+            <ITEXT FONTSIZE="24" FCOLOR="Black" CH="• Gusfield, D.: Algorithms on Strings, Trees, and Sequences: Computer Science and Computational Biology. Cambridge University Press, New York, NY, USA (1997)"/>
+            <para ALIGN="3"/>
+            <ITEXT FONTSIZE="24" FCOLOR="Black" CH="• Lin, C.Y.: Rouge: a package for automatic evaluation of summaries. In: Proceedings of the Workshop on Text Summarization Branches Out (WAS 2004), Barcelona, Spain (2004)"/>
+            <para ALIGN="3"/>
+            <ITEXT FONTSIZE="24" FCOLOR="Black" CH="• Mihalcea, R., Tarau, P.: Textrank: Bringing order into texts. In: Lin, D., Wu, D. (eds.) Proceedings of EMNLP 2004. Association for Computational Linguistics, Barcelona, Spain (July 2004)"/>
+            <para ALIGN="3"/>
+            <ITEXT FONTSIZE="24" FCOLOR="Black" CH="• Ouyang, Y., Li, W., Wei, F., Lu, Q.: Learning similarity functions in graph-based document summarization. In: Li, W., Aliod, D.M. (eds.) ICCPOL. Lecture Notes in Computer Science, vol. 5459"/>
+            <para ALIGN="3"/>
+            <para ALIGN="3"/>
+            <para ALIGN="3"/>
+            <ITEXT FONTSIZE="24" FCOLOR="Black" CH="• Page, L., Brin, S., Motwani, R., Winograd, T.: The pagerank citation ranking: Bringing order to the web. In: Proceedings of the 7th International World Wide Web Conference. Brisbane, Australia (1998)"/>
+            <para ALIGN="3"/>
+            <ITEXT FONTSIZE="24" FCOLOR="Black" CH="• Rehurek, R., Sojka, P.: Software Framework for Topic Modelling with Large Corpora. In: Proceedings of the LREC 2010 Workshop on New Challenges for NLP Frameworks. Valletta, Malta (May 2010)"/>
+            <para ALIGN="3"/>
+            <ITEXT FONTSIZE="24" FCOLOR="Black" CH="• Robertson, S., Walker, S., Jones, S., Hancock-Beaulieu, M., Gatford, M.: Okapi at TREC-3. In: Proceedings of The Third Text REtrieval Conference, TREC 1994, Gaithersburg, Maryland, USA"/>
+            <para ALIGN="3"/>
+            <ITEXT FONTSIZE="24" FCOLOR="Black" CH="• Singhal, A.: Modern information retrieval: A brief overview. Bulletin of the IEEE Computer Society Technical Committee on Data Engineering 24(4), 35–43 (2001)"/>
+            <trail ALIGN="3"/>
             <PageItemAttributes/>
         </PAGEOBJECT>
     </DOCUMENT>
