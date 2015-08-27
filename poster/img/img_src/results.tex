@@ -1,0 +1,40 @@
+\documentclass[12pt]{standalone}
+\usepackage{varwidth}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath, amssymb, graphics, setspace}
+\newcommand{\mathsym}[1]{{}}
+\newcommand{\unicode}[1]{{}}
+\newcounter{mathematicapage}
+
+\begin{document}
+   \begin{varwidth}{75in}
+        \begin{table}
+        \begin{center}
+        \begin{tabular}{l*{5}{c}r}
+        \hline
+        \rule{0pt}{12pt}
+        Método & ROUGE-1 & ROUGE-2 & ROUGE-SU4 & Mejora \\[2pt]
+        \hline\rule{0pt}{12pt}\mbox{}\par\nobreak
+        BM25 ($\varepsilon$ = 0,25) & 0,4042 & 0,1831 & 0,2018 & 2,92\% \\
+        BM25+ ($\varepsilon$ = 0,25) & 0,4040 & 0,1818 & 0,2008 & 2,60\% \\
+        Similitud coseno & 0,4108 & 0,1770 & 0,1984 & 2,54\% \\
+        BM25+ (IDF = log($N$/$N_i$)) & 0,4022 & 0,1805 & 0,1997 & 2,05\% \\ 
+        BM25 (IDF = log($N$/$N_i$)) & 0,4012 & 0,1808 & 0,1998 & 1,97\% \\ 
+        Subcadena común & 0,4020 & 0,1783 & 0,1971 & 1,40\% \\
+        BM25+ ($\varepsilon$ = 0) & 0,3992 & 0,1803 & 0,1976 & 1,36\% \\ 
+        BM25 ($\varepsilon$ = 0) & 0,3991 & 0,1778 & 0,1966 & 0,89\% \\
+        \textbf{TextRank} & \textbf{0,3983} & \textbf{0,1762} & \textbf{0,1948} & \textbf{--}\\
+        BM25 & 0,3916 & 0,1725 & 0,1906 & -1,57\% \\
+        BM25+ & 0,3903 & 0,1711 & 0,1894 & -2,07\% \\
+        Referencia DUC & 0,3900 & 0,1689 & 0,1860 & -2,84\% \\ [2pt]
+        \hline
+        \end{tabular}
+        \end{center}
+        \end{table}
+    \end{varwidth}
+\end{document}

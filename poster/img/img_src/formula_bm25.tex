@@ -1,0 +1,20 @@
+\documentclass[12pt]{standalone}
+\usepackage{varwidth}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath, amssymb, graphics, setspace}
+\newcommand{\mathsym}[1]{{}}
+\newcommand{\unicode}[1]{{}}
+\newcounter{mathematicapage}
+
+\begin{document}
+   \begin{varwidth}{75in}
+      \begin{displaymath}
+        BM25(R,S) = \sum_{i=1}^{n} IDF(s_i) \cdot \frac{f(s_i, R) \cdot (k_1 + 1)}{f(s_i, R) + k_1 \cdot (1 - b + b \cdot \frac{|R|}{avgDL})}
+        \end{displaymath}
+    \end{varwidth}
+\end{document}
